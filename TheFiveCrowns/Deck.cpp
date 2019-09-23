@@ -71,11 +71,15 @@ void Deck::makeDeck(){
     string cardSuites="SCDHT";
     
     //for loop to add cards based on string values
-    for(int suites = 0; suites<cardSuites.size(); suites++){
-        for(int faces = 0; faces<cardFaces.size(); faces++){
-            mainDeck.push_back(new Card(cardFaces[faces],cardSuites[suites],this->getRound()));
+    for(int deck=0;deck<2;deck++){
+        for(int suites = 0; suites<cardSuites.size(); suites++){
+            for(int faces = 0; faces<cardFaces.size(); faces++){
+                mainDeck.push_back(new Card(cardFaces[faces],cardSuites[suites],this->getRound()));
+            }
         }
     }
+    
+    this->shuffleDeck();
     //deck through string stream because why not?
     vector<string> cardString(116);
     
