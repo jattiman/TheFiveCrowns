@@ -32,6 +32,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4C0BD06223384D26006D4182 /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 		4CD68FC023383CB900F930F5 /* TheFiveCrowns */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TheFiveCrowns; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CD68FC323383CB900F930F5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		4CED574123383FAD007C33B0 /* Game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
@@ -66,6 +67,7 @@
 		4CD68FB723383CB900F930F5 = {
 			isa = PBXGroup;
 			children = (
+				4C0BD06223384D26006D4182 /* Readme.md */,
 				4CD68FC223383CB900F930F5 /* TheFiveCrowns */,
 				4CD68FC123383CB900F930F5 /* Products */,
 			);
