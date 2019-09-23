@@ -13,4 +13,14 @@ using namespace std;
 
 ComputerPlayer::ComputerPlayer(){
     //cout << "I am here. I am computer." << endl;
+    this->setHumanity(false);
+}
+
+void ComputerPlayer::sayIfHuman(){
+    if(this->getHumanity()){
+        cout <<"I'm a human!" << endl;
+    }
+    else{
+        cout <<"I'm a computer!" << endl;
+    }
 }

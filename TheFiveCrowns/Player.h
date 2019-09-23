@@ -30,21 +30,22 @@ public:
     bool getTurn();
     Deck* getDeck();
     int getPlayerNumber();
+    bool getHumanity();
     
+    void setHumanity(bool isPlayerHuman);
     void setPoints(int newPoints);
     void setTurn(bool isNext);
     void setDeck(Deck *playerDeck);
     void setPlayerNumber(int num);
     
     void showHand();
-    
-    void play(Deck *deck);
-    
+    virtual void sayIfHuman()=0;
     
 private:
     int playerNumber=0;
     int playerPoints=0;
     bool isTurn=false;
+    bool isHuman;
     Deck *deck;
     
 };

@@ -14,7 +14,12 @@
 class HumanPlayer: public Player {
 public:
     HumanPlayer();
+    void sayIfHuman();
+    
+private:
+    //bool isHuman;
 };
+
 
 
 #endif /* HumanPlayer_h */

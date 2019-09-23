@@ -19,6 +19,7 @@ Round::Round(){
 Round::Round(HumanPlayer *h, ComputerPlayer *c){
     this->deck = new Deck(this->getRoundNumber());
     this->setupPlayers(h,c);
+    this->displayPrompt();
 }
 
 Round::Round(HumanPlayer *h, ComputerPlayer *c, int round){
@@ -30,8 +31,15 @@ Round::Round(HumanPlayer *h, ComputerPlayer *c, int round){
 
 
 void Round::setupPlayers(HumanPlayer *h, ComputerPlayer *c){
-    this->human=h;
-    this->computer=c;
+//    this->human=h;
+//    this->computer=c;
+    // trying the vector approach ...
+    this->ourPlayers.push_back(h);
+    this->ourPlayers.push_back(c);
+//    this->ourPlayers.push_back(this->human);
+//    this->ourPlayers.push_back(this->computer);
+//    cout << "Is 0 human?: " << ourPlayers[0]->getHumanity() << endl;
+//    cout << "Is 1 human?: " << ourPlayers[1]->getHumanity() << endl;
 }
 
 int Round::getRoundNumber(){
@@ -63,21 +71,47 @@ void Round::setRoundNumber(int newNumber){
     this->roundNumber=newNumber;
 }
 
-void Round::displayPrompt(){
+void Round::giveComputerStatus(std::vector<Player*> players){
+    for(auto &i: players){
+        if(!(i->getHumanity())){
+            cout << "Computer:" << endl
+            << "\tScore: " << players[1]->getPoints() << endl
+            << "\tHand: " << endl
+            << endl;
+        }
+    }
+    return;
+    
+}
+void Round::giveHumanStatus(std::vector<Player*> players){
+    for(auto &i: players){
+        if(i->getHumanity()){
+            cout << "Human:" << endl
+            << "\tScore: " << players[1]->getPoints() << endl
+            << "\tHand: " << endl
+            << endl;
+        }
+    }
+    return;
+    
+}
+
+void Round::giveRoundStatus(){
     cout << "Round: " << this->getRoundNumber() << endl
-        << endl
-        << "Computer:" << endl
-        << "\tScore: " << this->computer->getPoints() << endl
-        << "\tHand: " << endl
-        << endl
-        << "Human:" << endl
-        << "\tScore: " << this->human->getPoints() << endl
-        << "\tHand: " << endl
         << endl;
+    this->giveComputerStatus(this->ourPlayers);
+    this->giveHumanStatus(this->ourPlayers);
     this->deck->printDecks();
     cout << endl
     << "Next player: " << endl;
     //this->roundTest();
+    return;
+}
+
+
+void Round::displayPrompt(){
+    this->giveRoundStatus();
+    
     return;
 }
 

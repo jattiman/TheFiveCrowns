@@ -30,6 +30,15 @@ int Player::getPlayerNumber(){
     return this->playerNumber;
 }
 
+bool Player::getHumanity(){
+    return this->isHuman;
+}
+
+void Player::setHumanity(bool isPlayerHuman){
+    this->isHuman=isPlayerHuman;
+    return;
+}
+
 void Player::setPoints(int newPoints){
     this->playerPoints+=newPoints;
     return;
@@ -54,9 +63,4 @@ void Player::showHand(){
     cout << "\tShowing hand: " << endl;
     this->deck->printDecks();
     cout << "\tHand should be above " << endl;
-}
-
-void Player::play(Deck *deck){
-    
-    return;
 }

@@ -26,6 +26,10 @@ public:
     void setupPlayers(HumanPlayer *h, ComputerPlayer *c);
     
     void setRoundNumber(int newNumber);
+    
+    void giveComputerStatus(std::vector<Player*> ourPlayers);
+    void giveHumanStatus(std::vector<Player*> ourPlayers);
+    void giveRoundStatus();
     void displayPrompt();
     
     // may need to modify setUpRound with parameters
@@ -38,9 +42,10 @@ public:
     
 private:
     Deck *deck;
-    HumanPlayer *human;
-    ComputerPlayer *computer;
+    //HumanPlayer *human;
+    //ComputerPlayer *computer;
     int roundNumber=1;
+    std::vector<Player*> ourPlayers;
 };
 
 

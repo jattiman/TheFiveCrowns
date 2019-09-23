@@ -11,6 +11,16 @@
 #include <iostream>
 using namespace std;
 
-HumanPlayer ::HumanPlayer(){
+HumanPlayer::HumanPlayer(){
     //cout << "I'm here. I'm human." << endl;
+    this->setHumanity(true);
+}
+
+void HumanPlayer::sayIfHuman(){
+    if(this->getHumanity()){
+        cout <<"I'm a human!" << endl;
+    }
+    else{
+        cout <<"I'm a computer!" << endl;
+    }
 }

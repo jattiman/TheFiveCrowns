@@ -15,6 +15,10 @@
 class ComputerPlayer: public Player{
 public:
     ComputerPlayer();
+    void sayIfHuman();
+    
+private:
+    //bool isHuman;
 };
 
 #endif /* ComputerPlayer_h */
