@@ -50,23 +50,6 @@ Deck Round::getDeck(){
     return *deck;
 }
 
-// this function may ultimately be taken out
-//void Round::setupRound(){
-//    cout << "Round setting up ... " << endl;
-//    // create the deck
-//    //this->deck->makeDeck();
-//    //this->deck = new Deck();
-//
-//    // pass to the player
-//    //roundTest();
-//    return;
-//}
-
-//void Round::setupRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber){
-//    this->setupPlayers(h,c);
-//    this->setRoundNumber(roundNumber);
-//}
-
 void Round::setRoundNumber(int newNumber){
     this->roundNumber=newNumber;
 }
@@ -108,6 +91,18 @@ void Round::giveRoundStatus(){
     return;
 }
 
+int Round::returnChoice(){
+    cout << "Please choose from the following:";
+    /*
+
+     Save the game
+     Make a move
+     Ask for help (only before human player plays)
+     Quit the game
+     
+     */
+    return 0;
+}
 
 void Round::displayPrompt(){
     this->giveRoundStatus();

@@ -22,6 +22,7 @@ public:
     Round(HumanPlayer *h, ComputerPlayer *c, int round);
     int getRoundNumber();
     Deck getDeck();
+    int returnChoice();
     
     void setupPlayers(HumanPlayer *h, ComputerPlayer *c);
     
@@ -31,11 +32,6 @@ public:
     void giveHumanStatus(std::vector<Player*> ourPlayers);
     void giveRoundStatus();
     void displayPrompt();
-    
-    // may need to modify setUpRound with parameters
-    // otherwise, it's not needed
-//    void setupRound();
-//    void setupRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber);
     
     // for debugging only
     void roundTest();
