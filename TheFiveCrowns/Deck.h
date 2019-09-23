@@ -18,7 +18,10 @@ class Deck{
     
 public:
     Deck();
+    Deck(int roundInput);
     void makeDeck();
+    void setRound(int roundInput);
+    int getRound();
     void printDecks();
     unsigned long getDeckSize(std::vector<Card*> cardPile);
     void printTheDeck(std::vector<Card*> cardPile);
@@ -41,6 +44,8 @@ private:
     std::vector<Card*> discardPile;
     
     std::vector<std::string> cardInputs;
+    
+    int ourRound=1;
     
     // debug. for array deck.
     // will most likely not use in lieu of vectors

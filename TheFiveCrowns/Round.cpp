@@ -13,13 +13,21 @@
 using namespace std;
 
 Round::Round(){
-    this->deck = new Deck();
+    this->deck = new Deck(this->getRoundNumber());
 }
 
 Round::Round(HumanPlayer *h, ComputerPlayer *c){
-    this->deck = new Deck();
+    this->deck = new Deck(this->getRoundNumber());
     this->setupPlayers(h,c);
 }
+
+Round::Round(HumanPlayer *h, ComputerPlayer *c, int round){
+    this->setRoundNumber(round);
+    this->deck = new Deck(this->getRoundNumber());
+    this->setupPlayers(h,c);
+    this->displayPrompt();
+}
+
 
 void Round::setupPlayers(HumanPlayer *h, ComputerPlayer *c){
     this->human=h;
@@ -35,21 +43,21 @@ Deck Round::getDeck(){
 }
 
 // this function may ultimately be taken out
-void Round::setupRound(){
-    cout << "Round setting up ... " << endl;
-    // create the deck
-    //this->deck->makeDeck();
-    //this->deck = new Deck();
-    
-    // pass to the player
-    //roundTest();
-    return;
-}
+//void Round::setupRound(){
+//    cout << "Round setting up ... " << endl;
+//    // create the deck
+//    //this->deck->makeDeck();
+//    //this->deck = new Deck();
+//
+//    // pass to the player
+//    //roundTest();
+//    return;
+//}
 
-void Round::setupRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber){
-    this->setupPlayers(h,c);
-    this->setRoundNumber(roundNumber);
-}
+//void Round::setupRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber){
+//    this->setupPlayers(h,c);
+//    this->setRoundNumber(roundNumber);
+//}
 
 void Round::setRoundNumber(int newNumber){
     this->roundNumber=newNumber;
@@ -59,17 +67,17 @@ void Round::displayPrompt(){
     cout << "Round: " << this->getRoundNumber() << endl
         << endl
         << "Computer:" << endl
-        << "\tScore: " << endl
+        << "\tScore: " << this->computer->getPoints() << endl
         << "\tHand: " << endl
         << endl
         << "Human:" << endl
-        << "\tScore: " << endl
+        << "\tScore: " << this->human->getPoints() << endl
         << "\tHand: " << endl
         << endl;
     this->deck->printDecks();
     cout << endl
     << "Next player: " << endl;
-    this->roundTest();
+    //this->roundTest();
     return;
 }
 

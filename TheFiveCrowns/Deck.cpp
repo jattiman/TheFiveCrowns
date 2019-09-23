@@ -33,6 +33,12 @@ Deck::Deck(){
     
 }
 
+Deck::Deck(int roundInput){
+    this->setRound(roundInput);
+    this->makeDeck();
+    
+}
+
 void Deck::makeDeck(){
     // populate the deck with cards
     // bonus: based on round number, make those cards wild cards
@@ -51,17 +57,23 @@ void Deck::makeDeck(){
 //    for(int j=0;j<3;j++){
 //        mainDeck.push_back(new Card("JH"));
 //    }
-    mainDeck.push_back(new Card("J1"));
-    mainDeck.push_back(new Card("J2"));
-    mainDeck.push_back(new Card("J3"));
-    mainDeck.push_back(new Card("J1"));
-    mainDeck.push_back(new Card("J2"));
-    mainDeck.push_back(new Card("J3"));
+    
+    //push on Jokers
+    mainDeck.push_back(new Card("J1",this->getRound()));
+    mainDeck.push_back(new Card("J2",this->getRound()));
+    mainDeck.push_back(new Card("J3",this->getRound()));
+    mainDeck.push_back(new Card("J1",this->getRound()));
+    mainDeck.push_back(new Card("J2",this->getRound()));
+    mainDeck.push_back(new Card("J3",this->getRound()));
+    
+    //push back cards using pre-made strings
     string cardFaces="3456789XJQK";
     string cardSuites="SCDHT";
+    
+    //for loop to add cards based on string values
     for(int suites = 0; suites<cardSuites.size(); suites++){
         for(int faces = 0; faces<cardFaces.size(); faces++){
-            mainDeck.push_back(new Card(cardFaces[faces],cardSuites[suites]));
+            mainDeck.push_back(new Card(cardFaces[faces],cardSuites[suites],this->getRound()));
         }
     }
     //deck through string stream because why not?
@@ -71,6 +83,15 @@ void Deck::makeDeck(){
     return;
 }
 
+void Deck::setRound(int roundInput){
+    ourRound=roundInput;
+    return;
+}
+
+int Deck::getRound(){
+    return ourRound;
+}
+
 void Deck::printDecks(){
     cout << "Main Deck: ";          // debug
     this->printTheDeck(mainDeck);   // debug
@@ -78,7 +99,7 @@ void Deck::printDecks(){
     this->printTheDeck(drawPile);
     cout << "Discard Pile: ";
     this->printTheDeck(discardPile);
-    this->testDeck();     // debug
+    //this->testDeck();     // debug
 }
 
 void Deck::printTheDeck(std::vector<Card*> cardPile){

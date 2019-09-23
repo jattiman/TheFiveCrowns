@@ -16,15 +16,19 @@ Card::Card(){
     //cout << "We made a card! WOW!" << endl;
 }
 
-Card::Card(char face, char suite){
+Card::Card(char face, char suite, int theRound){
     this->setSuite(suite);
     this->setFace(face);
+    this->setRoundNumber(theRound);
+    this->checkForWild();
 }
 
-Card::Card(string cardString){
+Card::Card(string cardString, int theRound){
     // need to add error checking to this
     this->setSuite(cardString[1]);
     this->setFace(cardString[0]);
+    this->setRoundNumber(theRound);
+    this->checkForWild();
 }
 
 char Card::getFace(){
@@ -54,6 +58,11 @@ void Card::setFace(char newFace){
 }
 void Card::setSuite(char newSuite){
     this->suite=newSuite;
+    return;
+}
+void Card::setPointValue(int newPoints){
+    //cout << "Setting point value to " << newPoints << endl;
+    this->pointValue=newPoints;
     return;
 }
 void Card::setPointValue(){
@@ -103,11 +112,7 @@ void Card::setPointValue(){
             break;
     }
 }
-void Card::setPointValue(int newPoints){
-    //cout << "Setting point value to " << newPoints << endl;
-    this->pointValue=newPoints;
-    return;
-}
+
 void Card::setWildStatus(bool newStatus){
     this->isWild=newStatus;
     return;
@@ -123,12 +128,13 @@ void Card::checkForWild(){
     }
     // if card Face is the same as the round, set wild
     // status to true and return
-    if((this->getPointValue())==this->roundNumber){
+    if(this->getPointValue()==(this->roundNumber+2)){
+//        cout << "Setting wild to true due to round!";
         this->setWildStatus(true);
         return;
     }
-    else{
-        cout << "You shouldn't be here." << endl;
-    }
+//    else{
+//        cout << "You shouldn't be here. Round is " << this->getRoundNumber() << " and card points is " << this->getPointValue()<<"!" << endl;
+//    }
     return;
 }

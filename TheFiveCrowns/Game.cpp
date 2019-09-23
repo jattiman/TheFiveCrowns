@@ -24,20 +24,18 @@
 using namespace std;
 
 Game::Game(){
-    this->round=new Round();
+    //this->round=new Round();
     this->h=new HumanPlayer();
     this->c=new ComputerPlayer();
 }
 
-//void addPlayers(std::vector<Player*> &ourPlayers, Player *p){
-//    cout << "Adding human player." << endl;
-//    ourPlayers.push_back(p);
-//    return;
-//}
-
-void Game::incrementRoundNumber(){
-    roundNumber+=1;
+void Game::setRoundNumber(int newRound){
+    this->roundNumber=newRound;
     return;
+}
+
+int Game::getRoundNumber(){
+    return roundNumber;
 }
 
 void Game::welcome(){
@@ -60,10 +58,7 @@ void Game::welcome(){
         
         // If new game, start new game
         if(userOption==1){
-            //this->beginRound();
-            this->beginRound(h, c, roundNumber);
-            this->incrementRoundNumber();
-            //break;
+            this->round=new Round(h,c,roundNumber);
         }
         
         // If loading game, select game file to load and begin game
@@ -85,23 +80,21 @@ void Game::welcome(){
     }
 }
 
-// We'll most likely get rid of this one
-void Game::beginRound(){
-    cout << "Starting new game." << endl;
-    //this->round->setupRound();
-    this->round->displayPrompt();
-}
+//void Game::beginRound(){
+//    cout << "Starting new game." << endl;
+//    this->round->displayPrompt();
+//}
 
 // To do: transfer the players in as a vector/array/etc to better handle
 //          more than 2 players.
-void Game::beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber){
-    this->round->setupRound(h,c,roundNumber);
-    this->round->displayPrompt();
-    
-    // this is a good of place as any to test game functions
-    testGame();
-    
-}
+//void Game::beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber){
+//    this->round->setupRound(h,c,roundNumber);
+//    this->round->displayPrompt();
+//
+//    // this is a good of place as any to test game functions
+//    testGame();
+//
+//}
 
 // test function
 

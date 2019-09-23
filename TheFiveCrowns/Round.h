@@ -19,6 +19,7 @@ class Round{
 public:
     Round();
     Round(HumanPlayer *h, ComputerPlayer *c);
+    Round(HumanPlayer *h, ComputerPlayer *c, int round);
     int getRoundNumber();
     Deck getDeck();
     
@@ -29,8 +30,8 @@ public:
     
     // may need to modify setUpRound with parameters
     // otherwise, it's not needed
-    void setupRound();
-    void setupRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber);
+//    void setupRound();
+//    void setupRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber);
     
     // for debugging only
     void roundTest();

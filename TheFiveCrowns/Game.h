@@ -20,15 +20,13 @@ class Game{
 
 public:
     Game();
-    // need to create vector of players without slicing
-    // this is unfinished, but not used yet
-    // so the program still works.
-    //void addPlayers(std::vector<Player*> &ourPlayers, Player *p);
+    void setRoundNumber(int newRound);
     
-    void incrementRoundNumber();
+    int getRoundNumber();
+    
     void welcome();
-    void beginRound();
-    void beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber);
+//    void beginRound();
+//    void beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber);
     // create deck - call round to do this
     // provide round menu - call round to do this
     void testGame();

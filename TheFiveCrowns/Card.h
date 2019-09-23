@@ -16,8 +16,8 @@ class Card{
 
 public:
     Card();
-    Card(char face, char suite);
-    Card(std::string cardString);
+    Card(char face, char suite, int theRound);
+    Card(std::string cardString, int theRound);
     char getFace();
     char getSuite();
     int getPointValue();
@@ -26,8 +26,8 @@ public:
     void setRoundNumber(int newRoundNumber);
     void setFace(char newFace);
     void setSuite(char newSuite);
-    void setPointValue();
     void setPointValue(int newPoints);
+    void setPointValue();
     void setWildStatus(bool newStatus);
     void checkForWild();
     
@@ -35,8 +35,8 @@ private:
     char face;
     char suite;
     int pointValue;
-    int roundNumber;
-    bool isWild;
+    int roundNumber=3;
+    bool isWild=false;
     bool isJoker;
     
     
