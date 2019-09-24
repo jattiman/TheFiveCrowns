@@ -47,6 +47,7 @@ private:
     bool isTurn=false;
     bool isHuman;
     Deck *deck;
+    std::vector<Card*> playerCards;
     
 };
 

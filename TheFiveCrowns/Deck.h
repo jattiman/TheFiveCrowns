@@ -39,9 +39,14 @@ public:
     
 private:
     
+    // main 3 decks
     std::vector<Card*> mainDeck;
     std::vector<Card*> drawPile;
     std::vector<Card*> discardPile;
+    
+    // to deal to players
+    std::vector<Card*> humanPile;
+    std::vector<Card*> computerPile;
     
     std::vector<std::string> cardInputs;
     
