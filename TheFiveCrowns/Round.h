@@ -21,17 +21,23 @@ public:
     Round(HumanPlayer *h, ComputerPlayer *c);
     Round(HumanPlayer *h, ComputerPlayer *c, int round);
     int getRoundNumber();
+    int getTurn();
+    int getTotalPlayers();
     Deck getDeck();
-    int returnChoice();
-    
-    void setupPlayers(HumanPlayer *h, ComputerPlayer *c);
     
     void setRoundNumber(int newNumber);
+    void setTurn();
+    void setTurn(int nextUp);
+
+    void setupPlayers(HumanPlayer *h, ComputerPlayer *c);
     
     void giveComputerStatus(std::vector<Player*> ourPlayers);
     void giveHumanStatus(std::vector<Player*> ourPlayers);
     void giveRoundStatus();
-    void displayPrompt();
+    int returnChoice();
+    int returnChoice(Player *p);
+    
+    void progressRound();
     
     // for debugging only
     void roundTest();
@@ -40,7 +46,9 @@ private:
     Deck *deck;
     //HumanPlayer *human;
     //ComputerPlayer *computer;
-    int roundNumber=1;
+    int roundNumber;
+    int nextTurn=1;
+    int totalPlayers;
     std::vector<Player*> ourPlayers;
 };
 

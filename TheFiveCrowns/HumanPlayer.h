@@ -15,6 +15,7 @@ class HumanPlayer: public Player {
 public:
     HumanPlayer();
     void sayIfHuman();
+    void playRound();
     
 private:
     //bool isHuman;

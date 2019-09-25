@@ -24,3 +24,7 @@ void ComputerPlayer::sayIfHuman(){
         cout <<"I'm a computer!" << endl;
     }
 }
+void ComputerPlayer::playRound(){
+    cout << "Computer playing round." << endl;
+    return;
+}

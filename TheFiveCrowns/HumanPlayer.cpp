@@ -24,3 +24,8 @@ void HumanPlayer::sayIfHuman(){
         cout <<"I'm a computer!" << endl;
     }
 }
+
+void HumanPlayer::playRound(){
+    cout << "Human playing round." << endl;
+    return;
+}

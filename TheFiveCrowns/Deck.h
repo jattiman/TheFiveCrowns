@@ -26,6 +26,7 @@ public:
     unsigned long getDeckSize(std::vector<Card*> cardPile);
     void printTheDeck(std::vector<Card*> cardPile);
     void shuffleDeck();
+    void shuffleDeck(std::vector<Card*> & cardPile);
     
     // for reading in files, this will be useful
     void stringToCardInputs(std::string cardInputString);

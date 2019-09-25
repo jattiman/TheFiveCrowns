@@ -13,31 +13,28 @@
 using namespace std;
 
 Round::Round(){
+    this->setRoundNumber(1);
     this->deck = new Deck(this->getRoundNumber());
 }
 
 Round::Round(HumanPlayer *h, ComputerPlayer *c){
+    this->setRoundNumber(1);
     this->deck = new Deck(this->getRoundNumber());
     this->setupPlayers(h,c);
-    this->displayPrompt();
+    //this->progressRound();
 }
 
 Round::Round(HumanPlayer *h, ComputerPlayer *c, int round){
     this->setRoundNumber(round);
     this->deck = new Deck(this->getRoundNumber());
     this->setupPlayers(h,c);
-    this->displayPrompt();
+    //this->progressRound();
 }
 
 
 void Round::setupPlayers(HumanPlayer *h, ComputerPlayer *c){
-//    this->human=h;
-//    this->computer=c;
-    // trying the vector approach ...
     this->ourPlayers.push_back(h);
     this->ourPlayers.push_back(c);
-//    this->ourPlayers.push_back(this->human);
-//    this->ourPlayers.push_back(this->computer);
 //    cout << "Is 0 human?: " << ourPlayers[0]->getHumanity() << endl;
 //    cout << "Is 1 human?: " << ourPlayers[1]->getHumanity() << endl;
 }
@@ -46,12 +43,28 @@ int Round::getRoundNumber(){
     return roundNumber;
 }
 
+int Round::getTurn(){
+    return nextTurn;
+}
+
+int Round::getTotalPlayers(){
+    return this->ourPlayers.size();
+}
+
 Deck Round::getDeck(){
     return *deck;
 }
 
 void Round::setRoundNumber(int newNumber){
     this->roundNumber=newNumber;
+}
+void Round::setTurn(){
+    this->nextTurn++;
+    return;
+}
+void Round::setTurn(int nextUp){
+    this->nextTurn=nextUp;
+    return;
 }
 
 void Round::giveComputerStatus(std::vector<Player*> players){
@@ -92,21 +105,80 @@ void Round::giveRoundStatus(){
 }
 
 int Round::returnChoice(){
-    cout << "Please choose from the following:";
-    /*
-
-     Save the game
-     Make a move
-     Ask for help (only before human player plays)
-     Quit the game
-     
-     */
+    int userChoice=0;
+    do{
+        cout << "Please choose from the following:" << endl
+        << "\t1. Save the game" << endl
+        << "\t2. Make a move" << endl
+        << "\t3. Ask for help (only before human player plays)" << endl
+        << "\t4. Quit the game" << endl;
+        cin >> userChoice;
+    } while(userChoice < 1 || userChoice > 4);
+    
+    switch (userChoice) {
+        case 1:
+            cout << "Saving game ..." << endl;
+            break;
+        case 2:
+            cout << "Making move .. " << endl;
+            break;
+        case 3:
+            cout << "Here's some advice: " << endl;
+            break;
+        case 4:
+            cout << "Thank you for playing. Exiting without saving." << endl;
+            break;
+        default:
+            cout << "You shouldn't see this." << endl;
+            break;
+    }
     return 0;
 }
 
-void Round::displayPrompt(){
-    this->giveRoundStatus();
-    
+int Round::returnChoice(Player *p){
+    int userChoice=0;
+    if(p->getHumanity()){
+        do{
+            cout << "Please choose from the following:" << endl
+            << "\t1. Save the game" << endl
+            << "\t2. Make a move" << endl
+            << "\t3. Ask for help (only before human player plays)" << endl
+            << "\t4. Quit the game" << endl;
+            cin >> userChoice;
+        } while(userChoice < 1 || userChoice > 4);
+        
+        switch (userChoice) {
+            case 1:
+                cout << "Saving game ..." << endl;
+                break;
+            case 2:
+                cout << "Making move .. " << endl;
+                break;
+            case 3:
+                cout << "Here's some advice: " << endl;
+                break;
+            case 4:
+                cout << "Thank you for playing. Exiting without saving." << endl;
+                break;
+            default:
+                cout << "You shouldn't see this." << endl;
+                break;
+        }
+    }
+    else{
+        cout << "The computer is choosing its next action..." << endl;
+    }
+    return 0;
+}
+
+
+void Round::progressRound(){
+    do{
+    //this->giveRoundStatus();
+    this->returnChoice(ourPlayers[this->getTurn()% this->getTotalPlayers()]);
+    this->setTurn();
+    // adding in a dummy value here to test player rotation
+    }while(this->getTurn()<7);
     return;
 }
 

@@ -58,7 +58,11 @@ void Game::welcome(){
         
         // If new game, start new game
         if(userOption==1){
+            //call coin toss
+            
+            //start round with order listed
             this->round=new Round(h,c,roundNumber);
+            this->round->progressRound();
         }
         
         // If loading game, select game file to load and begin game
@@ -80,21 +84,20 @@ void Game::welcome(){
     }
 }
 
-//void Game::beginRound(){
-//    cout << "Starting new game." << endl;
-//    this->round->displayPrompt();
-//}
+void Game::beginRound(){
+    cout << "Starting new game." << endl;
+    this->round->progressRound();
+}
 
 // To do: transfer the players in as a vector/array/etc to better handle
 //          more than 2 players.
-//void Game::beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber){
-//    this->round->setupRound(h,c,roundNumber);
-//    this->round->displayPrompt();
-//
-//    // this is a good of place as any to test game functions
-//    testGame();
-//
-//}
+void Game::beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber){
+    
+    
+    // this is a good of place as any to test game functions
+    //testGame();
+
+}
 
 // test function
 

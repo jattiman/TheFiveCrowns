@@ -127,10 +127,11 @@ void Card::checkForWild(){
         return;
     }
     // if card Face is the same as the round, set wild
-    // status to true and return
+    // status to true, points to 20, and return
     if(this->getPointValue()==(this->roundNumber+2)){
 //        cout << "Setting wild to true due to round!";
         this->setWildStatus(true);
+        this->setPointValue(20);
         return;
     }
 //    else{

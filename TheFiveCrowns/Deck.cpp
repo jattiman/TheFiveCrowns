@@ -24,6 +24,7 @@
 #include <vector>
 // include for shuffle, since random_shuffle was removed in C++17
 #include <random>
+#include <chrono>
 
 using namespace std;
 
@@ -126,8 +127,16 @@ Assistance Received: After random_shuffle was removed from C++17 (my IDE updated
 void Deck::shuffleDeck(){
     // random_shuffle was removed from C++17.
     //random_shuffle(mainDeck.begin(),mainDeck.end());
-    unsigned seed=0;
-    shuffle(mainDeck.begin(),mainDeck.end(),default_random_engine(seed));
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+
+    shuffle(this->mainDeck.begin(), this->mainDeck.end(), std::default_random_engine(seed));
+    return;
+}
+
+void Deck::shuffleDeck(std::vector<Card*> & cardPile){
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+
+    shuffle(cardPile.begin(), cardPile.end(), std::default_random_engine(seed));
     return;
 }
 
