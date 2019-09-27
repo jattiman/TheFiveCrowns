@@ -40,6 +40,7 @@ private:
     bool isJoker;
     
     
+    
 };
 
 

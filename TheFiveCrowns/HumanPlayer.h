@@ -15,7 +15,8 @@ class HumanPlayer: public Player {
 public:
     HumanPlayer();
     void sayIfHuman();
-    void playRound();
+    void playRound(Deck *deck);
+    
     
 private:
     //bool isHuman;

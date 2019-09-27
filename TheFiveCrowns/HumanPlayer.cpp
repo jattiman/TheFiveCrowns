@@ -25,7 +25,8 @@ void HumanPlayer::sayIfHuman(){
     }
 }
 
-void HumanPlayer::playRound(){
+void HumanPlayer::playRound(Deck *deck){
     cout << "Human playing round." << endl;
+    
     return;
 }

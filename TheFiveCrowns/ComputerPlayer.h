@@ -16,7 +16,7 @@ class ComputerPlayer: public Player{
 public:
     ComputerPlayer();
     void sayIfHuman();
-    void playRound();
+    void playRound(Deck *deck);
     
 private:
     //bool isHuman;

@@ -104,39 +104,9 @@ void Round::giveRoundStatus(){
     return;
 }
 
-int Round::returnChoice(){
-    int userChoice=0;
-    do{
-        cout << "Please choose from the following:" << endl
-        << "\t1. Save the game" << endl
-        << "\t2. Make a move" << endl
-        << "\t3. Ask for help (only before human player plays)" << endl
-        << "\t4. Quit the game" << endl;
-        cin >> userChoice;
-    } while(userChoice < 1 || userChoice > 4);
-    
-    switch (userChoice) {
-        case 1:
-            cout << "Saving game ..." << endl;
-            break;
-        case 2:
-            cout << "Making move .. " << endl;
-            break;
-        case 3:
-            cout << "Here's some advice: " << endl;
-            break;
-        case 4:
-            cout << "Thank you for playing. Exiting without saving." << endl;
-            break;
-        default:
-            cout << "You shouldn't see this." << endl;
-            break;
-    }
-    return 0;
-}
-
 int Round::returnChoice(Player *p){
     int userChoice=0;
+    // if player is human, give human options
     if(p->getHumanity()){
         do{
             cout << "Please choose from the following:" << endl
@@ -146,38 +116,47 @@ int Round::returnChoice(Player *p){
             << "\t4. Quit the game" << endl;
             cin >> userChoice;
         } while(userChoice < 1 || userChoice > 4);
-        
-        switch (userChoice) {
-            case 1:
-                cout << "Saving game ..." << endl;
-                break;
-            case 2:
-                cout << "Making move .. " << endl;
-                break;
-            case 3:
-                cout << "Here's some advice: " << endl;
-                break;
-            case 4:
-                cout << "Thank you for playing. Exiting without saving." << endl;
-                break;
-            default:
-                cout << "You shouldn't see this." << endl;
-                break;
-        }
     }
     else{
-        cout << "The computer is choosing its next action..." << endl;
+        cout << "The computer is choosing its next action..." << endl
+            << "\t1. Save the game" << endl
+            << "\t2. Make a move" << endl
+            << "\t3. Quit the game" << endl;
+        cout << "Computer chooses: 2 (hard coded)" << endl;
+        userChoice=2;
+    }
+    switch (userChoice) {
+        case 1:
+            cout << "Saving game ..." << endl;
+            break;
+        case 2:
+            cout << "Making move .. " << endl;
+            p->playRound(this->deck);
+            break;
+        case 3:
+            cout << "Here's some advice: " << endl;
+            break;
+        case 4:
+            cout << "Thank you for playing. Exiting." << endl;
+            break;
+        default:
+            cout << "You shouldn't see this." << endl;
+            break;
     }
     return 0;
 }
 
 
 void Round::progressRound(){
+    int totalPlayers=this->getTotalPlayers();
     do{
-    //this->giveRoundStatus();
-    this->returnChoice(ourPlayers[this->getTurn()% this->getTotalPlayers()]);
-    this->setTurn();
-    // adding in a dummy value here to test player rotation
+        cout << "\tTurn is " << this->getTurn() << endl;
+        //this->giveRoundStatus();
+        this->returnChoice(ourPlayers[this->getTurn() % totalPlayers]);
+        this->setTurn();
+        cout << "Deck is: " << endl;
+        this->deck->printDecks();
+        // adding in a dummy value here to test player rotation
     }while(this->getTurn()<7);
     return;
 }

@@ -40,7 +40,8 @@ public:
     
     void showHand();
     virtual void sayIfHuman()=0;
-    virtual void playRound()=0;
+    virtual void playRound(Deck *deck)=0;
+    //virtual void examineOptions()=0;
     
 private:
     int playerNumber=0;

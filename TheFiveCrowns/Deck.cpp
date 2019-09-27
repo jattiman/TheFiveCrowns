@@ -103,7 +103,8 @@ void Deck::printDecks(){
     cout << "Draw Pile: ";
     this->printTheDeck(drawPile);
     cout << "Discard Pile: ";
-    this->printTheDeck(discardPile);
+    //this->printTheDeck(discardPile);
+    this->displayDiscardTop();
     //this->testDeck();     // debug
 }
 
@@ -112,6 +113,17 @@ void Deck::printTheDeck(std::vector<Card*> cardPile){
         cout << i->getFace() << i->getSuite() << " ";
     }
     cout << endl;
+    return;
+}
+
+void Deck::displayDiscardTop(){
+    //this->discardPile.push_back(new Card("J1", this->getRound()));
+    if(this->discardPile.size()>0){
+        cout << this->discardPile[0]->getFace() << this->discardPile[0]->getSuite() << endl;
+    }
+    else{
+        cout << "Empty" << endl;
+    }
     return;
 }
 

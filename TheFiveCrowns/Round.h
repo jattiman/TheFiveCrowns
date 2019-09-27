@@ -34,7 +34,6 @@ public:
     void giveComputerStatus(std::vector<Player*> ourPlayers);
     void giveHumanStatus(std::vector<Player*> ourPlayers);
     void giveRoundStatus();
-    int returnChoice();
     int returnChoice(Player *p);
     
     void progressRound();
