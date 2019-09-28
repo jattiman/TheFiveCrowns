@@ -30,6 +30,7 @@ public:
     void shuffleDeck(std::vector<Card*> & cardPile);
     
     
+    
     // for reading in files, this will be useful
     void stringToCardInputs(std::string cardInputString);
     void testDeck(); // for debug only - delete before submission
@@ -55,9 +56,6 @@ private:
     
     int ourRound=1;
     
-    // debug. for array deck.
-    // will most likely not use in lieu of vectors
-    Card *cards[116];
 };
 
 #endif /* Deck_h */
