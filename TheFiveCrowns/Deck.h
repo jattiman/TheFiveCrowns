@@ -22,12 +22,16 @@ public:
     void makeDeck();
     void setRound(int roundInput);
     int getRound();
-    void printDecks();
     unsigned long getDeckSize(std::vector<Card*> cardPile);
+    std::vector<Card*> getHumanDeck();
+    
+    void printDecks();
     void printTheDeck(std::vector<Card*> cardPile);
     void displayDiscardTop();
     void shuffleDeck();
     void shuffleDeck(std::vector<Card*> & cardPile);
+    void transferTopCard(std::vector<Card*> & startPile, std::vector<Card*> & endPile);
+    //Card * removeTopCard(std::vector<Card*> & cardPile);
     
     
     

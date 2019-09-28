@@ -43,22 +43,8 @@ Deck::Deck(int roundInput){
 void Deck::makeDeck(){
     // populate the deck with cards
     // bonus: based on round number, make those cards wild cards
-    // to do: logic to populate the deck itself.
-    // array deck version (probably harder than vector) ...
-//    for(int i=0; i<58; i++){
-//        this->cards[i]=new Card();
-//    }
-    
-    // vector deck. I guess it's all good either way though ...
+
     // manual assignment start deck
-//    mainDeck.insert(mainDeck.end(), {new Card("3H"),
-//        new Card("4H"),
-//        new Card("5H")});
-    // for loop assignment start deck
-//    for(int j=0;j<3;j++){
-//        mainDeck.push_back(new Card("JH"));
-//    }
-    
     //push on Jokers
     mainDeck.push_back(new Card("J1",this->getRound()));
     mainDeck.push_back(new Card("J2",this->getRound()));
@@ -81,9 +67,10 @@ void Deck::makeDeck(){
     }
     
     this->shuffleDeck();
-    //deck through string stream because why not?
-    vector<string> cardString(116);
+    // // deck through string stream because why not?
+    // vector<string> cardString(116);
     
+    // this->testDeck();
     
     return;
 }
@@ -95,6 +82,10 @@ void Deck::setRound(int roundInput){
 
 int Deck::getRound(){
     return ourRound;
+}
+
+std::vector<Card*> Deck::getHumanDeck(){
+    return this->humanPile;
 }
 
 void Deck::printDecks(){
@@ -156,6 +147,18 @@ unsigned long Deck::getDeckSize(std::vector<Card*> cardPile){
     return cardPile.size();
 }
 
+void Deck::transferTopCard(std::vector<Card*> & startPile, std::vector<Card*> & endPile){
+    
+    endPile.push_back(startPile[0]);
+    startPile.erase(startPile.begin());
+    return;
+}
+
+//Card* Deck::removeTopCard(std::vector<Card *> &cardPile){
+//    cout << "Removing " << cardPile[0]->getFace() << cardPile[0]->getSuite();
+//    return cardPile[0];
+//}
+
 // come back to this after you hardcode the cards.
 void Deck::stringToCardInputs(std::string cardInputString){
 //    std::string text = "3H 4H 5H 6H 7H 8H 9H 10H";
@@ -168,7 +171,7 @@ void Deck::stringToCardInputs(std::string cardInputString){
 
 
 void Deck::testDeck(){
-    cout << "\tDesk test" << endl;
+    cout << "\tDeck test" << endl;
     //this->printTheDeck(mainDeck);
 //    cout << this->getDeckSize(mainDeck) << endl;
 //    cout << "Testing card functions in deck. Joker wild first." << endl;
@@ -179,10 +182,13 @@ void Deck::testDeck(){
 //    cout << "Card 0 face: " << mainDeck[0]->getFace() << endl;
 //    mainDeck[0]->checkForWild(1);
 //    cout << "Card 0 wild?: " << mainDeck[0]->getWildStatus() << endl;
-    for(auto &i: this->mainDeck){
-        cout << "\t" << i->getFace() << i->getSuite() << ": "<< i->getPointValue() << " point(s). " << "Wild?: " << i->getWildStatus() << endl;
-    }
-    cout << endl;
-    
+//    for(auto &i: this->mainDeck){
+//        cout << "\t" << i->getFace() << i->getSuite() << ": "<< i->getPointValue() << " point(s). " << "Wild?: " << i->getWildStatus() << endl;
+//    }
+//    cout << endl;
+    //this->transferTopCard(this->mainDeck, this->discardPile);
+//    humanPile.push_back(new Card("J4",1));
+//    cout << "\t printing human deck";
+//    this->printTheDeck(getHumanDeck());
     return;
 }
