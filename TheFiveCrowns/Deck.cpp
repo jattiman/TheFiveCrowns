@@ -84,10 +84,22 @@ int Deck::getRound(){
     return ourRound;
 }
 
-std::vector<Card*> Deck::getHumanDeck(){
+std::vector<Card*> & Deck::getHumanDeck(){
     return this->humanPile;
 }
 
+std::vector<Card*> & Deck::getComputerDeck(){
+    return this->computerPile;
+}
+std::vector<Card*> & Deck::getMainPile(){
+    return this->mainDeck;
+}
+std::vector<Card*> & Deck::getDrawPile(){
+    return this->drawPile;
+}
+std::vector<Card*> & Deck::getDiscardPile(){
+    return this->discardPile;
+}
 void Deck::printDecks(){
     cout << "Main Deck: ";          // debug
     this->printTheDeck(mainDeck);   // debug
@@ -110,7 +122,8 @@ void Deck::printTheDeck(std::vector<Card*> cardPile){
 void Deck::displayDiscardTop(){
     //this->discardPile.push_back(new Card("J1", this->getRound()));
     if(this->discardPile.size()>0){
-        cout << this->discardPile[0]->getFace() << this->discardPile[0]->getSuite() << endl;
+//        cout << this->discardPile[0]->getFace() << this->discardPile[0]->getSuite() << endl;
+        cout << this->discardPile.back()->getFace() << this->discardPile.back()->getSuite() << endl;
     }
     else{
         cout << "Empty" << endl;
@@ -147,13 +160,26 @@ unsigned long Deck::getDeckSize(std::vector<Card*> cardPile){
     return cardPile.size();
 }
 
-void Deck::transferTopCard(std::vector<Card*> & startPile, std::vector<Card*> & endPile){
+void Deck::transferCard(std::vector<Card*> &startPile, std::vector<Card*> &endPile){
     
     endPile.push_back(startPile[0]);
     startPile.erase(startPile.begin());
     return;
 }
 
+void Deck::transferFromDiscard(std::vector<Card*> &startPile, std::vector<Card*> &endPile){
+    endPile.push_back(startPile.back());
+    startPile.pop_back();
+    return;
+    
+}
+void Deck::transferFromDiscard(std::vector<Card*> &endPile){
+    
+    endPile.push_back(this->getDiscardPile().back());
+    this->getDiscardPile().pop_back();
+    return;
+    
+}
 //Card* Deck::removeTopCard(std::vector<Card *> &cardPile){
 //    cout << "Removing " << cardPile[0]->getFace() << cardPile[0]->getSuite();
 //    return cardPile[0];
@@ -172,23 +198,7 @@ void Deck::stringToCardInputs(std::string cardInputString){
 
 void Deck::testDeck(){
     cout << "\tDeck test" << endl;
-    //this->printTheDeck(mainDeck);
-//    cout << this->getDeckSize(mainDeck) << endl;
-//    cout << "Testing card functions in deck. Joker wild first." << endl;
-//    cout << "Card 0 face: " << mainDeck[0]->getFace() << endl;
-//    cout << "Card 0 wild?: " << mainDeck[0]->getWildStatus() << endl;
-//    cout << "Changing to Joker: " << endl;
-//    mainDeck[0]->setFace('J');
-//    cout << "Card 0 face: " << mainDeck[0]->getFace() << endl;
-//    mainDeck[0]->checkForWild(1);
-//    cout << "Card 0 wild?: " << mainDeck[0]->getWildStatus() << endl;
-//    for(auto &i: this->mainDeck){
-//        cout << "\t" << i->getFace() << i->getSuite() << ": "<< i->getPointValue() << " point(s). " << "Wild?: " << i->getWildStatus() << endl;
-//    }
-//    cout << endl;
-    //this->transferTopCard(this->mainDeck, this->discardPile);
-//    humanPile.push_back(new Card("J4",1));
-//    cout << "\t printing human deck";
-//    this->printTheDeck(getHumanDeck());
+    this->transferCard(this->getMainPile(), this->getHumanDeck());
+    //this->transferTopCard(mainDeck, humanPile);
     return;
 }

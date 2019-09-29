@@ -23,14 +23,27 @@ public:
     void setRound(int roundInput);
     int getRound();
     unsigned long getDeckSize(std::vector<Card*> cardPile);
-    std::vector<Card*> getHumanDeck();
+    std::vector<Card*> & getHumanDeck();
+    std::vector<Card*> & getComputerDeck();
+    std::vector<Card*> & getMainPile();
+    std::vector<Card*> & getDrawPile();
+    std::vector<Card*> & getDiscardPile();
     
     void printDecks();
     void printTheDeck(std::vector<Card*> cardPile);
     void displayDiscardTop();
     void shuffleDeck();
     void shuffleDeck(std::vector<Card*> & cardPile);
-    void transferTopCard(std::vector<Card*> & startPile, std::vector<Card*> & endPile);
+    
+    // transfering card functions
+    // mainly from draw to end of another pile
+    void transferCard(std::vector<Card*> &startPile, std::vector<Card*> &endPile);
+    // for specific insertion of a card from one pile to another
+//    void transferCard(std::vector<Card*> &startPile, int startLocation, std::vector<Card*> &endPile, int endLocation);
+    // to pull from Discard pile (will pull from back)
+    void transferFromDiscard(std::vector<Card*> &startPile, std::vector<Card*> &endPile);
+    void transferFromDiscard(std::vector<Card*> &endPile);
+    
     //Card * removeTopCard(std::vector<Card*> & cardPile);
     
     
