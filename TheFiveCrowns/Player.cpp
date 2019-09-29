@@ -34,6 +34,10 @@ bool Player::getHumanity(){
     return this->isHuman;
 }
 
+bool Player::getIfOut(){
+    return this->isOut;
+}
+
 void Player::setHumanity(bool isPlayerHuman){
     this->isHuman=isPlayerHuman;
     return;
@@ -54,6 +58,9 @@ void Player::setDeck(Deck *playerDeck){
 void Player::setPlayerNumber(int num){
     this->playerNumber=num;
     return;
+}
+void Player::setOut(bool areYouOut){
+    this->isOut=areYouOut;
 }
 
 void Player::showHand(){

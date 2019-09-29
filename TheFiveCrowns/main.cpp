@@ -7,6 +7,7 @@
 ***************************************************************
  */
 #include "Game.h"
+#include "Deck.h"
 #include <iostream>
 using namespace std;
 
@@ -25,7 +26,14 @@ int main(int argc, const char * argv[]) {
     
     Game ourGame;
     ourGame.welcome();
+//    Deck ourDeck(1);
+//    ourDeck.printDecks();
+//    cout << "Human: ";
+//    ourDeck.printTheDeck(ourDeck.getHumanDeck());
+//    cout << "Computer: ";
+//    ourDeck.printTheDeck(ourDeck.getComputerDeck());
 
-    //cout << "Back in main, now." << endl;   // debug
+
+    cout << "Back in main, now." << endl;   // debug
     return 0;
 }

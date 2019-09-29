@@ -17,6 +17,7 @@ public:
     ComputerPlayer();
     void sayIfHuman();
     void playRound(Deck *deck);
+    bool requestToGoOut();
     
 private:
     //bool isHuman;

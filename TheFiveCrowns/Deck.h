@@ -20,8 +20,11 @@ public:
     Deck();
     Deck(int roundInput);
     void makeDeck();
+    void dealDeck();
+
     void setRound(int roundInput);
     int getRound();
+    // make this more robust so all decks can be fed in at once
     unsigned long getDeckSize(std::vector<Card*> cardPile);
     std::vector<Card*> & getHumanDeck();
     std::vector<Card*> & getComputerDeck();
@@ -65,7 +68,7 @@ private:
     std::vector<Card*> drawPile;
     std::vector<Card*> discardPile;
     
-    // to deal to players
+    // player decks
     std::vector<Card*> humanPile;
     std::vector<Card*> computerPile;
     

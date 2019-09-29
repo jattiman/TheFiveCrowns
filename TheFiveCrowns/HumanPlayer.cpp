@@ -30,3 +30,7 @@ void HumanPlayer::playRound(Deck *deck){
     
     return;
 }
+
+bool HumanPlayer::requestToGoOut(){
+    return false;
+}

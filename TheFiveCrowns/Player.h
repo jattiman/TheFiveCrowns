@@ -31,13 +31,17 @@ public:
     Deck* getDeck();
     int getPlayerNumber();
     bool getHumanity();
+    bool getIfOut();
     
     void setHumanity(bool isPlayerHuman);
     void setPoints(int newPoints);
     void setTurn(bool isNext);
     void setDeck(Deck *playerDeck);
     void setPlayerNumber(int num);
+    void setOut(bool areYouOut);
     
+    // checks if player can go out
+    virtual bool requestToGoOut()=0;
     void showHand();
     virtual void sayIfHuman()=0;
     virtual void playRound(Deck *deck)=0;
@@ -48,6 +52,7 @@ private:
     int playerPoints=0;
     bool isTurn=false;
     bool isHuman;
+    bool isOut=false;
     Deck *deck;
     std::vector<Card*> playerCards;
     

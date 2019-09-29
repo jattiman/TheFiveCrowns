@@ -28,3 +28,7 @@ void ComputerPlayer::playRound(Deck *deck){
     cout << "Computer playing round." << endl;
     return;
 }
+
+bool ComputerPlayer::requestToGoOut(){
+    return false;
+}

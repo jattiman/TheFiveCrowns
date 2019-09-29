@@ -17,6 +17,10 @@ Round::Round(){
     this->deck = new Deck(this->getRoundNumber());
 }
 
+Round::~Round(){
+    cout << "\t\tRound ended." << endl;
+}
+
 Round::Round(HumanPlayer *h, ComputerPlayer *c){
     this->setRoundNumber(1);
     this->deck = new Deck(this->getRoundNumber());
@@ -35,8 +39,6 @@ Round::Round(HumanPlayer *h, ComputerPlayer *c, int round){
 void Round::setupPlayers(HumanPlayer *h, ComputerPlayer *c){
     this->ourPlayers.push_back(h);
     this->ourPlayers.push_back(c);
-//    cout << "Is 0 human?: " << ourPlayers[0]->getHumanity() << endl;
-//    cout << "Is 1 human?: " << ourPlayers[1]->getHumanity() << endl;
 }
 
 int Round::getRoundNumber(){
@@ -48,7 +50,7 @@ int Round::getTurn(){
 }
 
 int Round::getTotalPlayers(){
-    return this->ourPlayers.size();
+    return (int)this->ourPlayers.size();
 }
 
 Deck Round::getDeck(){
@@ -84,8 +86,9 @@ void Round::giveHumanStatus(std::vector<Player*> players){
         if(i->getHumanity()){
             cout << "Human:" << endl
             << "\tScore: " << players[1]->getPoints() << endl
-            << "\tHand: " << endl
-            << endl;
+            << "\tHand: ";
+            this->deck->getHumanDeck();
+            cout << endl;
         }
     }
     return;
@@ -138,6 +141,7 @@ int Round::returnChoice(Player *p){
             break;
         case 4:
             cout << "Thank you for playing. Exiting." << endl;
+            //p->setOut(true);
             break;
         default:
             cout << "You shouldn't see this." << endl;
@@ -151,13 +155,14 @@ void Round::progressRound(){
     int totalPlayers=this->getTotalPlayers();
     do{
         cout << "\tTurn is " << this->getTurn() << endl;
-        //this->giveRoundStatus();
+        this->giveRoundStatus();
         this->returnChoice(ourPlayers[this->getTurn() % totalPlayers]);
         this->setTurn();
         cout << "Deck is: " << endl;
         this->deck->printDecks();
         // adding in a dummy value here to test player rotation
-    }while(this->getTurn()<7);
+    //}while(!(ourPlayers[this->getTurn() % totalPlayers+1]->getIfOut()));
+    }while(this->getTurn()<6);
     return;
 }
 

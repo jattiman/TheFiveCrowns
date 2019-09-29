@@ -18,6 +18,7 @@
 class Round{
 public:
     Round();
+    ~Round();
     Round(HumanPlayer *h, ComputerPlayer *c);
     Round(HumanPlayer *h, ComputerPlayer *c, int round);
     int getRoundNumber();
