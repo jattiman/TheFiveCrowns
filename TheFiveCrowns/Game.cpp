@@ -60,9 +60,10 @@ void Game::welcome(){
         if(userOption==1){
             //call coin toss
             
+            
             //start round with order listed
-            this->round=new Round(h,c,roundNumber);
-            this->round->progressRound();
+            
+            this->beginRound();
         }
         
         // If loading game, select game file to load and begin game
@@ -85,8 +86,9 @@ void Game::welcome(){
 }
 
 void Game::beginRound(){
-    cout << "Starting new game." << endl;
-    this->round->progressRound();
+    cout << "Starting new round." << endl;
+    this->round=new Round(h,c,roundNumber);
+    this->round->startRound();
 }
 
 // To do: transfer the players in as a vector/array/etc to better handle

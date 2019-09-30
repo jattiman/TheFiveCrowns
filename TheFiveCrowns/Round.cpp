@@ -95,15 +95,33 @@ void Round::giveHumanStatus(std::vector<Player*> players){
     
 }
 
-void Round::giveRoundStatus(){
+void Round::givePlayerStatus(std::vector<Player*> players){
+    for(auto &i: players){
+        if(i->getHumanity()){
+            cout << "Human:" << endl
+            << "\tScore: " << i->getPoints() << endl
+            << "\tHand: ";
+            this->deck->getHumanDeck();
+            cout << endl;
+        }
+        else{
+            cout << "Computer:" << endl
+            << "\tScore: " << i->getPoints() << endl
+            << "\tHand: ";
+            this->deck->getHumanDeck();
+            cout << endl;
+        }
+    }
+    return;
+    
+}
+
+void Round::getRoundStatus(){
     cout << "Round: " << this->getRoundNumber() << endl
         << endl;
-    this->giveComputerStatus(this->ourPlayers);
-    this->giveHumanStatus(this->ourPlayers);
+    this->givePlayerStatus(this->ourPlayers);
     this->deck->printDecks();
-    cout << endl
-    << "Next player: " << endl;
-    //this->roundTest();
+    cout << endl;
     return;
 }
 
@@ -150,15 +168,41 @@ int Round::returnChoice(Player *p){
     return 0;
 }
 
+void Round::startRound(){
+    
+    int answer = 0;
+    int totalPlayers=this->getTotalPlayers();
+    int ourTurn=this->getTurn();
+    
+    do{
+        cout << "TotalPlayers: " << totalPlayers << endl
+        << "ourTurn: " << ourTurn << endl
+        << "Mod: " << ourTurn%totalPlayers << endl
+        << "player human?: " << this->ourPlayers[ourTurn%totalPlayers]->getHumanity()
+        << endl;
+        
+        cout << "Are you out? \n1 yes \n2 no\n";
+        cin >> answer;
+        if(answer==1){
+            ourPlayers[0]->setOut(true);
+        }
+        ourTurn++;
+    // while the NEXT player is still not out, keep going
+    // this will cause the game to loop through all players once after
+    // the first player goes out
+    }while(!(this->ourPlayers[ourTurn%totalPlayers]->getIfOut()));
+    
+    return;
+}
 
 void Round::progressRound(){
     int totalPlayers=this->getTotalPlayers();
+    int ourTurn=this->getTurn();
     do{
-        cout << "\tTurn is " << this->getTurn() << endl;
-        this->giveRoundStatus();
+        cout << "\tTurn is " << ourTurn << endl;
+        this->getRoundStatus();
         this->returnChoice(ourPlayers[this->getTurn() % totalPlayers]);
         this->setTurn();
-        cout << "Deck is: " << endl;
         this->deck->printDecks();
         // adding in a dummy value here to test player rotation
     //}while(!(ourPlayers[this->getTurn() % totalPlayers+1]->getIfOut()));

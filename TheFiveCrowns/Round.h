@@ -34,9 +34,11 @@ public:
     
     void giveComputerStatus(std::vector<Player*> ourPlayers);
     void giveHumanStatus(std::vector<Player*> ourPlayers);
-    void giveRoundStatus();
+    void givePlayerStatus(std::vector<Player*> ourPlayers);
+    void getRoundStatus();
     int returnChoice(Player *p);
     
+    void startRound();
     void progressRound();
     
     // for debugging only
