@@ -13,47 +13,61 @@
 using namespace std;
 
 Round::Round(){
+    // set default round number
     this->setRoundNumber(1);
+    // create the deck with the default round number
     this->deck = new Deck(this->getRoundNumber());
 }
 
 Round::~Round(){
+    // debug print once round destroyed
     cout << "\t\tRound ended." << endl;
 }
 
 Round::Round(HumanPlayer *h, ComputerPlayer *c){
+    // set round number to 1 if none specified
     this->setRoundNumber(1);
+    // create the deck with this round number
     this->deck = new Deck(this->getRoundNumber());
+    // create player objects
     this->setupPlayers(h,c);
     //this->progressRound();
 }
 
 Round::Round(HumanPlayer *h, ComputerPlayer *c, int round){
+    // set round number to round specified
     this->setRoundNumber(round);
+    // create deck with that round
     this->deck = new Deck(this->getRoundNumber());
+    // set up player objects
     this->setupPlayers(h,c);
     //this->progressRound();
 }
 
 
 void Round::setupPlayers(HumanPlayer *h, ComputerPlayer *c){
+    // push back players to vector, for future shuffling
     this->ourPlayers.push_back(h);
     this->ourPlayers.push_back(c);
 }
 
 int Round::getRoundNumber(){
+    // return round number
     return roundNumber;
 }
 
 int Round::getTurn(){
+    // return whose round it is next
     return nextTurn;
 }
 
 int Round::getTotalPlayers(){
+    // calculate the total number of players in the round
     return (int)this->ourPlayers.size();
 }
 
 Deck Round::getDeck(){
+    // return the round's deck
     return *deck;
 }
 
