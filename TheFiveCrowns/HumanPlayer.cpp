@@ -34,15 +34,23 @@ void HumanPlayer::playRound(Deck *deck){
         << "\t1. The draw pile" << endl
         << "\t2. The discard pile" << endl;
         cin >> userChoice;
+        // transfer the card appropriately
+        if(userChoice==1){
+            //deck->transferCard(deck->getDrawPile(), deck->getHumanDeck());
+            if(!deck->transferFromDraw(deck->getHumanDeck())){
+                cout << "The draw pile is empty. Try again." << endl;
+                userChoice=0;
+            }
+        }
+        else{
+            // need to check to ensure piles aren't empty
+            if(!(deck->transferFromDiscard(deck->getHumanDeck()))){
+                cout << "The discard pile is empty. Try again." << endl;
+                userChoice=0;
+            }
+        }
     } while(userChoice < 1 || userChoice > 2);
-    // transfer the card appropriately
-    if(userChoice==1){
-        deck->transferCard(deck->getDrawPile(), deck->getHumanDeck());
-    }
-    else{
-        // need to check to ensure piles aren't empty
-        deck->transferFromDiscard(deck->getHumanDeck());
-    }
+    
     // if player has wild card, ask them if they want to rename any
     // this->reviewWilds(), maybe?
     // ask player which card they would like to discard

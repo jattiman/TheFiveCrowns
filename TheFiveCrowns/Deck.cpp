@@ -191,19 +191,38 @@ void Deck::transferCard(std::vector<Card*> &startPile, std::vector<Card*> &endPi
     return;
 }
 
-void Deck::transferFromDiscard(std::vector<Card*> &startPile, std::vector<Card*> &endPile){
-    endPile.push_back(startPile.back());
-    startPile.pop_back();
-    return;
-    
+bool Deck::transferFromDiscard(std::vector<Card*> &startPile, std::vector<Card*> &endPile){
+    if(startPile.empty()){
+        return false;
+    }
+    else{
+        endPile.push_back(startPile.back());
+        startPile.pop_back();
+        return true;
+    }
 }
-void Deck::transferFromDiscard(std::vector<Card*> &endPile){
-    
-    endPile.push_back(this->getDiscardPile().back());
-    this->getDiscardPile().pop_back();
-    return;
-    
+bool Deck::transferFromDiscard(std::vector<Card*> &endPile){
+    if(this->getDiscardPile().empty()){
+        return false;
+    }
+    else{
+        endPile.push_back(this->getDiscardPile().back());
+        this->getDiscardPile().pop_back();
+        return true;
+    }
 }
+
+bool Deck::transferFromDraw(std::vector<Card*> & endPile){
+    if(this->getDrawPile().empty()){
+        return false;
+    }
+    else{
+        endPile.push_back(this->getDrawPile()[0]);
+        this->getDrawPile().erase(this->getDrawPile().begin());
+        return true;
+    }
+}
+
 //Card* Deck::removeTopCard(std::vector<Card *> &cardPile){
 //    cout << "Removing " << cardPile[0]->getFace() << cardPile[0]->getSuite();
 //    return cardPile[0];
