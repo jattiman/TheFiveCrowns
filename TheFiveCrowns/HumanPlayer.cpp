@@ -26,7 +26,20 @@ void HumanPlayer::sayIfHuman(){
 }
 
 void HumanPlayer::playRound(Deck *deck){
-    cout << "Human playing round." << endl;
+    int userChoice=0;
+    cout << "What do you want to do?" << endl;
+    do{
+        cout << "Where would you like to draw from?" << endl
+        << "\t1. The draw pile" << endl
+        << "\t2. The discard pile" << endl;
+        cin >> userChoice;
+    } while(userChoice < 1 || userChoice > 2);
+    if(userChoice==1){
+        deck->transferCard(deck->getDrawPile(), deck->getHumanDeck());
+    }
+    else{
+        deck->transferFromDiscard(deck->getHumanDeck());
+    }
     
     return;
 }
@@ -34,3 +47,13 @@ void HumanPlayer::playRound(Deck *deck){
 bool HumanPlayer::requestToGoOut(){
     return false;
 }
+
+void HumanPlayer::saveGame(){
+    cout << "Saving game ... " << endl;
+    return;
+}
+
+void HumanPlayer::examineOptions(){
+    cout << "Here's some advice: " << endl;
+}
+

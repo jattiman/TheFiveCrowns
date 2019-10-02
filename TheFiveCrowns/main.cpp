@@ -34,6 +34,6 @@ int main(int argc, const char * argv[]) {
 //    ourDeck.printTheDeck(ourDeck.getComputerDeck());
 
 
-    cout << "Back in main, now." << endl;   // debug
+//    cout << "Back in main, now." << endl;   // debug
     return 0;
 }

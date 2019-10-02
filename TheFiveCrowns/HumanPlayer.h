@@ -17,7 +17,9 @@ public:
     void sayIfHuman();
     void playRound(Deck *deck);
     bool requestToGoOut();
-
+    void saveGame();
+    void examineOptions();
+    
     
 private:
     //bool isHuman;

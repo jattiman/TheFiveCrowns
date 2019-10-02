@@ -32,3 +32,13 @@ void ComputerPlayer::playRound(Deck *deck){
 bool ComputerPlayer::requestToGoOut(){
     return false;
 }
+
+void ComputerPlayer::saveGame(){
+    cout << "Saving game ... " << endl;
+    return;
+}
+
+void ComputerPlayer::examineOptions(){
+    cout << "Computers don't need advice (place holder)" << endl;
+    return;
+}

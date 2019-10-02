@@ -101,7 +101,6 @@ void Deck::dealDeck(){
     // confirm cards present (debug)
 //    cout << "Total cards present: " << this->getDrawPile().size() + this->getMainPile().size() + this->getHumanDeck().size() + this->getComputerDeck().size() + this->getDiscardPile().size() << endl;
     return;
-    
 }
 
 void Deck::setRound(int roundInput){

@@ -23,9 +23,9 @@ int Player::getPoints(){
 bool Player::getTurn(){
     return this->isTurn;
 }
-Deck* Player::getDeck(){
-    return deck;
-}
+//Deck* Player::getDeck(){
+//    return deck;
+//}
 int Player::getPlayerNumber(){
     return this->playerNumber;
 }
@@ -51,10 +51,10 @@ void Player::setTurn(bool isNext){
     this->isTurn=isNext;
     return;
 }
-void Player::setDeck(Deck *playerDeck){
-    this->deck=playerDeck;
-    return;
-}
+//void Player::setDeck(Deck *playerDeck){
+//    this->deck=playerDeck;
+//    return;
+//}
 void Player::setPlayerNumber(int num){
     this->playerNumber=num;
     return;
@@ -63,11 +63,11 @@ void Player::setOut(bool areYouOut){
     this->isOut=areYouOut;
 }
 
-void Player::showHand(){
-    // will update this later after deck class has multiple print statements
-    // will also need to add logic to ensure the deck will not
-    // try to print when the player hasn't been dealt a deck yet.
-    cout << "\tShowing hand: " << endl;
-    this->deck->printDecks();
-    cout << "\tHand should be above " << endl;
-}
+//void Player::showHand(){
+//    // will update this later after deck class has multiple print statements
+//    // will also need to add logic to ensure the deck will not
+//    // try to print when the player hasn't been dealt a deck yet.
+//    cout << "\tShowing hand: " << endl;
+//    this->deck->printDecks();
+//    cout << "\tHand should be above " << endl;
+//}

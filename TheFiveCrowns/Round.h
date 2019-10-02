@@ -36,10 +36,11 @@ public:
     void giveHumanStatus(std::vector<Player*> ourPlayers);
     void givePlayerStatus(std::vector<Player*> ourPlayers);
     void getRoundStatus();
-    int returnChoice(Player *p);
+    int giveOptions(Player *p);
+    
     
     void startRound();
-    void progressRound();
+    void progressRound(Player *p);
     
     // for debugging only
     void roundTest();
