@@ -32,7 +32,7 @@ int main(int argc, const char * argv[]) {
 //    ourDeck.printTheDeck(ourDeck.getHumanDeck());
 //    cout << "Computer: ";
 //    ourDeck.printTheDeck(ourDeck.getComputerDeck());
-
+//    ourDeck.testDeck();
 
 //    cout << "Back in main, now." << endl;   // debug
     return 0;

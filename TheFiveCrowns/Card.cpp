@@ -47,6 +47,12 @@ bool Card::getWildStatus(){
 int Card::getRoundNumber(){
     return roundNumber;
 }
+bool Card::getRunStatus(){
+    return isInRun;
+}
+bool Card::getBookStatus(){
+    return isInBook;
+}
 void Card::setRoundNumber(int newRoundNumber){
     this->roundNumber=newRoundNumber;
     return;
@@ -115,6 +121,16 @@ void Card::setPointValue(){
 
 void Card::setWildStatus(bool newStatus){
     this->isWild=newStatus;
+    return;
+}
+
+void Card::setBookStatus(bool newStatus){
+    this->isInBook=newStatus;
+    return;
+}
+
+void Card::setRunStatus(bool newStatus){
+    this->isInRun=newStatus;
     return;
 }
 

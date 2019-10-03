@@ -237,6 +237,18 @@ bool Deck::transferFromDraw(std::vector<Card*> & endPile){
     }
 }
 
+int Deck::countCardPoints(std::vector<Card*> & hand){
+    int points=0;
+    // iterate through vector
+    // count points for non-set cards only
+    for(auto &i: hand){
+        if(!(i->getRunStatus() || i->getBookStatus())){
+            points+=i->getPointValue();
+        }
+    }
+    return points;
+}
+
 //Card* Deck::removeTopCard(std::vector<Card *> &cardPile){
 //    cout << "Removing " << cardPile[0]->getFace() << cardPile[0]->getSuite();
 //    return cardPile[0];
@@ -255,7 +267,16 @@ void Deck::stringToCardInputs(std::string cardInputString){
 
 void Deck::testDeck(){
     cout << "\tDeck test" << endl;
-    this->transferCard(this->getMainPile(), this->getHumanDeck());
+    //this->transferCard(this->getMainPile(), this->getHumanDeck());
     //this->transferTopCard(mainDeck, humanPile);
+    cout << "Making vector." << endl;
+    vector<Card*> testHand;
+    cout << "Pushing back cards." << endl;
+    testHand.push_back(new Card("9T",this->getRound()));
+    testHand.push_back(new Card("8C",this->getRound()));
+    testHand.push_back(new Card("XH",this->getRound()));
+    cout << "returning total points" << endl;
+    int totalPoints=countCardPoints(testHand);
+    cout << "Total points for test hand of 9t 8c xh is: " << totalPoints << endl;
     return;
 }

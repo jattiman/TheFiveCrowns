@@ -48,6 +48,8 @@ public:
     bool transferFromDiscard(std::vector<Card*> &endPile);
     bool transferFromDraw(std::vector<Card*> & endPile);
     
+    int countCardPoints(std::vector<Card*> & hand);
+    
     //Card * removeTopCard(std::vector<Card*> & cardPile);
     
     

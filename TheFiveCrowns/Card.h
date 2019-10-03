@@ -23,12 +23,16 @@ public:
     int getPointValue();
     bool getWildStatus();
     int getRoundNumber();
+    bool getRunStatus();
+    bool getBookStatus();
     void setRoundNumber(int newRoundNumber);
     void setFace(char newFace);
     void setSuite(char newSuite);
     void setPointValue(int newPoints);
     void setPointValue();
     void setWildStatus(bool newStatus);
+    void setBookStatus(bool newStatus);
+    void setRunStatus(bool newStatus);
     void checkForWild();
     
 private:
@@ -38,7 +42,8 @@ private:
     int roundNumber=3;
     bool isWild=false;
     bool isJoker;
-    
+    bool isInBook=false;
+    bool isInRun=false;
     
     
 };

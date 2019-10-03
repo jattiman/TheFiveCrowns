@@ -198,7 +198,7 @@ void Round::startRound(){
         // this will cause the game to loop through all players once after
         // the first player goes out
     }while(!(this->ourPlayers[ourTurn%totalPlayers]->getIfOut()));
-    
+    cout << "Round is over. Would you like to progress?" << endl;
     return;
 }
 
