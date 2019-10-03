@@ -191,16 +191,30 @@ void Deck::transferCard(std::vector<Card*> &startPile, std::vector<Card*> &endPi
     return;
 }
 
-bool Deck::transferFromDiscard(std::vector<Card*> &startPile, std::vector<Card*> &endPile){
+bool Deck::transferCard(std::vector<Card*> &startPile, int startLocation, std::vector<Card*> &endPile){
+    // confirm the starting card pile has cards
     if(startPile.empty()){
         return false;
     }
+    // if cards are present, move the chosen card to the end pile
     else{
-        endPile.push_back(startPile.back());
-        startPile.pop_back();
+        //swap(startPile[startLocation],endPile[endLocation]);
+        endPile.push_back(startPile[startLocation]);
+        startPile.erase(startPile.begin()+startLocation);
         return true;
     }
 }
+
+//bool Deck::transferFromDiscard(std::vector<Card*> &startPile, std::vector<Card*> &endPile){
+//    if(startPile.empty()){
+//        return false;
+//    }
+//    else{
+//        endPile.push_back(startPile.back());
+//        startPile.pop_back();
+//        return true;
+//    }
+//}
 bool Deck::transferFromDiscard(std::vector<Card*> &endPile){
     if(this->getDiscardPile().empty()){
         return false;

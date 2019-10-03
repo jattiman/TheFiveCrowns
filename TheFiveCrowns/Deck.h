@@ -42,9 +42,9 @@ public:
     // mainly from draw to end of another pile
     void transferCard(std::vector<Card*> &startPile, std::vector<Card*> &endPile);
     // for specific insertion of a card from one pile to another
-//    void transferCard(std::vector<Card*> &startPile, int startLocation, std::vector<Card*> &endPile, int endLocation);
+    bool transferCard(std::vector<Card*> &startPile, int startLocation, std::vector<Card*> &endPile);
     // to pull from Discard pile (will pull from back)
-    bool transferFromDiscard(std::vector<Card*> &startPile, std::vector<Card*> &endPile);
+//    bool transferFromDiscard(std::vector<Card*> &startPile, std::vector<Card*> &endPile);
     bool transferFromDiscard(std::vector<Card*> &endPile);
     bool transferFromDraw(std::vector<Card*> & endPile);
     
