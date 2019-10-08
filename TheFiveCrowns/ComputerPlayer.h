@@ -20,6 +20,7 @@ public:
     bool requestToGoOut();
     void saveGame();
     void examineOptions();
+    bool checkIfOut(std::vector<Card*> handToCheck);
     
 private:
     //bool isHuman;

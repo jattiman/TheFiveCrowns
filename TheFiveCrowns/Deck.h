@@ -60,6 +60,13 @@ public:
     
     // for reading in files, this will be useful
     void stringToCardInputs(std::string cardInputString);
+    
+    bool checkIfAllWild(std::vector<Card*> cardPile);
+    bool checkIfRun(std::vector<Card*> cardPile);
+    bool checkIfBook(std::vector<Card*> cardPile);
+    bool checkIfOut(std::vector<Card*> cardPile);
+    
+    
     void testDeck(); // for debug only - delete before submission
     
     // to do:

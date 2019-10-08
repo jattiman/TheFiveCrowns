@@ -55,19 +55,20 @@ void HumanPlayer::playRound(Deck *deck){
         cout << "Pick a card to discard." << endl;
         deck->printTheDeck(deck->getHumanDeck());
         cin>>userChoice;
-        cout << "choice: " << userChoice << endl << "deck size: " << deck->getHumanDeck().size() << endl;
+//        cout << "choice: " << userChoice << endl << "deck size: " << deck->getHumanDeck().size() << endl;
         
     }while(userChoice < 0 || userChoice > deck->getHumanDeck().size());
     // translate user choice to vector position
     userChoice--;
     // transfer appropriate card to discard pile
-    cout << "You picked the following card to discard: " << deck->getHumanDeck()[userChoice]->getFace() << deck->getHumanDeck()[userChoice]->getSuite() << endl;
+    cout << "Discarding: " << deck->getHumanDeck()[userChoice]->getFace() << deck->getHumanDeck()[userChoice]->getSuite() << endl;
     
     deck->transferCard(deck->getHumanDeck(), userChoice, deck->getDiscardPile());
-    cout << "New player hand: ";
-    deck->printTheDeck(deck->getHumanDeck());
+//    cout << "New player hand: ";
+//    deck->printTheDeck(deck->getHumanDeck());
     cin.ignore();
     cin.get();
+    
     // if player has wild card, ask them if they want to rename any
     // this->reviewWilds(), maybe?
     // ask player which card they would like to discard
@@ -88,3 +89,6 @@ void HumanPlayer::examineOptions(){
     cout << "Here's some advice: " << endl;
 }
 
+bool HumanPlayer::checkIfOut(std::vector<Card*> handToCheck){
+    return false;
+}

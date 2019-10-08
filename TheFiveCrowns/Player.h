@@ -42,6 +42,7 @@ public:
     
     // checks if player can go out
     virtual bool requestToGoOut()=0;
+    virtual bool checkIfOut(std::vector<Card*> handToCheck)=0;
     //void showHand();
     virtual void sayIfHuman()=0;
     virtual void playRound(Deck *deck)=0;

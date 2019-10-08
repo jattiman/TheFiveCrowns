@@ -111,13 +111,15 @@ void Deck::setRound(int roundInput){
 void Deck::setPlayerHand(std::vector<Card*> playerHand){
     // make the human pile equivalent to the copy of the playerHand
     // being passed in
-    this->humanPile.swap(playerHand);
+//    this->humanPile.swap(playerHand);
+    this->humanPile=playerHand;
     return;
 }
 
 void Deck::setComputerHand(std::vector<Card*> computerHand){
     // swap copy of the computer hand into the computer pile
-    this->computerPile.swap(computerHand);
+//    this->computerPile.swap(computerHand);
+    this->computerPile=computerHand;
     return;
 }
 
@@ -277,6 +279,86 @@ void Deck::stringToCardInputs(std::string cardInputString){
     return;
 }
 
+bool Deck::checkIfAllWild(std::vector<Card*> cardPile){
+    bool areTheyWild=true;
+    for(auto i: cardPile){
+        if(!(i->getWildStatus())){
+            areTheyWild=false;
+            break;
+        }
+    }
+    return areTheyWild;
+}
+
+bool Deck::checkIfRun(std::vector<Card*> cardPile){
+    bool areTheyInRun=true;
+    char ourSuite=cardPile[0]->getSuite();
+    // first, check to confirm all suites are the same
+    for (auto i: cardPile){
+        if(i->getSuite()!=ourSuite){
+            areTheyInRun=false;
+            break;
+        }
+    }
+    // if all suites are the same, check to see if the faces are consecutive
+    vector<int> cardFaces;
+    cardFaces.reserve(cardPile.size());
+    for(auto i: cardPile){
+        switch (i->getFace()) {
+            case '3':
+                cardFaces.push_back(3);
+                break;
+            case '4':
+                cardFaces.push_back(4);
+                break;
+            case '5':
+                cardFaces.push_back(5);
+                break;
+            case '6':
+                cardFaces.push_back(6);
+                break;
+            case '7':
+                cardFaces.push_back(7);
+                break;
+            case '8':
+                cardFaces.push_back(8);
+                break;
+            case '9':
+                cardFaces.push_back(9);
+                break;
+            case 'X':
+                cardFaces.push_back(10);
+                break;
+            case 'J':
+                cardFaces.push_back(11);
+                break;
+            case 'Q':
+                cardFaces.push_back(12);
+                break;
+            case 'K':
+                cardFaces.push_back(13);
+                break;
+            default:
+                break;
+        }
+    }
+    // need to make it so that card faces enumerate to integer...
+    sort(cardFaces.begin(), cardFaces.end());
+    // iterate through vector and confirm that the values are within 1 of each other
+    
+    
+    return areTheyInRun;
+}
+
+bool Deck::checkIfBook(std::vector<Card*> cardPile){
+    
+    return false;
+}
+
+bool Deck::checkIfOut(std::vector<Card*> cardPile){
+    
+    return false;
+}
 
 void Deck::testDeck(){
     cout << "\tDeck test" << endl;

@@ -42,3 +42,7 @@ void ComputerPlayer::examineOptions(){
     cout << "Computers don't need advice (place holder)" << endl;
     return;
 }
+
+bool ComputerPlayer::checkIfOut(std::vector<Card*> handToCheck){
+    return false;
+}
