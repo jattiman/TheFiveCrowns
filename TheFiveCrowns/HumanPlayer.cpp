@@ -42,7 +42,7 @@ void HumanPlayer::playRound(Deck *deck){
                 userChoice=0;
             }
         }
-        else{
+        else if(userChoice==2){
             // need to check to ensure piles aren't empty
             if(!(deck->transferFromDiscard(deck->getHumanDeck()))){
                 cout << "The discard pile is empty. Try again." << endl;
