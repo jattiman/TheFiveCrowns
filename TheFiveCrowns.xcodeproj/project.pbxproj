@@ -131,7 +131,7 @@
 		4CD68FB823383CB900F930F5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1110;
 				ORGANIZATIONNAME = "John Atti";
 				TargetAttributes = {
 					4CD68FBF23383CB900F930F5 = {
@@ -290,6 +290,7 @@
 		4CD68FC823383CB900F930F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A24YBMX5N9;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -300,6 +301,7 @@
 		4CD68FC923383CB900F930F5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A24YBMX5N9;
 				ENABLE_HARDENED_RUNTIME = YES;
