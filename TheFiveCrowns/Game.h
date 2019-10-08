@@ -27,6 +27,7 @@ public:
     void welcome();
     void beginRound();
     void beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber);
+    void incrementRound();
     // create deck - call round to do this
     // provide round menu - call round to do this
     void testGame();

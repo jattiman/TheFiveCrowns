@@ -49,7 +49,7 @@ void Game::welcome(){
     // Loop until user quits
     while(true){
         cout << "Select your option:" << endl
-        << "\t1. New game" << endl
+        << "\t1. New round" << endl
         << "\t2. Load game"<< endl
         << "\t3. Quit" << endl;
         
@@ -64,6 +64,14 @@ void Game::welcome(){
             //start round with order listed
             
             this->beginRound();
+            // return from round
+            // reset player status to prepare for next round.
+            
+            this->h->setOut(false);
+            this->c->setOut(false);
+            
+            // increment round number in case player wants to progress
+            this->incrementRound();
         }
         
         // If loading game, select game file to load and begin game
@@ -95,10 +103,13 @@ void Game::beginRound(){
 //          more than 2 players.
 void Game::beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber){
     
-    
-    // this is a good of place as any to test game functions
-    //testGame();
+    return;
+}
 
+void Game::incrementRound(){
+    this->roundNumber++;
+    
+    return;
 }
 
 // test function

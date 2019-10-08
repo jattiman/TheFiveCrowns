@@ -108,6 +108,19 @@ void Deck::setRound(int roundInput){
     return;
 }
 
+void Deck::setPlayerHand(std::vector<Card*> playerHand){
+    // make the human pile equivalent to the copy of the playerHand
+    // being passed in
+    this->humanPile.swap(playerHand);
+    return;
+}
+
+void Deck::setComputerHand(std::vector<Card*> computerHand){
+    // swap copy of the computer hand into the computer pile
+    this->computerPile.swap(computerHand);
+    return;
+}
+
 int Deck::getRound(){
     return ourRound;
 }

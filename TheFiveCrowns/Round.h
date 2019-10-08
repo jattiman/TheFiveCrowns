@@ -21,6 +21,7 @@ public:
     ~Round();
     Round(HumanPlayer *h, ComputerPlayer *c);
     Round(HumanPlayer *h, ComputerPlayer *c, int round);
+    Round(HumanPlayer *h, ComputerPlayer *c, Deck *roundDeck, int round);
     int getRoundNumber();
     int getTurn();
     int getTotalPlayers();

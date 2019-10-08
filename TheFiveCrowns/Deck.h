@@ -23,6 +23,10 @@ public:
     void dealDeck();
 
     void setRound(int roundInput);
+    void setPlayerHand(std::vector<Card*> playerHand);
+    void setComputerHand(std::vector<Card*> computerHand);
+    
+    
     int getRound();
     // make this more robust so all decks can be fed in at once
     unsigned long getDeckSize(std::vector<Card*> cardPile);

@@ -44,6 +44,15 @@ Round::Round(HumanPlayer *h, ComputerPlayer *c, int round){
     //this->progressRound();
 }
 
+Round::Round(HumanPlayer *h, ComputerPlayer *c, Deck *roundDeck, int round){
+    // set round number to round specified
+    this->setRoundNumber(round);
+    // move deck to the round
+    this->deck = roundDeck;
+    // set up player objects
+    this->setupPlayers(h,c);
+}
+
 
 void Round::setupPlayers(HumanPlayer *h, ComputerPlayer *c){
     // push back players to vector, for future shuffling
@@ -220,17 +229,6 @@ void Round::progressRound(Player *p){
             cout << "You shouldn't see this." << endl;
             break;
     }
-//    int totalPlayers=this->getTotalPlayers();
-//    int ourTurn=this->getTurn();
-//    do{
-//        cout << "\tTurn is " << ourTurn << endl;
-//        this->getRoundStatus();
-//        this->giveOptions(ourPlayers[this->getTurn() % totalPlayers]);
-//        this->setTurn();
-//        this->deck->printDecks();
-//        // adding in a dummy value here to test player rotation
-//    //}while(!(ourPlayers[this->getTurn() % totalPlayers+1]->getIfOut()));
-//    }while(this->getTurn()<6);
     return;
 }
 
