@@ -32,7 +32,8 @@ void HumanPlayer::playRound(Deck *deck){
     do{
         cout << "Where would you like to draw from?" << endl
         << "\t1. The draw pile" << endl
-        << "\t2. The discard pile" << endl;
+        << "\t2. The discard pile" << endl
+        << "\t3. Ask for advice" << endl;
         cin >> userChoice;
         // transfer the card appropriately
         if(userChoice==1){
@@ -48,6 +49,12 @@ void HumanPlayer::playRound(Deck *deck){
                 cout << "The discard pile is empty. Try again." << endl;
                 userChoice=0;
             }
+        }
+        else if(userChoice==3){
+            cout << "Here's some advice." << endl;
+        }
+        else{
+            cout << "Please enter a valid option." << endl;
         }
     } while(userChoice < 1 || userChoice > 2);
     userChoice=0;
@@ -91,4 +98,21 @@ void HumanPlayer::examineOptions(){
 
 bool HumanPlayer::checkIfOut(std::vector<Card*> handToCheck){
     return false;
+}
+
+bool HumanPlayer::confirmExit(){
+    char quitStatus;
+    do{
+        cout << "Are you sure you want to quit? Progress will be lost. (Y/N)"
+        << endl;
+        cin >> quitStatus;
+        quitStatus=toupper(quitStatus);
+        cout << "\t\tQuit status is: " << quitStatus << endl;
+    }while(quitStatus != 'Y' && quitStatus !='N');
+    if(quitStatus=='Y'){
+        return true;
+    }
+    else{
+        return false;
+    }
 }

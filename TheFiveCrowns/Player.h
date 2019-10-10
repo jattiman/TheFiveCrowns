@@ -48,6 +48,7 @@ public:
     virtual void playRound(Deck *deck)=0;
     virtual void saveGame()=0;
     virtual void examineOptions()=0;
+    virtual bool confirmExit()=0;
     
 private:
     int playerNumber=0;

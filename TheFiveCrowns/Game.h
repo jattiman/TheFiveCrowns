@@ -28,13 +28,14 @@ public:
     void beginRound();
     void beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber);
     void incrementRound();
+    void displayEndStats();
     // create deck - call round to do this
     // provide round menu - call round to do this
     void testGame();
     
     
 private:
-    int roundNumber=1;
+    int roundNumber;
     Round *round;
     // may end up removing vectors...
     //std::vector<Player*> ourPlayers;

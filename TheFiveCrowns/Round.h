@@ -20,8 +20,9 @@ public:
     Round();
     ~Round();
     Round(HumanPlayer *h, ComputerPlayer *c);
-    Round(HumanPlayer *h, ComputerPlayer *c, int round);
-    Round(HumanPlayer *h, ComputerPlayer *c, Deck *roundDeck, int round);
+    Round(HumanPlayer *h, ComputerPlayer *c, int round, int whosTurn = 0);
+    Round(HumanPlayer *h, ComputerPlayer *c, Deck *roundDeck, int round, int whosTurn = 0);
+    Round(std::vector<Player*> thePlayers);
     int getRoundNumber();
     int getTurn();
     int getTotalPlayers();

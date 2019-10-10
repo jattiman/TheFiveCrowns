@@ -27,6 +27,7 @@ Game::Game(){
     //this->round=new Round();
     this->h=new HumanPlayer();
     this->c=new ComputerPlayer();
+    this->setRoundNumber(1);
 }
 
 void Game::setRoundNumber(int newRound){
@@ -47,7 +48,8 @@ void Game::welcome(){
     
     // may need to look into cin.fail for error checking
     // Loop until user quits
-    while(true){
+    while(this->getRoundNumber()<12){
+        // prompt for options
         cout << "Select your option:" << endl
         << "\t1. New round" << endl
         << "\t2. Load game"<< endl
@@ -91,6 +93,7 @@ void Game::welcome(){
         }
         
     }
+    this->displayEndStats();
 }
 
 void Game::beginRound(){
@@ -102,13 +105,41 @@ void Game::beginRound(){
 // To do: transfer the players in as a vector/array/etc to better handle
 //          more than 2 players.
 void Game::beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber){
-    
+    cout << "Starting round " << roundNumber << "." << endl;
+    this->round=new Round(h,c,roundNumber);
+    this->round->startRound();
     return;
 }
 
 void Game::incrementRound(){
     this->roundNumber++;
     
+    return;
+}
+
+void Game::displayEndStats(){
+//    if(this->roundNumber >11){
+        cout << "This game has ended. Final stats:" << endl
+        << "Human Player points: " << this->h->getPoints()
+        << endl
+        << "Computer Player points: " << this->c->getPoints()
+        << endl
+        << "Winner: ";
+        if(this->h->getPoints() < this->c->getPoints()){
+            cout << "Human player."
+            << endl
+            << "Good job!";
+        }
+        else if (this->c->getPoints() < this->h->getPoints()){
+            cout << "Computer player."
+            << endl
+            << "Better luck next time!";
+        }
+        else{
+            cout << "Tie game. Well, that's exciting, isn't it?";
+        }
+        cout << endl;
+//    }
     return;
 }
 

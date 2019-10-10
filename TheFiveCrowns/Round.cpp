@@ -31,26 +31,29 @@ Round::Round(HumanPlayer *h, ComputerPlayer *c){
     this->deck = new Deck(this->getRoundNumber());
     // create player objects
     this->setupPlayers(h,c);
-    //this->progressRound();
 }
 
-Round::Round(HumanPlayer *h, ComputerPlayer *c, int round){
+Round::Round(HumanPlayer *h, ComputerPlayer *c, int round, int whosTurn){
     // set round number to round specified
     this->setRoundNumber(round);
     // create deck with that round
     this->deck = new Deck(this->getRoundNumber());
     // set up player objects
     this->setupPlayers(h,c);
-    //this->progressRound();
+    // set up who goes first
+    nextTurn=whosTurn;
 }
 
-Round::Round(HumanPlayer *h, ComputerPlayer *c, Deck *roundDeck, int round){
+Round::Round(HumanPlayer *h, ComputerPlayer *c, Deck *roundDeck, int round, int whosTurn){
     // set round number to round specified
     this->setRoundNumber(round);
     // move deck to the round
     this->deck = roundDeck;
     // set up player objects
     this->setupPlayers(h,c);
+    // set up who goes first
+    nextTurn=whosTurn;
+
 }
 
 
@@ -207,6 +210,14 @@ void Round::startRound(){
         // this will cause the game to loop through all players once after
         // the first player goes out
     }while(!(this->ourPlayers[ourTurn%totalPlayers]->getIfOut()));
+    for (auto i: ourPlayers){
+        if(i->getHumanity()){
+            i->setPoints(this->deck->countCardPoints(this->deck->getHumanDeck()));
+        }
+        else{
+            i->setPoints(this->deck->countCardPoints(this->deck->getComputerDeck()));
+        }
+    }
     cout << "Round is over. Would you like to progress?" << endl;
     return;
 }
@@ -223,7 +234,9 @@ void Round::progressRound(Player *p){
             p->examineOptions();
             break;
         case 4:
-            p->setOut(true);
+            if(p->confirmExit()){
+                p->setOut(true);
+            }
             break;
         default:
             cout << "You shouldn't see this." << endl;

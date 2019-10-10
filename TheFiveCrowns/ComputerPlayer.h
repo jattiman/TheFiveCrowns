@@ -21,6 +21,7 @@ public:
     void saveGame();
     void examineOptions();
     bool checkIfOut(std::vector<Card*> handToCheck);
+    bool confirmExit();
     
 private:
     //bool isHuman;

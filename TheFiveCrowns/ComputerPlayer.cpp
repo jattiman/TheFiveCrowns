@@ -46,3 +46,7 @@ void ComputerPlayer::examineOptions(){
 bool ComputerPlayer::checkIfOut(std::vector<Card*> handToCheck){
     return false;
 }
+
+bool ComputerPlayer::confirmExit(){
+    return true;
+}
