@@ -105,11 +105,11 @@ void Round::giveComputerStatus(std::vector<Player*> players){
         // if computer, print computer info
         if(!(i->getHumanity())){
             cout << "Computer:" << endl
-            << "\tScore: " << players[1]->getPoints() << endl
-            << "\tHand: " << endl;
-            this->deck->getComputerDeck();
-            cout << endl;
-        }
+                << "\tScore: " << i->getPoints() << endl
+                << "\tHand: ";
+                this->deck->printTheDeck(this->deck->getComputerDeck());
+                cout << endl;
+            }
     }
     return;
     
@@ -120,9 +120,10 @@ void Round::giveHumanStatus(std::vector<Player*> players){
         // if human, print human player info
         if(i->getHumanity()){
             cout << "Human:" << endl
-            << "\tScore: " << players[1]->getPoints() << endl
+            << "\tScore: " << i->getPoints() << endl
             << "\tHand: ";
-            this->deck->getHumanDeck();
+            //this->deck->getHumanDeck();
+            this->deck->printTheDeck(this->deck->getHumanDeck());
             cout << endl;
         }
     }
@@ -138,7 +139,7 @@ void Round::givePlayerStatus(std::vector<Player*> players){
             cout << "Human:" << endl
             << "\tScore: " << i->getPoints() << endl
             << "\tHand: ";
-            this->deck->getHumanDeck();
+            //this->deck->getHumanDeck();
             this->deck->printTheDeck(this->deck->getHumanDeck());
             cout << endl;
         }
