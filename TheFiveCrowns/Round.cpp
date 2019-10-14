@@ -308,6 +308,8 @@ bool Round::loadGame(){
         cout << "File not found." << endl;
         return false;
     }
+    // remember: loading path:
+    // /Users/jatti/Library/Developer/Xcode/DerivedData/TheFiveCrowns-gyhwmffbzuwqphcsgssaygxsygkp/Build/Products/Debug/roundSaveFile.txt
     // regex through the file
     // if round reached
         // read in int
