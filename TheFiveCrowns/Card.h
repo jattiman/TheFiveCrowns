@@ -20,6 +20,7 @@ public:
     Card(std::string cardString, int theRound);
     char getFace();
     char getSuite();
+    std::string getCardString();
     int getPointValue();
     bool getWildStatus();
     int getRoundNumber();

@@ -26,8 +26,9 @@ public:
     
     void welcome();
     void beginRound();
-    void beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber);
-    void beginRound(HumanPlayer *h, ComputerPlayer *c, Deck * savedDeck, int roundNumber);
+//    void beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber);
+    void loadRound();
+//    void beginRound(HumanPlayer *h, ComputerPlayer *c, Deck * savedDeck, int roundNumber);
     void incrementRound();
     void displayEndStats();
     // create deck - call round to do this

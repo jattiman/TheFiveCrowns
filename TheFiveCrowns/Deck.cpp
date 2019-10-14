@@ -48,7 +48,6 @@ Deck::Deck(int roundInput){
 
 void Deck::makeDeck(){
     // populate the deck with cards
-    // bonus: based on round number, make those cards wild cards
 
     // manual assignment start deck
     

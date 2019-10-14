@@ -21,6 +21,7 @@ Card::Card(char face, char suite, int theRound){
     this->setFace(face);
     this->setRoundNumber(theRound);
     this->checkForWild();
+    this->setCardString();
 }
 
 Card::Card(string cardString, int theRound){
@@ -29,6 +30,7 @@ Card::Card(string cardString, int theRound){
     this->setFace(cardString[0]);
     this->setRoundNumber(theRound);
     this->checkForWild();
+    this->setCardString();
 }
 
 char Card::getFace(){
@@ -37,6 +39,9 @@ char Card::getFace(){
 
 char Card::getSuite(){
     return suite;
+}
+string Card::getCardString(){
+    return cardString;
 }
 int Card::getPointValue(){
     return pointValue;

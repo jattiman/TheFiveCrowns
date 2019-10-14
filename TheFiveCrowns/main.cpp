@@ -33,7 +33,10 @@ int main(int argc, const char * argv[]) {
 //    cout << "Computer: ";
 //    ourDeck.printTheDeck(ourDeck.getComputerDeck());
 //    ourDeck.testDeck();
+//    Card newCard("3H",1);
+//    cout << "Getting card string: " << endl;
+//    cout << newCard.getCardString();
 
-//    cout << "Back in main, now." << endl;   // debug
+    cout << "Back in main, now." << endl;   // debug
     return 0;
 }

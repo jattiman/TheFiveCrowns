@@ -21,7 +21,6 @@ public:
     ~Round();
     Round(HumanPlayer *h, ComputerPlayer *c);
     Round(HumanPlayer *h, ComputerPlayer *c, int round, int whosTurn = 0);
-    Round(HumanPlayer *h, ComputerPlayer *c, Deck *roundDeck, int round, int whosTurn = 0);
     Round(std::vector<Player*> thePlayers);
     int getRoundNumber();
     int getTurn();
@@ -44,6 +43,7 @@ public:
     void startRound();
     void progressRound(Player *p);
     bool saveGame();
+    bool loadGame();
     
     // for debugging only
     void roundTest();

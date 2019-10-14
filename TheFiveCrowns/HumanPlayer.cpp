@@ -59,7 +59,7 @@ void HumanPlayer::playRound(Deck *deck){
     } while(userChoice < 1 || userChoice > 2);
     userChoice=0;
     do{
-        cout << "Pick a card to discard." << endl;
+        cout << "Enter the card you want to discard, or press 'A' for advice" << endl;
         deck->printTheDeck(deck->getHumanDeck());
         cin>>userChoice;
 //        cout << "choice: " << userChoice << endl << "deck size: " << deck->getHumanDeck().size() << endl;

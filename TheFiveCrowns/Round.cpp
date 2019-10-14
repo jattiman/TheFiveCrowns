@@ -30,14 +30,15 @@ Round::~Round(){
 }
 
 Round::Round(HumanPlayer *h, ComputerPlayer *c){
+    // constructor to be called when loading a game
     // set round number to 1 if none specified
-    this->setRoundNumber(1);
+//    this->setRoundNumber(1);
     // create the deck with this round number
-    this->deck = new Deck(this->getRoundNumber());
+//    this->deck = new Deck(this->getRoundNumber());
     // create player objects
     this->setupPlayers(h,c);
     // set up who goes first (default)
-    this->setTurn(0);
+//    this->setTurn(0);
 }
 
 Round::Round(HumanPlayer *h, ComputerPlayer *c, int round, int whosTurn){
@@ -50,18 +51,6 @@ Round::Round(HumanPlayer *h, ComputerPlayer *c, int round, int whosTurn){
     // set up who goes first
     this->setTurn(whosTurn);
 }
-
-Round::Round(HumanPlayer *h, ComputerPlayer *c, Deck *roundDeck, int round, int whosTurn){
-    // set round number to round specified
-    this->setRoundNumber(round);
-    // move deck to the round
-    this->deck = roundDeck;
-    // set up player objects
-    this->setupPlayers(h,c);
-    // set up who goes first
-    this->setTurn(whosTurn);
-}
-
 
 void Round::setupPlayers(HumanPlayer *h, ComputerPlayer *c){
     // push back players to vector, for future shuffling
@@ -235,7 +224,12 @@ void Round::progressRound(Player *p){
         switch (giveOptions(p)) {
             case 1:
                 //p->saveGame();
-                this->saveGame();
+                if(this->saveGame()){
+                    cout << "File saved." << endl;
+                }
+                else{
+                    cout << "File could not be saved. Sorry, the game is broken." << endl;
+                }
                 continue;
             case 2:
                 p->playRound(this->deck);
@@ -293,13 +287,53 @@ bool Round::saveGame(){
     roundSaveFile << deck->deckToString(deck->getDiscardPile());
     roundSaveFile << endl << endl;
     roundSaveFile << "Next Player: ";
-    // display who is going NEXT
+    // write which player is CURRENTLY going, so the file knows who to select
     if(this->getTurn()%this->totalPlayers==0){
-        roundSaveFile << "Computer";
-    }
-    else{
         roundSaveFile << "Human";
     }
+    else{
+        roundSaveFile << "Computer";
+    }
+    return true;
+}
+
+bool Round::loadGame(){
+    string userFilePath;
+    ifstream loadedFile;
+    cout << "Copy your save game file path here: ";
+    cin.clear();
+    getline(cin,userFilePath);
+    loadedFile.open(userFilePath.c_str());
+    if(!loadedFile){
+        cout << "File not found." << endl;
+        return false;
+    }
+    // regex through the file
+    // if round reached
+        // read in int
+        // confirm int is > 0 and < 12
+        // set round number based on that
+    this->setRoundNumber(10);
+    this->deck = new Deck(this->getRoundNumber());
+    // search to see if "computer" reached
+        // if no "Computer:" return false
+    // search if "score" reached
+        // if no "Score:" return false
+    this->ourPlayers[1]->setPoints(10);
+        // else update computer score
+    // search if "hand" reached
+        // if next entry is 2 characters long
+        // if entry
+        // TRY update each hand string to new vector
+        // if invalid hand, display error and return false
+    // if "human" reached
+    // if "score" reached
+    this->ourPlayers[0]->setPoints(1);
+    // if "hand" reached
+    
+    this->setTurn(1);
+    cout << "Game loaded. Starting round." << endl;
+    this->startRound();
     return true;
 }
 

@@ -79,7 +79,13 @@ void Game::welcome(){
         // If loading game, select game file to load and begin game
         else if(userOption==2){
             cout << "Loading game from file ... " << endl;
-            break;
+            this->loadRound();
+            this->h->setOut(false);
+            this->c->setOut(false);
+            
+            // increment round number in case player wants to progress
+            this->incrementRound();
+            //break;
         }
 
         // If quit, exit
@@ -104,19 +110,25 @@ void Game::beginRound(){
 
 // To do: transfer the players in as a vector/array/etc to better handle
 //          more than 2 players.
-void Game::beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber){
-    cout << "Starting round " << roundNumber << "." << endl;
-    this->round=new Round(h,c,roundNumber);
-    this->round->startRound();
+//void Game::beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber){
+//    cout << "Starting round " << roundNumber << "." << endl;
+//    this->round=new Round(h,c,roundNumber);
+//    this->round->startRound();
+//    return;
+//}
+
+void Game::loadRound(){
+    this->round = new Round(h,c);
+    this->round->loadGame();
     return;
 }
 
-void Game::beginRound(HumanPlayer *h, ComputerPlayer *c, Deck * savedDeck, int roundNumber){
-    cout << "Starting round " << roundNumber << "." << endl;
-    this->round=new Round(h,c,savedDeck, roundNumber);
-    this->round->startRound();
-    return;
-}
+//void Game::beginRound(HumanPlayer *h, ComputerPlayer *c, Deck * savedDeck, int roundNumber){
+//    cout << "Starting round " << roundNumber << "." << endl;
+//    this->round=new Round(h,c,savedDeck, roundNumber);
+//    this->round->startRound();
+//    return;
+//}
 
 void Game::incrementRound(){
     this->roundNumber++;
