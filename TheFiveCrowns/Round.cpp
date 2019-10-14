@@ -8,7 +8,11 @@
  */
 
 #include "Round.h"
+
+//For printing statements to screen
 #include <iostream>
+//For file read/write
+#include <fstream>
 
 using namespace std;
 
@@ -17,6 +21,7 @@ Round::Round(){
     this->setRoundNumber(1);
     // create the deck with the default round number
     this->deck = new Deck(this->getRoundNumber());
+    this->setTurn(0);
 }
 
 Round::~Round(){
@@ -31,6 +36,8 @@ Round::Round(HumanPlayer *h, ComputerPlayer *c){
     this->deck = new Deck(this->getRoundNumber());
     // create player objects
     this->setupPlayers(h,c);
+    // set up who goes first (default)
+    this->setTurn(0);
 }
 
 Round::Round(HumanPlayer *h, ComputerPlayer *c, int round, int whosTurn){
@@ -41,7 +48,7 @@ Round::Round(HumanPlayer *h, ComputerPlayer *c, int round, int whosTurn){
     // set up player objects
     this->setupPlayers(h,c);
     // set up who goes first
-    nextTurn=whosTurn;
+    this->setTurn(whosTurn);
 }
 
 Round::Round(HumanPlayer *h, ComputerPlayer *c, Deck *roundDeck, int round, int whosTurn){
@@ -52,8 +59,7 @@ Round::Round(HumanPlayer *h, ComputerPlayer *c, Deck *roundDeck, int round, int 
     // set up player objects
     this->setupPlayers(h,c);
     // set up who goes first
-    nextTurn=whosTurn;
-
+    this->setTurn(whosTurn);
 }
 
 
@@ -206,6 +212,7 @@ void Round::startRound(){
         // begin the round progression, one player at a time
         progressRound(this->ourPlayers[ourTurn%totalPlayers]);
         ourTurn++;
+        this->setTurn();
         
         // while the NEXT player is still not out, keep going
         // this will cause the game to loop through all players once after
@@ -227,7 +234,8 @@ void Round::progressRound(Player *p){
     while(true){
         switch (giveOptions(p)) {
             case 1:
-                p->saveGame();
+                //p->saveGame();
+                this->saveGame();
                 continue;
             case 2:
                 p->playRound(this->deck);
@@ -247,6 +255,52 @@ void Round::progressRound(Player *p){
         break;
     }
     return;
+}
+
+bool Round::saveGame(){
+    
+    ofstream roundSaveFile("roundSaveFile.txt");
+    //roundSaveFile.open("roundSaveFile.txt");
+    if(!roundSaveFile){
+        cout << "Error opening file." << endl;
+        return false;
+    }
+    cout << "Writing information to file ..." << endl;
+    roundSaveFile << "Round: " << this->roundNumber;
+    roundSaveFile << endl << endl;
+    roundSaveFile << "Computer: ";
+    roundSaveFile << endl;
+    roundSaveFile << "\tScore: ";
+    this->ourPlayers[1]->setPoints(1);
+    roundSaveFile << ourPlayers[1]->getPoints();
+    roundSaveFile << endl;
+    roundSaveFile << "\tHand: ";
+    roundSaveFile << deck->deckToString(deck->getComputerDeck());
+    roundSaveFile << endl << endl;
+    roundSaveFile << "Human: ";
+    roundSaveFile << endl;
+    roundSaveFile << "\tScore: ";
+    this->ourPlayers[0]->setPoints(5);
+    roundSaveFile << ourPlayers[0]->getPoints();
+    roundSaveFile << endl;
+    roundSaveFile << "\tHand: ";
+    roundSaveFile << deck->deckToString(deck->getHumanDeck());
+    roundSaveFile << endl << endl;
+    roundSaveFile << "Draw Pile: ";
+    roundSaveFile << deck->deckToString(deck->getDrawPile());
+    roundSaveFile << endl << endl;
+    roundSaveFile << "Discard Pile: ";
+    roundSaveFile << deck->deckToString(deck->getDiscardPile());
+    roundSaveFile << endl << endl;
+    roundSaveFile << "Next Player: ";
+    // display who is going NEXT
+    if(this->getTurn()%this->totalPlayers==0){
+        roundSaveFile << "Computer";
+    }
+    else{
+        roundSaveFile << "Human";
+    }
+    return true;
 }
 
 void Round::roundTest(){

@@ -66,6 +66,13 @@ void Card::setSuite(char newSuite){
     this->suite=newSuite;
     return;
 }
+
+void Card::setCardString(){
+    this->cardString+=this->getFace();
+    this->cardString+=this->getSuite();
+    return;
+}
+
 void Card::setPointValue(int newPoints){
     //cout << "Setting point value to " << newPoints << endl;
     this->pointValue=newPoints;

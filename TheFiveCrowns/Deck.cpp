@@ -360,6 +360,18 @@ bool Deck::checkIfOut(std::vector<Card*> cardPile){
     return false;
 }
 
+string Deck::deckToString(std::vector<Card *> cardPile){
+    string deckString;
+    for(const auto &i: cardPile){
+        //cout << i->getFace() << i->getSuite() << " ";
+        deckString += i->getFace();
+        deckString += i->getSuite();
+        deckString += " ";
+    }
+    cout << endl;
+    return deckString;
+}
+
 void Deck::testDeck(){
     cout << "\tDeck test" << endl;
     //this->transferCard(this->getMainPile(), this->getHumanDeck());

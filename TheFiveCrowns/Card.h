@@ -28,12 +28,14 @@ public:
     void setRoundNumber(int newRoundNumber);
     void setFace(char newFace);
     void setSuite(char newSuite);
+    void setCardString();
     void setPointValue(int newPoints);
     void setPointValue();
     void setWildStatus(bool newStatus);
     void setBookStatus(bool newStatus);
     void setRunStatus(bool newStatus);
     void checkForWild();
+    
     
 private:
     char face;
@@ -44,7 +46,7 @@ private:
     bool isJoker;
     bool isInBook=false;
     bool isInRun=false;
-    
+    std::string cardString;
     
 };
 

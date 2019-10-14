@@ -111,6 +111,13 @@ void Game::beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber){
     return;
 }
 
+void Game::beginRound(HumanPlayer *h, ComputerPlayer *c, Deck * savedDeck, int roundNumber){
+    cout << "Starting round " << roundNumber << "." << endl;
+    this->round=new Round(h,c,savedDeck, roundNumber);
+    this->round->startRound();
+    return;
+}
+
 void Game::incrementRound(){
     this->roundNumber++;
     

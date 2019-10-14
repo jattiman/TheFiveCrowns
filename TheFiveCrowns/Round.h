@@ -43,6 +43,7 @@ public:
     
     void startRound();
     void progressRound(Player *p);
+    bool saveGame();
     
     // for debugging only
     void roundTest();
@@ -52,7 +53,7 @@ private:
     //HumanPlayer *human;
     //ComputerPlayer *computer;
     int roundNumber;
-    int nextTurn=1;
+    int nextTurn;
     int totalPlayers;
     std::vector<Player*> ourPlayers;
 };

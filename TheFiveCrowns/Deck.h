@@ -66,6 +66,7 @@ public:
     bool checkIfBook(std::vector<Card*> cardPile);
     bool checkIfOut(std::vector<Card*> cardPile);
     
+    std::string deckToString(std::vector<Card*> cardPile);
     
     void testDeck(); // for debug only - delete before submission
     
