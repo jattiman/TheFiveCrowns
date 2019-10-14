@@ -224,24 +224,27 @@ void Round::startRound(){
 }
 
 void Round::progressRound(Player *p){
-    switch (giveOptions(p)) {
-        case 1:
-            p->saveGame();
-            break;
-        case 2:
-            p->playRound(this->deck);
-            break;
-        case 3:
-            p->examineOptions();
-            break;
-        case 4:
-            if(p->confirmExit()){
-                p->setOut(true);
-            }
-            break;
-        default:
-            cout << "You shouldn't see this." << endl;
-            break;
+    while(true){
+        switch (giveOptions(p)) {
+            case 1:
+                p->saveGame();
+                continue;
+            case 2:
+                p->playRound(this->deck);
+                break;
+            case 3:
+                p->examineOptions();
+                continue;
+            case 4:
+                if(p->confirmExit()){
+                    p->setOut(true);
+                }
+                break;
+            default:
+                cout << "You shouldn't see this." << endl;
+                continue;
+        }
+        break;
     }
     return;
 }
