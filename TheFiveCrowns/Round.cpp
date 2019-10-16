@@ -13,9 +13,11 @@
 #include <iostream>
 //For file read/write
 #include <fstream>
+#include <sstream>
 // for loading files based on folder contents
 #include <sys/types.h>
 #include <dirent.h>
+
 
 using namespace std;
 
@@ -302,6 +304,7 @@ bool Round::saveGame(){
 
 bool Round::loadGame(){
     string userFilePath;
+    string fileLine;
     ifstream loadedFile;
     vector<string> ourFiles;
     int fileCount=0;
@@ -324,12 +327,10 @@ bool Round::loadGame(){
         
     }
     if(userChoice==2){
-//        cout << "Loading current save." << endl;
-//    userFilePath="/Users/jatti/Library/Developer/Xcode/DerivedData/TheFiveCrowns-gyhwmffbzuwqphcsgssaygxsygkp/Build/Products/Debug/roundSaveFile.txt";
-        //cout << endl << "File path shows as: " << userFilePath << endl;
         cout << "Select file from below: " << endl;
         
-        // declare and open directory for files
+        // help for this function is from here: https://stackoverflow.com/questions/12976733/how-can-i-get-only-txt-files-from-directory-in-c
+        // declare and open directory for files (game defined)
         DIR* ourDirectory = opendir("/Users/jatti/Library/Developer/Xcode/DerivedData/TheFiveCrowns-gyhwmffbzuwqphcsgssaygxsygkp/Build/Products/Debug/");
         // declare directory iteration info
         struct dirent * dp;
@@ -341,7 +342,10 @@ bool Round::loadGame(){
                 ourFiles.push_back(dp->d_name);
             }
         }
+        // close the directory
         closedir(ourDirectory);
+        
+        // prompt user to select from file list
         do{
             for(auto i: ourFiles){
                 fileCount++;
@@ -351,7 +355,7 @@ bool Round::loadGame(){
             cin >> userChoice;
         }while(userChoice < 1 || userChoice > ourFiles.size());
         userChoice--;
-        
+        userFilePath+=ourFiles[userChoice];
     }
     
     loadedFile.open(userFilePath.c_str());
@@ -359,8 +363,15 @@ bool Round::loadGame(){
         cout << "File not found." << endl;
         return false;
     }
-    // remember: loading path:
-    // /Users/jatti/Library/Developer/Xcode/DerivedData/TheFiveCrowns-gyhwmffbzuwqphcsgssaygxsygkp/Build/Products/Debug/roundSaveFile.txt
+    int debugCount=0;
+    while(getline(loadedFile,fileLine)){
+        istringstream fileStream(fileLine);
+        cout << debugCount << ": " << fileLine << endl;
+        debugCount++;
+    }
+    cout << "Check file \n";
+    cin.ignore();
+    cin.get();
     // regex through the file
     // if round reached
         // read in int
@@ -384,7 +395,10 @@ bool Round::loadGame(){
     this->ourPlayers[0]->setPoints(1);
     // if "hand" reached
     
-    this->setTurn(1);
+    this->setTurn(0);
+    
+    //close the file and start the round
+    loadedFile.close();
     cout << "Game loaded. Starting round." << endl;
     this->startRound();
     return true;
