@@ -37,6 +37,6 @@ int main(int argc, const char * argv[]) {
 //    cout << "Getting card string: " << endl;
 //    cout << newCard.getCardString();
 
-    cout << "Back in main, now." << endl;   // debug
+//    cout << "Back in main, now." << endl;   // debug
     return 0;
 }

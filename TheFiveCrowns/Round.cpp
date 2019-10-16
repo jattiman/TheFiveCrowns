@@ -13,6 +13,9 @@
 #include <iostream>
 //For file read/write
 #include <fstream>
+// for loading files based on folder contents
+#include <sys/types.h>
+#include <dirent.h>
 
 using namespace std;
 
@@ -300,9 +303,57 @@ bool Round::saveGame(){
 bool Round::loadGame(){
     string userFilePath;
     ifstream loadedFile;
-    cout << "Copy your save game file path here: ";
-    cin.clear();
-    getline(cin,userFilePath);
+    vector<string> ourFiles;
+    int fileCount=0;
+    int userChoice=0;
+    
+    do{
+        cout << "Would you like to load a specific file, or select from the directory?" << endl
+            << "1. Load from new file." << endl
+            << "2. Load from current save." << endl;
+        cin >> userChoice;
+    }while(userChoice !=1 && userChoice !=2);
+    
+    if(userChoice==1){
+        cout << "Place your save game file path here: ";
+        
+        cin.clear();
+        cin.ignore();
+        getline(cin,userFilePath);
+        //cout << endl << "File path shows as: " << userFilePath << endl;
+        
+    }
+    if(userChoice==2){
+//        cout << "Loading current save." << endl;
+//    userFilePath="/Users/jatti/Library/Developer/Xcode/DerivedData/TheFiveCrowns-gyhwmffbzuwqphcsgssaygxsygkp/Build/Products/Debug/roundSaveFile.txt";
+        //cout << endl << "File path shows as: " << userFilePath << endl;
+        cout << "Select file from below: " << endl;
+        
+        // declare and open directory for files
+        DIR* ourDirectory = opendir("/Users/jatti/Library/Developer/Xcode/DerivedData/TheFiveCrowns-gyhwmffbzuwqphcsgssaygxsygkp/Build/Products/Debug/");
+        // declare directory iteration info
+        struct dirent * dp;
+        // while the directory isn't empty
+        while ((dp = readdir(ourDirectory)) != NULL) {
+            // if the file is a .txt, push to vector
+            size_t fileLength = strlen(dp->d_name);
+            if(fileLength > 4 && strcmp((dp->d_name + fileLength - 4), ".txt")==0){
+                ourFiles.push_back(dp->d_name);
+            }
+        }
+        closedir(ourDirectory);
+        do{
+            for(auto i: ourFiles){
+                fileCount++;
+                cout << fileCount << ": " << i << endl;
+            }
+            fileCount=0;
+            cin >> userChoice;
+        }while(userChoice < 1 || userChoice > ourFiles.size());
+        userChoice--;
+        
+    }
+    
     loadedFile.open(userFilePath.c_str());
     if(!loadedFile){
         cout << "File not found." << endl;
