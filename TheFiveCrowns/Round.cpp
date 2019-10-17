@@ -14,6 +14,7 @@
 //For file read/write
 #include <fstream>
 #include <sstream>
+#include <regex>
 // for loading files based on folder contents
 #include <sys/types.h>
 #include <dirent.h>
@@ -303,13 +304,33 @@ bool Round::saveGame(){
 }
 
 bool Round::loadGame(){
+    // hold the save game file path selection
     string userFilePath;
+    // variable for each line in the file
     string fileLine;
+    // for opening and closing of file
     ifstream loadedFile;
+    // for listing files in the directory
     vector<string> ourFiles;
+    // set up regex search variables for file navigation
+    smatch matches;
+    // to search for cards listed after hands/piles
+    regex hand ("\\b(Hand:([^ ]*))");
+    regex cards ("[^ ][123456789XQKJ][1234CHTSD][^ ]");
+    // to search for the full round number
+    regex roundNumber ("\\b(Round:([^ ])?)");
+    // to search for full player score
+    regex playerScore ("\\b(Score:([^ ]?))");
+    // to confirm the next player
+    regex nextPlayer ("\\b(Next Player:[^ ]?)");
+    
+    // for confirming numerical order of files in the directory
     int fileCount=0;
+    
+    // holds user choice for file loading prompt
     int userChoice=0;
     
+    // ask user if they want to drop in a specific file or pick from the directory
     do{
         cout << "Would you like to load a specific file, or select from the directory?" << endl
             << "1. Load from new file." << endl
@@ -317,6 +338,7 @@ bool Round::loadGame(){
         cin >> userChoice;
     }while(userChoice !=1 && userChoice !=2);
     
+    // if the user wants to drop a file, let them drop the full path
     if(userChoice==1){
         cout << "Place your save game file path here: ";
         
@@ -326,11 +348,13 @@ bool Round::loadGame(){
         //cout << endl << "File path shows as: " << userFilePath << endl;
         
     }
+    // if the user wants to select from the directory, display .txt files present
     if(userChoice==2){
-        cout << "Select file from below: " << endl;
-        
         // help for this function is from here: https://stackoverflow.com/questions/12976733/how-can-i-get-only-txt-files-from-directory-in-c
+        
         // declare and open directory for files (game defined)
+        // note: chosen file name will be appended to the end of this
+        //       directory
         DIR* ourDirectory = opendir("/Users/jatti/Library/Developer/Xcode/DerivedData/TheFiveCrowns-gyhwmffbzuwqphcsgssaygxsygkp/Build/Products/Debug/");
         // declare directory iteration info
         struct dirent * dp;
@@ -347,33 +371,54 @@ bool Round::loadGame(){
         
         // prompt user to select from file list
         do{
+            cout << "Select file from below: " << endl;
+            // iterate through list, and display with corresponding file count #
             for(auto i: ourFiles){
                 fileCount++;
                 cout << fileCount << ": " << i << endl;
             }
+            // reset the file count number in case loop is repeated
             fileCount=0;
+            // take in user choice and confirm it's valid
             cin >> userChoice;
         }while(userChoice < 1 || userChoice > ourFiles.size());
+        // decrement choice for vector access
         userChoice--;
+        // add specific file name to path
         userFilePath+=ourFiles[userChoice];
     }
-    
+    // attempt to open the file
     loadedFile.open(userFilePath.c_str());
+    // if error, display the error and let user try again from
     if(!loadedFile){
         cout << "File not found." << endl;
         return false;
     }
-    int debugCount=0;
+    // if no error, iterate through the file and pull variables
+    
+//    int debugCount=0;
+    // iterate through each line of the file
+//    size_t found;
+    vector<string> fileStrings;
     while(getline(loadedFile,fileLine)){
         istringstream fileStream(fileLine);
-        cout << debugCount << ": " << fileLine << endl;
-        debugCount++;
+//        cout << debugCount << ": " << fileLine << endl;
+//        debugCount++;
+        if(fileLine.length()>0){
+            fileStrings.push_back(fileLine);
+        }
+        
     }
     cout << "Check file \n";
+    for (auto i: fileStrings){
+        cout << i << endl;
+    }
+    cout << "File checked." << endl;
     cin.ignore();
     cin.get();
     // regex through the file
     // if round reached
+    
         // read in int
         // confirm int is > 0 and < 12
         // set round number based on that
