@@ -225,36 +225,51 @@ void Round::startRound(){
     return;
 }
 
-void Round::progressRound(Player *p){
+int Round::progressRound(Player *p){
     while(true){
         switch (giveOptions(p)) {
             case 1:
-                //p->saveGame();
+                // attempt to save the game
                 if(this->saveGame()){
                     cout << "File saved." << endl;
                 }
+                // if error encountered, display issue
+                // (This shouldn't happen)
                 else{
                     cout << "File could not be saved. Sorry, the game is broken." << endl;
                 }
                 continue;
             case 2:
+                // have the player begin their move
                 p->playRound(this->deck);
+                // cycle to next player
                 break;
             case 3:
+                // give advice
                 p->examineOptions();
+                // prompt player for action
                 continue;
             case 4:
+                // if the player confirms they want to quit
                 if(p->confirmExit()){
                     p->setOut(true);
+                    // send signal to hard-quit the game (no save)
+                    return 4;
+                }
+                // if the player changes their mind
+                else{
+                    // prompt them again
+                    continue;
                 }
                 break;
             default:
+                // really hope this doesn't print during the demo!
                 cout << "You shouldn't see this." << endl;
                 continue;
         }
         break;
     }
-    return;
+    return 0;
 }
 
 bool Round::saveGame(){
@@ -290,7 +305,6 @@ bool Round::saveGame(){
     roundSaveFile << deck->deckToString(deck->getDrawPile());
     roundSaveFile << endl << endl;
     roundSaveFile << "Discard Pile: ";
-    //roundSaveFile << deck->deckToString(deck->getDiscardPile());
     roundSaveFile << deck->discardPileString(deck->getDiscardPile());
     roundSaveFile << endl << endl;
     roundSaveFile << "Next Player: ";
@@ -302,6 +316,45 @@ bool Round::saveGame(){
         roundSaveFile << "Computer";
     }
     return true;
+}
+
+bool Round::loadNums(std::string passedNums, char numChoice){
+    // create variables to parse the string
+    string numString=passedNums;
+    // create variable to hold the point/round value
+    int ourNumber=0;
+    // create variable to ensure extra numbers aren't present on the line
+    int numCheck=0;
+    smatch matches;
+    regex numberFinder("[\\d]{1,}");
+    while(regex_search(numString, matches, numberFinder)){
+        for(auto i:matches){
+            //cout << " " << i << " ";
+            ourNumber=stoi(i);
+            numString=matches.suffix().str();
+            numCheck++;
+        }
+    }
+    if(numCheck>1){
+        cout << "numCheck is: " << numCheck << endl;
+        cout << "Too many numbers - invalid" << endl;
+        return false;
+    }
+    if(numChoice=='r'){
+        this->setRoundNumber(ourNumber);
+        return true;
+    }
+    if(numChoice=='h'){
+        //cout << "human points: " << ourNumber << endl;
+        this->ourPlayers[0]->setPoints(ourNumber);
+        return true;
+    }
+    if(numChoice=='c'){
+        //cout << "computer points: " << ourNumber << endl;
+        this->ourPlayers[1]->setPoints(ourNumber);
+        return true;
+    }
+    return false;
 }
 
 bool Round::loadCards(std::string passedHand, char deckChoice){
@@ -338,9 +391,9 @@ bool Round::loadCards(std::string passedHand, char deckChoice){
         return true;
     }
     if(deckChoice=='d'){
-        cout << "Assigning Discard: ";
+        //cout << "Assigning Discard: ";
         this->deck->setDiscardPile(cardValues);
-        this->deck->displayDiscardTop();
+        //this->deck->displayDiscardTop();
         return true;
     }
     
@@ -374,27 +427,33 @@ bool Round::loadFileStats(std::vector<std::string> passedHand){
         return false;
     }
     
-    this->setRoundNumber(10);
-    this->deck = new Deck(this->getRoundNumber());
-    this->ourPlayers[1]->setPoints(10);
-    this->ourPlayers[0]->setPoints(1);
-    this->setTurn(0);
-    
     // set round number
-    cout << "Round: " << passedHand[0] << endl;
-    cout << "Computer score: " << passedHand[2] << endl;
+    this->loadNums(passedHand[0],'r');
+    // create placeholder deck based on round values
+    this->deck = new Deck(this->getRoundNumber());
+    
+    // load computer score
+    this->loadNums(passedHand[2],'c');
     
     //load computer hand
     this->loadCards(passedHand[3],'c');
     
-    cout << "Human score: " << passedHand[5] << endl;
+    //load human score
+    this->loadNums(passedHand[5],'h');
+    
     // load human hand
     this->loadCards(passedHand[6],'h');
+    
     // load draw pile
     this->loadCards(passedHand[7],'D');
-    cout << "\t\tDiscard Pile: ";
+    
+    // load discard pile
     this->loadCards(passedHand[8],'d');
+    
+    
     cout << "Player up: " << passedHand[9] << endl;
+    this->setTurn(0);
+    
     cin.ignore();
     cin.get();
     return true;

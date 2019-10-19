@@ -413,18 +413,12 @@ string Deck::deckToString(std::vector<Card *> cardPile){
 
 string Deck::discardPileString(std::vector<Card *> cardPile){
     string deckString;
-    //for(const auto &i: cardPile){
-//    for(std::vector<string>::reverse_iterator i=discardHand.rbegin(); i!=discardHand.rend();++i){
-//        tempHand.push_back(new Card(*i,this->getRound()));
-//    }
     for(const auto &i: cardPile){
-        //cout << i->getFace() << i->getSuite() << " ";
         // add cards in reverse order (we'll reverse the string later)
         deckString += " ";
         deckString += i->getSuite();
         deckString += i->getFace();
     }
-    //cout << endl;
     // reverse the string
     reverse(deckString.begin(),deckString.end());
     return deckString;

@@ -41,12 +41,13 @@ public:
     
     
     void startRound();
-    void progressRound(Player *p);
+    int progressRound(Player *p);
     // save game function
     bool saveGame();
     
     // load game functions
     bool promptFileSelection();
+    bool loadNums(std::string passedNums, char numChoice);
     bool loadCards(std::string passedHand, char deckChoice);
     bool loadFileStats(std::vector<std::string> passedHand);
     bool loadGame();
