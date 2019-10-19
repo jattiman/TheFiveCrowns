@@ -290,7 +290,8 @@ bool Round::saveGame(){
     roundSaveFile << deck->deckToString(deck->getDrawPile());
     roundSaveFile << endl << endl;
     roundSaveFile << "Discard Pile: ";
-    roundSaveFile << deck->deckToString(deck->getDiscardPile());
+    //roundSaveFile << deck->deckToString(deck->getDiscardPile());
+    roundSaveFile << deck->discardPileString(deck->getDiscardPile());
     roundSaveFile << endl << endl;
     roundSaveFile << "Next Player: ";
     // write which player is CURRENTLY going, so the file knows who to select
@@ -303,9 +304,12 @@ bool Round::saveGame(){
     return true;
 }
 
-bool Round::loadCards(std::string passedHand, char player){
+bool Round::loadCards(std::string passedHand, char deckChoice){
+    // create variables to parse the string
     string cardString=passedHand;
+    // create a vector to hold card face strings
     vector<string> cardValues;
+    // create a regex match system that ensures only cards in the right format will be accepted
     smatch matches;
     regex cards("([123456789XQKJ][1234CHTSD])");
     sregex_iterator cardIterator(cardString.begin(), cardString.end(), cards);
@@ -315,19 +319,32 @@ bool Round::loadCards(std::string passedHand, char player){
         cardValues.push_back(matches.str());
         cardIterator++;
     }
-    if(player=='h'){
+    if(deckChoice=='h'){
+        //cout << "Assigning Human Deck: ";
         this->deck->setPlayerHand(cardValues);
-        cout << "Printing card values: ";
-        this->deck->printTheDeck(this->deck->getHumanDeck());
+        //this->deck->printTheDeck(this->deck->getHumanDeck());
         return true;
     }
-    if(player=='c'){
+    if(deckChoice=='c'){
+        //cout << "Assigning Computer Deck: ";
         this->deck->setComputerHand(cardValues);
-        cout << "Printing card values: ";
-        this->deck->printTheDeck(this->deck->getComputerDeck());
+        //this->deck->printTheDeck(this->deck->getComputerDeck());
         return true;
     }
-    return true;
+    if(deckChoice=='D'){
+        //cout << "Assigning Draw Deck: ";
+        this->deck->setDrawPile(cardValues);
+        //this->deck->printTheDeck(this->deck->getDrawPile());
+        return true;
+    }
+    if(deckChoice=='d'){
+        cout << "Assigning Discard: ";
+        this->deck->setDiscardPile(cardValues);
+        this->deck->displayDiscardTop();
+        return true;
+    }
+    
+    return false;
 }
 
 bool Round::loadFileStats(std::vector<std::string> passedHand){
@@ -352,23 +369,31 @@ bool Round::loadFileStats(std::vector<std::string> passedHand){
     string humanHand;
     string computerHand;
     
-    
     if(!(passedHand.size()==10)){
         cout << "Save file incomplete." << endl;
         return false;
     }
+    
+    this->setRoundNumber(10);
+    this->deck = new Deck(this->getRoundNumber());
+    this->ourPlayers[1]->setPoints(10);
+    this->ourPlayers[0]->setPoints(1);
+    this->setTurn(0);
+    
+    // set round number
     cout << "Round: " << passedHand[0] << endl;
     cout << "Computer score: " << passedHand[2] << endl;
     
-    cout << "\t\tComputer hand: ";// << passedHand[3] << endl;
+    //load computer hand
     this->loadCards(passedHand[3],'c');
     
-    
     cout << "Human score: " << passedHand[5] << endl;
-    cout << "\t\tHuman hand: " << passedHand[6] << endl;
+    // load human hand
     this->loadCards(passedHand[6],'h');
-    cout << "Draw Pile: " << passedHand[7] << endl;
-    cout << "Discard Pile: " << passedHand[8] << endl;
+    // load draw pile
+    this->loadCards(passedHand[7],'D');
+    cout << "\t\tDiscard Pile: ";
+    this->loadCards(passedHand[8],'d');
     cout << "Player up: " << passedHand[9] << endl;
     cin.ignore();
     cin.get();
@@ -459,41 +484,23 @@ bool Round::loadGame(){
     // if no error, iterate through the file and pull variables
     
     // iterate through each line of the file
+    //regex validLine("[:]");
     vector<string> fileStrings;
     while(getline(loadedFile,fileLine)){
         istringstream fileStream(fileLine);
-        if(fileLine.length()>0){
+        // confirm we only read in lines with data
+        if(fileLine.find(':')!=std::string::npos){
             fileStrings.push_back(fileLine);
         }
         
     }
-    
-    // regex through the file
-    // if round reached
-    
-        // read in int
-        // confirm int is > 0 and < 12
-        // set round number based on that
-    this->setRoundNumber(10);
-    this->deck = new Deck(this->getRoundNumber());
-    // search to see if "computer" reached
-        // if no "Computer:" return false
-    // search if "score" reached
-        // if no "Score:" return false
-    this->ourPlayers[1]->setPoints(10);
-        // else update computer score
-    // search if "hand" reached
+//    int debugCount=0;
+//    cout << "Printing our file ... " << endl;
+//    for (auto i:fileStrings){
+//        cout << debugCount << i << endl;
+//        debugCount++;
+//    }
     this->loadFileStats(fileStrings);
-        // if next entry is 2 characters long
-        // if entry
-        // TRY update each hand string to new vector
-        // if invalid hand, display error and return false
-    // if "human" reached
-    // if "score" reached
-    this->ourPlayers[0]->setPoints(1);
-    // if "hand" reached
-    
-    this->setTurn(0);
     
     //close the file and start the round
     loadedFile.close();
@@ -504,16 +511,5 @@ bool Round::loadGame(){
 
 void Round::roundTest(){
     cout << "\tRound Test" << endl;
-    // Confirm we can print the deck
-    //cout << "Printing the deck." << endl;
-    //this->deck->printDecks();
-    
-    // Confirm that we can print a PLAYER deck
-    // NOTE: I'll need to redo this. We don't want to mirror the deck
-    //      for each player. Instead, we want to put ownership in the cards
-    //      themselves, so they can pull up the player info.
-//    cout << "Printing human player deck." << endl;
-//    this->human->setDeck(this->deck);
-//    this->human->showHand();
     return;
 }

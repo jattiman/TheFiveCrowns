@@ -24,9 +24,11 @@ public:
 
     void setRound(int roundInput);
     void setPlayerHand(std::vector<std::string> playerHand);
-    void setPlayerHand(std::vector<Card*> playerHand);
+    //void setPlayerHand(std::vector<Card*> playerHand);
     void setComputerHand(std::vector<std::string> computerHand);
-    void setComputerHand(std::vector<Card*> computerHand);
+    //void setComputerHand(std::vector<Card*> computerHand);
+    void setDrawPile(std::vector<std::string> drawHand);
+    void setDiscardPile(std::vector<std::string> discardHand);
     
     
     int getRound();
@@ -69,6 +71,7 @@ public:
     bool checkIfOut(std::vector<Card*> cardPile);
     
     std::string deckToString(std::vector<Card*> cardPile);
+    std::string discardPileString(std::vector<Card*> cardPile);
     
     void testDeck(); // for debug only - delete before submission
     

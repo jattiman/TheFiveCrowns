@@ -117,13 +117,12 @@ void Deck::setPlayerHand(std::vector<std::string> playerHand){
     return;
 }
 
-void Deck::setPlayerHand(std::vector<Card*> playerHand){
-    // make the human pile equivalent to the copy of the playerHand
-    // being passed in
-//    this->humanPile.swap(playerHand);
-    this->humanPile=playerHand;
-    return;
-}
+//void Deck::setPlayerHand(std::vector<Card*> playerHand){
+//    // make the human pile equivalent to the copy of the playerHand
+//    // being passed in
+//    this->humanPile=playerHand;
+//    return;
+//}
 
 void Deck::setComputerHand(std::vector<std::string> computerHand){
     vector<Card*> tempHand;
@@ -135,12 +134,33 @@ void Deck::setComputerHand(std::vector<std::string> computerHand){
     return;
 }
 
-void Deck::setComputerHand(std::vector<Card*> computerHand){
-    // swap copy of the computer hand into the computer pile
-//    this->computerPile.swap(computerHand);
-    this->computerPile=computerHand;
+//void Deck::setComputerHand(std::vector<Card*> computerHand){
+//    // swap copy of the computer hand into the computer pile
+//    this->computerPile=computerHand;
+//    return;
+//}
+
+void Deck::setDrawPile(std::vector<std::string> drawHand){
+    vector<Card*> tempHand;
+    for(auto i: drawHand){
+        tempHand.push_back(new Card(i,this->getRound()));
+    }
+    this->drawPile=tempHand;
+    tempHand.clear();
     return;
 }
+
+void Deck::setDiscardPile(std::vector<std::string> discardHand){
+    vector<Card*> tempHand;
+    //ensure Discard pile is populated in the correct order
+    for(std::vector<string>::reverse_iterator i=discardHand.rbegin(); i!=discardHand.rend();++i){
+        tempHand.push_back(new Card(*i,this->getRound()));
+    }
+    this->discardPile=tempHand;
+    tempHand.clear();
+    return;
+}
+
 
 int Deck::getRound(){
     return ourRound;
@@ -387,7 +407,26 @@ string Deck::deckToString(std::vector<Card *> cardPile){
         deckString += i->getSuite();
         deckString += " ";
     }
-    cout << endl;
+    //cout << endl;
+    return deckString;
+}
+
+string Deck::discardPileString(std::vector<Card *> cardPile){
+    string deckString;
+    //for(const auto &i: cardPile){
+//    for(std::vector<string>::reverse_iterator i=discardHand.rbegin(); i!=discardHand.rend();++i){
+//        tempHand.push_back(new Card(*i,this->getRound()));
+//    }
+    for(const auto &i: cardPile){
+        //cout << i->getFace() << i->getSuite() << " ";
+        // add cards in reverse order (we'll reverse the string later)
+        deckString += " ";
+        deckString += i->getSuite();
+        deckString += i->getFace();
+    }
+    //cout << endl;
+    // reverse the string
+    reverse(deckString.begin(),deckString.end());
     return deckString;
 }
 

@@ -47,7 +47,7 @@ public:
     
     // load game functions
     bool promptFileSelection();
-    bool loadCards(std::string passedHand, char player);
+    bool loadCards(std::string passedHand, char deckChoice);
     bool loadFileStats(std::vector<std::string> passedHand);
     bool loadGame();
     
