@@ -286,7 +286,6 @@ bool Round::saveGame(){
     roundSaveFile << "Computer: ";
     roundSaveFile << endl;
     roundSaveFile << "\tScore: ";
-    this->ourPlayers[1]->setPoints(1);
     roundSaveFile << ourPlayers[1]->getPoints();
     roundSaveFile << endl;
     roundSaveFile << "\tHand: ";
@@ -295,7 +294,6 @@ bool Round::saveGame(){
     roundSaveFile << "Human: ";
     roundSaveFile << endl;
     roundSaveFile << "\tScore: ";
-    this->ourPlayers[0]->setPoints(5);
     roundSaveFile << ourPlayers[0]->getPoints();
     roundSaveFile << endl;
     roundSaveFile << "\tHand: ";
