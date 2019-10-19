@@ -43,6 +43,8 @@ public:
     void startRound();
     void progressRound(Player *p);
     bool saveGame();
+    bool promptFileSelection();
+    bool loadFileStats(std::vector<std::string> passedHand);
     bool loadGame();
     
     // for debugging only

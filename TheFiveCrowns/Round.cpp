@@ -303,6 +303,47 @@ bool Round::saveGame(){
     return true;
 }
 
+bool Round::loadFileStats(std::vector<std::string> passedHand){
+    // set up regex search variables for file navigation
+    smatch matches;
+    
+    // to search for cards listed after hands/piles
+    regex hand("Hand:.*([123456789XQKJ][1234CHTSD])");
+    regex cards("(\\s[123456789XQKJ][1234CHTSD])");
+    
+    // to search for the full round number
+    regex roundNumber("(Round:\\s{1,})([\\d*])");
+    //regex roundNumber ("Round:.*[\\d]{1,2}");
+    //regex roundNumber ("(Round:\\s{1,})([\\d*])");
+    
+    // to search for full player score
+    regex playerScore("Score:.*[\\d]{1,}");
+    
+    // to confirm the next player
+    regex nextPlayer("Next Player:.*");
+    
+    string humanHand;
+    string computerHand;
+    
+    
+    if(!(passedHand.size()==10)){
+        cout << "Save file incomplete." << endl;
+        return false;
+    }
+    cout << "Round: " << passedHand[0] << endl;
+    cout << "Computer score: " << passedHand[2] << endl;
+    cout << "Computer hand: " << passedHand[3] << endl;
+    cout << "Human score: " << passedHand[5] << endl;
+    cout << "Human hand: " << passedHand[6] << endl;
+    cout << "Draw Pile: " << passedHand[7] << endl;
+    cout << "Discard Pile: " << passedHand[8] << endl;
+    cout << "Player up: " << passedHand[9] << endl;
+    cin.ignore();
+    cin.get();
+    return true;
+}
+
+
 bool Round::loadGame(){
     // hold the save game file path selection
     string userFilePath;
@@ -312,17 +353,6 @@ bool Round::loadGame(){
     ifstream loadedFile;
     // for listing files in the directory
     vector<string> ourFiles;
-    // set up regex search variables for file navigation
-    smatch matches;
-    // to search for cards listed after hands/piles
-    regex hand ("\\b(Hand:([^ ]*))");
-    regex cards ("[^ ][123456789XQKJ][1234CHTSD][^ ]");
-    // to search for the full round number
-    regex roundNumber ("\\b(Round:([^ ])?)");
-    // to search for full player score
-    regex playerScore ("\\b(Score:([^ ]?))");
-    // to confirm the next player
-    regex nextPlayer ("\\b(Next Player:[^ ]?)");
     
     // for confirming numerical order of files in the directory
     int fileCount=0;
@@ -396,26 +426,16 @@ bool Round::loadGame(){
     }
     // if no error, iterate through the file and pull variables
     
-//    int debugCount=0;
     // iterate through each line of the file
-//    size_t found;
     vector<string> fileStrings;
     while(getline(loadedFile,fileLine)){
         istringstream fileStream(fileLine);
-//        cout << debugCount << ": " << fileLine << endl;
-//        debugCount++;
         if(fileLine.length()>0){
             fileStrings.push_back(fileLine);
         }
         
     }
-    cout << "Check file \n";
-    for (auto i: fileStrings){
-        cout << i << endl;
-    }
-    cout << "File checked." << endl;
-    cin.ignore();
-    cin.get();
+    
     // regex through the file
     // if round reached
     
@@ -431,6 +451,7 @@ bool Round::loadGame(){
     this->ourPlayers[1]->setPoints(10);
         // else update computer score
     // search if "hand" reached
+    this->loadFileStats(fileStrings);
         // if next entry is 2 characters long
         // if entry
         // TRY update each hand string to new vector
