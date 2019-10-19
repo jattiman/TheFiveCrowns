@@ -316,6 +316,22 @@ bool Round::saveGame(){
     return true;
 }
 
+bool Round::loadPlayerOrder(std::string nextPlayer){
+    // if you can find a human on the line
+    if(nextPlayer.find("man")!=std::string::npos){
+        // set human as the next player
+        this->setTurn(0);
+        return true;
+    }
+    // if there is no human found
+    else{
+        // make sure the computer goes next
+        this->setTurn(1);
+        return true;
+    }
+    return false;
+}
+
 bool Round::loadNums(std::string passedNums, char numChoice){
     // create variables to parse the string
     string numString=passedNums;
@@ -448,9 +464,9 @@ bool Round::loadFileStats(std::vector<std::string> passedHand){
     // load discard pile
     this->loadCards(passedHand[8],'d');
     
+    // load next player up
+    this->loadPlayerOrder(passedHand[9]);
     
-    cout << "Player up: " << passedHand[9] << endl;
-    this->setTurn(0);
     
     cin.ignore();
     cin.get();
