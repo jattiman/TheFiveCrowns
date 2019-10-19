@@ -23,7 +23,9 @@ public:
     void dealDeck();
 
     void setRound(int roundInput);
+    void setPlayerHand(std::vector<std::string> playerHand);
     void setPlayerHand(std::vector<Card*> playerHand);
+    void setComputerHand(std::vector<std::string> computerHand);
     void setComputerHand(std::vector<Card*> computerHand);
     
     

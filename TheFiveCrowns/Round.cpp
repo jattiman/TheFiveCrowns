@@ -303,6 +303,33 @@ bool Round::saveGame(){
     return true;
 }
 
+bool Round::loadCards(std::string passedHand, char player){
+    string cardString=passedHand;
+    vector<string> cardValues;
+    smatch matches;
+    regex cards("([123456789XQKJ][1234CHTSD])");
+    sregex_iterator cardIterator(cardString.begin(), cardString.end(), cards);
+    sregex_iterator empty;
+    while(cardIterator!=empty){
+        matches=*cardIterator;
+        cardValues.push_back(matches.str());
+        cardIterator++;
+    }
+    if(player=='h'){
+        this->deck->setPlayerHand(cardValues);
+        cout << "Printing card values: ";
+        this->deck->printTheDeck(this->deck->getHumanDeck());
+        return true;
+    }
+    if(player=='c'){
+        this->deck->setComputerHand(cardValues);
+        cout << "Printing card values: ";
+        this->deck->printTheDeck(this->deck->getComputerDeck());
+        return true;
+    }
+    return true;
+}
+
 bool Round::loadFileStats(std::vector<std::string> passedHand){
     // set up regex search variables for file navigation
     smatch matches;
@@ -332,9 +359,14 @@ bool Round::loadFileStats(std::vector<std::string> passedHand){
     }
     cout << "Round: " << passedHand[0] << endl;
     cout << "Computer score: " << passedHand[2] << endl;
-    cout << "Computer hand: " << passedHand[3] << endl;
+    
+    cout << "\t\tComputer hand: ";// << passedHand[3] << endl;
+    this->loadCards(passedHand[3],'c');
+    
+    
     cout << "Human score: " << passedHand[5] << endl;
-    cout << "Human hand: " << passedHand[6] << endl;
+    cout << "\t\tHuman hand: " << passedHand[6] << endl;
+    this->loadCards(passedHand[6],'h');
     cout << "Draw Pile: " << passedHand[7] << endl;
     cout << "Discard Pile: " << passedHand[8] << endl;
     cout << "Player up: " << passedHand[9] << endl;
