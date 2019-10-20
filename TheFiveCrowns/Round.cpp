@@ -246,7 +246,7 @@ int Round::progressRound(Player *p){
                 break;
             case 3:
                 // give advice
-                p->examineOptions();
+                p->examineOptions(this->deck);
                 // prompt player for action
                 continue;
             case 4:
@@ -554,7 +554,6 @@ bool Round::loadGame(){
     // if no error, iterate through the file and pull variables
     
     // iterate through each line of the file
-    //regex validLine("[:]");
     vector<string> fileStrings;
     while(getline(loadedFile,fileLine)){
         istringstream fileStream(fileLine);

@@ -56,7 +56,15 @@ void Game::welcome(){
         << "\t3. Quit" << endl;
         
         //cin.sync();
-        cin >> userOption;
+        
+        while(!(cin >> userOption)){
+            cin.clear();
+            cin.ignore();
+            cout << "Please select a valid option." << endl
+            << "\t1. New round" << endl
+            << "\t2. Load game"<< endl
+            << "\t3. Quit" << endl;
+        }
         
         // If new game, start new game
         if(userOption==1){
@@ -100,7 +108,7 @@ void Game::welcome(){
         }
         else{
             // Will need to add error checking here
-            cout << "Catastrophic error." << endl;
+            cout << "Please enter a valid option." << endl;
         }
         
     }

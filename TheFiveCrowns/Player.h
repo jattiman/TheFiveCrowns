@@ -42,12 +42,14 @@ public:
     
     // checks if player can go out
     virtual bool requestToGoOut()=0;
+    
+    
     virtual bool checkIfOut(std::vector<Card*> handToCheck)=0;
-    //void showHand();
+
     virtual void sayIfHuman()=0;
     virtual void playRound(Deck *deck)=0;
-    virtual void saveGame()=0;
-    virtual void examineOptions()=0;
+//    virtual void saveGame()=0;
+    virtual int examineOptions(Deck *deck, char choice='a')=0;
     virtual bool confirmExit()=0;
     
 private:

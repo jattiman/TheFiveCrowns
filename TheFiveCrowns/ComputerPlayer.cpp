@@ -33,14 +33,14 @@ bool ComputerPlayer::requestToGoOut(){
     return false;
 }
 
-void ComputerPlayer::saveGame(){
-    cout << "Saving game ... " << endl;
-    return;
-}
+//void ComputerPlayer::saveGame(){
+//    cout << "Saving game ... " << endl;
+//    return;
+//}
 
-void ComputerPlayer::examineOptions(){
+int ComputerPlayer::examineOptions(Deck *deck, char choice){
     cout << "Computers don't need advice (place holder)" << endl;
-    return;
+    return 1;
 }
 
 bool ComputerPlayer::checkIfOut(std::vector<Card*> handToCheck){

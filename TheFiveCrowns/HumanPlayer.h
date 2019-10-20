@@ -15,15 +15,18 @@ class HumanPlayer: public Player {
 public:
     HumanPlayer();
     void sayIfHuman();
+    void drawCard(Deck *deck);
+    void discardCard(Deck *deck);
     void playRound(Deck *deck);
     bool requestToGoOut();
-    void saveGame();
-    void examineOptions();
+//    void saveGame();
+    int examineOptions(Deck *deck, char choice='a');
     bool checkIfOut(std::vector<Card*> handToCheck);
     bool confirmExit();
+    void testOutPut();
     
 private:
-    //bool isHuman;
+
 };
 
 

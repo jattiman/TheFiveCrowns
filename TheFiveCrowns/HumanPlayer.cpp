@@ -25,7 +25,7 @@ void HumanPlayer::sayIfHuman(){
     }
 }
 
-void HumanPlayer::playRound(Deck *deck){
+void HumanPlayer::drawCard(Deck *deck){
     int userChoice=0;
     // give player option to draw card
     // move this to a new function -------
@@ -37,50 +37,80 @@ void HumanPlayer::playRound(Deck *deck){
         cin >> userChoice;
         // transfer the card appropriately
         if(userChoice==1){
-            //deck->transferCard(deck->getDrawPile(), deck->getHumanDeck());
+            // transfer a card from the draw pile
             if(!deck->transferFromDraw(deck->getHumanDeck())){
                 cout << "The draw pile is empty. Try again." << endl;
                 userChoice=0;
             }
         }
         else if(userChoice==2){
-            // need to check to ensure piles aren't empty
+            // transfer from the discard pile
             if(!(deck->transferFromDiscard(deck->getHumanDeck()))){
                 cout << "The discard pile is empty. Try again." << endl;
                 userChoice=0;
             }
         }
         else if(userChoice==3){
+            // get advice, based on player stage
             cout << "Here's some advice." << endl;
+            this->examineOptions(deck,'t');
         }
         else{
             cout << "Please enter a valid option." << endl;
         }
     } while(userChoice < 1 || userChoice > 2);
-    userChoice=0;
+    return;
+}
+
+void HumanPlayer::discardCard(Deck *deck){
+    int userChoice=0;
     do{
-        // need to prompt differently for advice/discarding
-        cout << "Enter the card you want to discard, or press 'A' for advice" << endl;
+        cout << "What would you like to do now?" << endl
+        << "\t1. Discard a card" << endl
+        << "\t2. Ask for advice" << endl;
+        cin >> userChoice;
+        if(userChoice==1){
+            // skip to discard action
+        }
+        else if(userChoice==2){
+            this->examineOptions(deck,'g');
+            userChoice=0;
+        }
+        else{
+            cout << "Please enter a valid option." << endl;
+        }
+    }while(userChoice < 1 || userChoice > 2);
+    // reset user choice for next question
+    userChoice=0;
+    
+    do{
+        cout << "Enter the card you want to discard:" << endl;
         deck->printTheDeck(deck->getHumanDeck());
         cin>>userChoice;
-//        cout << "choice: " << userChoice << endl << "deck size: " << deck->getHumanDeck().size() << endl;
-        
-    }while(userChoice < 0 || userChoice > deck->getHumanDeck().size());
+    }while(userChoice < 1 || userChoice > (deck->getHumanDeck().size()));
+    
     // translate user choice to vector position
     userChoice--;
-    // transfer appropriate card to discard pile
+    
+    // display card being discarded
     cout << "Discarding: " << deck->getHumanDeck()[userChoice]->getFace() << deck->getHumanDeck()[userChoice]->getSuite() << endl;
     
+    // transfer appropriate card to discard pile
     deck->transferCard(deck->getHumanDeck(), userChoice, deck->getDiscardPile());
-//    cout << "New player hand: ";
-//    deck->printTheDeck(deck->getHumanDeck());
+    
+    // display the new player hand
+    cout << "New hand: ";
+    deck->printTheDeck(deck->getHumanDeck());
     cin.ignore();
     cin.get();
+    return;
+}
+
+void HumanPlayer::playRound(Deck *deck){
+    this->drawCard(deck);
     
-    // if player has wild card, ask them if they want to rename any
-    // this->reviewWilds(), maybe?
-    // ask player which card they would like to discard
-    // this->choose discard
+    this->discardCard(deck);
+    cout << "\t\t\tReturned from discard." << endl;
     return;
 }
 
@@ -88,13 +118,29 @@ bool HumanPlayer::requestToGoOut(){
     return false;
 }
 
-void HumanPlayer::saveGame(){
-    cout << "Saving game ... " << endl;
-    return;
-}
+//void HumanPlayer::saveGame(){
+//    cout << "Saving game ... " << endl;
+//    return;
+//}
 
-void HumanPlayer::examineOptions(){
-    cout << "Here's some advice: " << endl;
+int HumanPlayer::examineOptions(Deck *deck, char choice){
+    switch (choice) {
+        case 'a':
+            cout << "Here's some advice: input an actual choice." << endl;
+            break;
+        case 't':
+            cout << "Checking which pile to take from ... " << endl;
+            break;
+        case 'g':
+            cout << "Checking which card to give away ... " << endl;
+            break;
+        case 'o':
+            cout << "Checking how close you are to going out ..." << endl;
+        default:
+            break;
+    }
+    
+    return 1;
 }
 
 bool HumanPlayer::checkIfOut(std::vector<Card*> handToCheck){
@@ -116,4 +162,9 @@ bool HumanPlayer::confirmExit(){
     else{
         return false;
     }
+}
+
+void HumanPlayer::testOutPut(){
+    cout << "Testing output to check for slicing. See this? Good!" << endl;
+    return;
 }
