@@ -355,6 +355,10 @@ bool Round::loadNums(std::string passedNums, char numChoice){
         return false;
     }
     if(numChoice=='r'){
+        if(ourNumber>11 || ourNumber <1){
+            cout << "Proposed round number is illegal." << endl;
+            return false;
+        }
         this->setRoundNumber(ourNumber);
         return true;
     }
@@ -410,66 +414,59 @@ bool Round::loadCards(std::string passedHand, char deckChoice){
         //this->deck->displayDiscardTop();
         return true;
     }
-    
+    cout << "Card loading issue." << endl;
     return false;
 }
 
 bool Round::loadFileStats(std::vector<std::string> passedHand){
-    // set up regex search variables for file navigation
-    smatch matches;
-    
-    // to search for cards listed after hands/piles
-    regex hand("Hand:.*([123456789XQKJ][1234CHTSD])");
-    regex cards("(\\s[123456789XQKJ][1234CHTSD])");
-    
-    // to search for the full round number
-    regex roundNumber("(Round:\\s{1,})([\\d*])");
-    //regex roundNumber ("Round:.*[\\d]{1,2}");
-    //regex roundNumber ("(Round:\\s{1,})([\\d*])");
-    
-    // to search for full player score
-    regex playerScore("Score:.*[\\d]{1,}");
-    
-    // to confirm the next player
-    regex nextPlayer("Next Player:.*");
-    
-    string humanHand;
-    string computerHand;
-    
+    // confirm serialized file was created with correct entries
     if(!(passedHand.size()==10)){
         cout << "Save file incomplete." << endl;
         return false;
     }
     
-    // set round number
-    this->loadNums(passedHand[0],'r');
-    // create placeholder deck based on round values
+    // check and set round number
+    if(!(this->loadNums(passedHand[0],'r'))){
+        return false;
+    }
+    // create placeholder deck based on round number
     this->deck = new Deck(this->getRoundNumber());
     
     // load computer score
-    this->loadNums(passedHand[2],'c');
+    if(!(this->loadNums(passedHand[2],'c'))){
+        return false;
+    }
     
     //load computer hand
-    this->loadCards(passedHand[3],'c');
+    if(!(this->loadCards(passedHand[3],'c'))){
+        return false;
+    }
     
     //load human score
-    this->loadNums(passedHand[5],'h');
+    if(!(this->loadNums(passedHand[5],'h'))){
+        return false;
+    }
     
     // load human hand
-    this->loadCards(passedHand[6],'h');
+    if(!(this->loadCards(passedHand[6],'h'))){
+        return false;
+    }
     
     // load draw pile
-    this->loadCards(passedHand[7],'D');
+    if(!(this->loadCards(passedHand[7],'D'))){
+        return false;
+    }
     
     // load discard pile
-    this->loadCards(passedHand[8],'d');
+    if(!(this->loadCards(passedHand[8],'d'))){
+        return false;
+    }
     
     // load next player up
-    this->loadPlayerOrder(passedHand[9]);
+    if(!(this->loadPlayerOrder(passedHand[9]))){
+        return false;
+    }
     
-    
-    cin.ignore();
-    cin.get();
     return true;
 }
 
@@ -573,10 +570,14 @@ bool Round::loadGame(){
 //        cout << debugCount << i << endl;
 //        debugCount++;
 //    }
-    this->loadFileStats(fileStrings);
+    
     
     //close the file and start the round
     loadedFile.close();
+    if(!this->loadFileStats(fileStrings)){
+        cout << "File load issue." << endl;
+        return false;
+    }
     cout << "Game loaded. Starting round." << endl;
     this->startRound();
     return true;

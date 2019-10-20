@@ -78,13 +78,18 @@ void Game::welcome(){
         
         // If loading game, select game file to load and begin game
         else if(userOption==2){
-            cout << "Loading game from file ... " << endl;
-            this->loadRound();
-            this->h->setOut(false);
-            this->c->setOut(false);
-            
-            // increment round number in case player wants to progress
-            this->incrementRound();
+            // if load is successful, run loaded round
+            if(this->loadRound()){
+                // reset key variables to ensure next round can run
+                this->h->setOut(false);
+                this->c->setOut(false);
+                
+                // increment round number in case player wants to progress
+                this->incrementRound();
+            }
+            else{
+                cout << "Load file failed." << endl;
+            }
             //break;
         }
 
@@ -117,10 +122,14 @@ void Game::beginRound(){
 //    return;
 //}
 
-void Game::loadRound(){
+bool Game::loadRound(){
     this->round = new Round(h,c);
-    this->round->loadGame();
-    return;
+    if(this->round->loadGame()){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 //void Game::beginRound(HumanPlayer *h, ComputerPlayer *c, Deck * savedDeck, int roundNumber){
