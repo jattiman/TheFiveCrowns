@@ -59,6 +59,7 @@ void HumanPlayer::playRound(Deck *deck){
     } while(userChoice < 1 || userChoice > 2);
     userChoice=0;
     do{
+        // need to prompt differently for advice/discarding
         cout << "Enter the card you want to discard, or press 'A' for advice" << endl;
         deck->printTheDeck(deck->getHumanDeck());
         cin>>userChoice;
