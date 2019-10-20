@@ -154,7 +154,7 @@ bool HumanPlayer::confirmExit(){
         << endl;
         cin >> quitStatus;
         quitStatus=toupper(quitStatus);
-        cout << "\t\tQuit status is: " << quitStatus << endl;
+        //cout << "\t\tQuit status is: " << quitStatus << endl;
     }while(quitStatus != 'Y' && quitStatus !='N');
     if(quitStatus=='Y'){
         return true;

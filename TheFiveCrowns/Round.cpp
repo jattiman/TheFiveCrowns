@@ -169,6 +169,16 @@ void Round::getRoundStatus(){
     return;
 }
 
+int Round::getValidInput(int minNum, int maxNum){
+    int userInput;
+    while(!(cin >> userInput) || userInput < minNum || userInput > maxNum){
+        cin.clear();
+        cin.ignore(500,'\n');
+        cout << "Please select a valid option." << endl;
+    }
+    return userInput;
+}
+
 int Round::giveOptions(Player *p){
     int userChoice=0;
     // if player is human, give human options
@@ -177,9 +187,9 @@ int Round::giveOptions(Player *p){
             cout << "Please choose from the following:" << endl
             << "\t1. Save the game" << endl
             << "\t2. Make a move" << endl
-            << "\t3. Ask for help (only before human player plays)" << endl
+            << "\t3. Ask for help" << endl
             << "\t4. Quit the game" << endl;
-            cin >> userChoice;
+            userChoice=this->getValidInput(1,4);
         } while(userChoice < 1 || userChoice > 4);
     }
     else{
@@ -492,7 +502,7 @@ bool Round::loadGame(){
         cout << "Would you like to load a specific file, or select from the directory?" << endl
             << "1. Load from new file." << endl
             << "2. Load from current save." << endl;
-        cin >> userChoice;
+        userChoice = this->getValidInput(1,2);
     }while(userChoice !=1 && userChoice !=2);
     
     // if the user wants to drop a file, let them drop the full path
@@ -537,7 +547,7 @@ bool Round::loadGame(){
             // reset the file count number in case loop is repeated
             fileCount=0;
             // take in user choice and confirm it's valid
-            cin >> userChoice;
+            userChoice=this->getValidInput(1,(int)ourFiles.size());
         }while(userChoice < 1 || userChoice > ourFiles.size());
         // decrement choice for vector access
         userChoice--;

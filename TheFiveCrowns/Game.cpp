@@ -54,12 +54,10 @@ void Game::welcome(){
         << "\t1. New round" << endl
         << "\t2. Load game"<< endl
         << "\t3. Quit" << endl;
-        
-        //cin.sync();
-        
+                
         while(!(cin >> userOption)){
             cin.clear();
-            cin.ignore();
+            cin.ignore(100,'\n');
             cout << "Please select a valid option." << endl
             << "\t1. New round" << endl
             << "\t2. Load game"<< endl

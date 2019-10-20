@@ -37,6 +37,7 @@ public:
     void giveHumanStatus(std::vector<Player*> ourPlayers);
     void givePlayerStatus(std::vector<Player*> ourPlayers);
     void getRoundStatus();
+    int getValidInput(int minNum=0, int maxNum=500);
     int giveOptions(Player *p);
     
     
