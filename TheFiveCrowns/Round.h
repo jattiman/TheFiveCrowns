@@ -31,6 +31,7 @@ public:
     
     void setRoundNumber(int newNumber);
     void incrementTurn();
+    void incrementRound();
     void setTurn(int nextUp);
     void setHumanRoundPoints(int points);
     void setComputerRoundPoints(int points);

@@ -21,7 +21,6 @@ public:
     bool requestToGoOut();
 //    void saveGame();
     int examineOptions(Deck *deck, char choice='a');
-    bool checkIfOut(std::vector<Card*> handToCheck);
     bool confirmExit();
     void testOutPut();
     

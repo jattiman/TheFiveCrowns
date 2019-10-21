@@ -159,7 +159,11 @@ void Game::welcome(){
                 this->c->setOut(false);
                 this->round->startRound();
                 // increment round number in case player wants to progress
-                //this->incrementRound();
+                this->setRoundNumber(this->round->getRoundNumber());
+//                cout << "Round ended and we're back in choice 2:"
+//                << "\t GAME round number: " << this->getRoundNumber()
+//                << "\t ROUND round number: " << this->round->getRoundNumber()
+//                << endl;
             }
             else{
                 cout << "Load file failed." << endl;
@@ -187,7 +191,10 @@ void Game::beginRound(){
     // if round successful (no hard quit)
     if(this->round->startRound()!=4){
         // increment round number
-        this->incrementRound();
+//        this->incrementRound();
+//        cout << "\t\tRound ended. Incrementing round number to: ";
+        this->setRoundNumber(this->round->getRoundNumber());
+//        cout << this->getRoundNumber() << endl;
         // set up next
         this->setNextUp(this->round->getTurn());
     }

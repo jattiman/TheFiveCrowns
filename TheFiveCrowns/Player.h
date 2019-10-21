@@ -45,7 +45,7 @@ public:
     virtual bool requestToGoOut()=0;
     
     
-    virtual bool checkIfOut(std::vector<Card*> handToCheck)=0;
+    //virtual bool checkIfOut(std::vector<Card*> handToCheck)=0;
 
     virtual void sayIfHuman()=0;
     virtual void playRound(Deck *deck)=0;

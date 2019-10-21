@@ -110,8 +110,7 @@ void HumanPlayer::playRound(Deck *deck){
     this->drawCard(deck);
     
     this->discardCard(deck);
-    
-    if(this->checkIfOut(deck->getHumanDeck())){
+    if(deck->checkIfOut(deck->getHumanDeck())){
         cout << "You're going out!" << endl;
         this->setOut(true);
     }
@@ -145,10 +144,6 @@ int HumanPlayer::examineOptions(Deck *deck, char choice){
     }
     
     return 1;
-}
-
-bool HumanPlayer::checkIfOut(std::vector<Card*> handToCheck){
-    return false;
 }
 
 bool HumanPlayer::confirmExit(){

@@ -390,12 +390,27 @@ bool Deck::checkIfRun(std::vector<Card*> cardPile){
 }
 
 bool Deck::checkIfBook(std::vector<Card*> cardPile){
-    
-    return false;
+    bool areInBook=true;
+    char ourFace=cardPile[0]->getFace();
+    for(auto i: cardPile){
+        if(i->getFace()!=ourFace){
+            areInBook=false;
+            break;
+        }
+    }
+    return areInBook;
 }
 
 bool Deck::checkIfOut(std::vector<Card*> cardPile){
-    
+    vector<Card*> tempPile=cardPile;
+    // check if all wild
+    if(this->checkIfAllWild(tempPile)){
+        return true;
+    }
+    // check if all in book
+    if(this->checkIfBook(tempPile)){
+        return true;
+    }
     return false;
 }
 
