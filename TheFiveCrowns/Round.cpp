@@ -211,11 +211,14 @@ void Round::startRound(){
 //    int answer = 0;
     int totalPlayers=this->getTotalPlayers();
     int ourTurn=this->getTurn();
-    
+    int roundResult=0;
     do{
         this->getRoundStatus();
         // begin the round progression, one player at a time
-        progressRound(this->ourPlayers[ourTurn%totalPlayers]);
+        roundResult=progressRound(this->ourPlayers[ourTurn%totalPlayers]);
+        if(roundResult==4){
+            break;
+        }
         ourTurn++;
         this->setTurn();
         
@@ -223,12 +226,15 @@ void Round::startRound(){
         // this will cause the game to loop through all players once after
         // the first player goes out
     }while(!(this->ourPlayers[ourTurn%totalPlayers]->getIfOut()));
-    for (auto i: ourPlayers){
-        if(i->getHumanity()){
-            i->setPoints(this->deck->countCardPoints(this->deck->getHumanDeck()));
-        }
-        else{
-            i->setPoints(this->deck->countCardPoints(this->deck->getComputerDeck()));
+    // if the player didn't hard quit, tally points from round.
+    if(roundResult!=4){
+        for (auto i: ourPlayers){
+            if(i->getHumanity()){
+                i->setPoints(this->deck->countCardPoints(this->deck->getHumanDeck()));
+            }
+            else{
+                i->setPoints(this->deck->countCardPoints(this->deck->getComputerDeck()));
+            }
         }
     }
     cout << "Round is over. Would you like to progress?" << endl;
@@ -490,11 +496,11 @@ bool Round::loadGame(){
     ifstream loadedFile;
     // for listing files in the directory
     vector<string> ourFiles;
-    
+    // for each line of the file to be loaded
+    vector<string> fileStrings;
     // for confirming numerical order of files in the directory
     int fileCount=0;
-    
-    // holds user choice for file loading prompt
+    // holds user choice for prompts
     int userChoice=0;
     
     // ask user if they want to drop in a specific file or pick from the directory
@@ -549,9 +555,9 @@ bool Round::loadGame(){
             // take in user choice and confirm it's valid
             userChoice=this->getValidInput(1,(int)ourFiles.size());
         }while(userChoice < 1 || userChoice > ourFiles.size());
-        // decrement choice for vector access
+        // decrement choice for correct vector index access
         userChoice--;
-        // add specific file name to path
+        // append specific file name to path 
         userFilePath+=ourFiles[userChoice];
     }
     // attempt to open the file
@@ -564,7 +570,7 @@ bool Round::loadGame(){
     // if no error, iterate through the file and pull variables
     
     // iterate through each line of the file
-    vector<string> fileStrings;
+    
     while(getline(loadedFile,fileLine)){
         istringstream fileStream(fileLine);
         // confirm we only read in lines with data

@@ -59,7 +59,7 @@ void Game::welcome(){
             cin.clear();
             cin.ignore(100,'\n');
             cout << "Please select a valid option." << endl
-            << "\t1. New round" << endl
+            << "\t1. Begin round" << endl
             << "\t2. Load game"<< endl
             << "\t3. Quit" << endl;
         }
@@ -71,7 +71,9 @@ void Game::welcome(){
             
             //start round with order listed
             
-            this->beginRound();
+            //this->beginRound();
+            this->round=new Round(h,c,roundNumber);
+            this->round->startRound();
             // return from round
             // reset player status to prepare for next round.
             
@@ -84,6 +86,8 @@ void Game::welcome(){
         
         // If loading game, select game file to load and begin game
         else if(userOption==2){
+            // reset stats, since loading game
+            this->destroyStats();
             // if load is successful, run loaded round
             if(this->loadRound()){
                 // reset key variables to ensure next round can run
@@ -95,6 +99,7 @@ void Game::welcome(){
             }
             else{
                 cout << "Load file failed." << endl;
+                
             }
             //break;
         }
@@ -117,6 +122,7 @@ void Game::beginRound(){
     cout << "Starting new round." << endl;
     this->round=new Round(h,c,roundNumber);
     this->round->startRound();
+    return;
 }
 
 // To do: transfer the players in as a vector/array/etc to better handle
@@ -174,6 +180,13 @@ void Game::displayEndStats(){
         }
         cout << endl;
 //    }
+    return;
+}
+
+void Game::destroyStats(){
+    this->h->setPoints(0);
+    this->c->setPoints(0);
+    this->setRoundNumber(1);
     return;
 }
 

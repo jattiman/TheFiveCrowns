@@ -31,6 +31,7 @@ public:
 //    void beginRound(HumanPlayer *h, ComputerPlayer *c, Deck * savedDeck, int roundNumber);
     void incrementRound();
     void displayEndStats();
+    void destroyStats();
     // create deck - call round to do this
     // provide round menu - call round to do this
     void testGame();
