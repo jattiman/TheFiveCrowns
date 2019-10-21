@@ -84,12 +84,20 @@ Deck Round::getDeck(){
     return *deck;
 }
 
+int Round::getHumanRoundPoints(){
+    return this->humanRoundPoints;
+}
+
+int Round::getComputerRoundPoints(){
+    return this->computerRoundPoints;
+}
+
 void Round::setRoundNumber(int newNumber){
     // sets the round number
     this->roundNumber=newNumber;
     return;
 }
-void Round::setTurn(){
+void Round::incrementTurn(){
     // increments the turn to progress the round
     this->nextTurn++;
     return;
@@ -97,6 +105,16 @@ void Round::setTurn(){
 void Round::setTurn(int nextUp){
     // sets the turn to decide who goes next
     this->nextTurn=nextUp;
+    return;
+}
+
+void Round::setHumanRoundPoints(int points){
+    this->humanRoundPoints=points;
+    return;
+}
+
+void Round::setComputerRoundPoints(int points){
+    this->computerRoundPoints=points;
     return;
 }
 
@@ -207,7 +225,6 @@ int Round::giveOptions(Player *p){
 
 
 int Round::startRound(){
-    
 //    int answer = 0;
     int totalPlayers=this->getTotalPlayers();
     int ourTurn=this->getTurn();
@@ -218,14 +235,14 @@ int Round::startRound(){
         roundResult=progressRound(this->ourPlayers[ourTurn%totalPlayers]);
         // if quit/progress loss confirmed
         if(roundResult==4){
-            // delete points and break from loop
+            // delete ALL points and break from loop
             for (auto i: ourPlayers){
                 i->deletePoints();
             }
             break;
         }
         ourTurn++;
-        this->setTurn();
+        this->incrementTurn();
         
         // while the NEXT player is still not out, keep going
         // this will cause the game to loop through all players once after
@@ -233,14 +250,30 @@ int Round::startRound(){
     }while(!(this->ourPlayers[ourTurn%totalPlayers]->getIfOut()));
     // if the player didn't hard quit, tally points from round.
     if(roundResult!=4){
+       // set round points
+        this->setHumanRoundPoints(this->deck->countCardPoints(this->deck->getHumanDeck()));
+        this->setComputerRoundPoints(this->deck->countCardPoints(this->deck->getHumanDeck()));
+        // add points to total player score
         for (auto i: ourPlayers){
             if(i->getHumanity()){
-                i->setPoints(this->deck->countCardPoints(this->deck->getHumanDeck()));
+                i->setPoints(this->getHumanRoundPoints());
             }
             else{
-                i->setPoints(this->deck->countCardPoints(this->deck->getComputerDeck()));
+                i->setPoints(this->getComputerRoundPoints());
             }
         }
+        // determine who goes next
+        if(this->getHumanRoundPoints()>this->getComputerRoundPoints()){
+            // if computer had lower points, they go next
+            roundResult=1;
+            this->setTurn(1);
+        }
+        else{
+            // if human had lower points, they go next
+            roundResult=0;
+            this->setTurn(0);
+        }
+        
     }
     cout << "Round is over. Would you like to progress?" << endl;
     return roundResult;
@@ -381,7 +414,6 @@ bool Round::loadNums(std::string passedNums, char numChoice){
             return false;
         }
         this->setRoundNumber(ourNumber);
-        cout << "Round #: " << this->getRoundNumber() << endl;
         return true;
     }
     if(numChoice=='h'){

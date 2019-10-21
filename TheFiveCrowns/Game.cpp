@@ -125,34 +125,22 @@ void Game::welcome(){
         // prompt for options
         this->welcomeOptions();
                 
-        while(!(cin >> userOption)){
-            cin.clear();
-            cin.ignore(100,'\n');
-            cout << "Please select a valid option." << endl;
-            this->welcomeOptions();
-        }
-        
+//        while(!(cin >> userOption)){
+//            cin.clear();
+//            cin.ignore(100,'\n');
+//            cout << "Please select a valid option." << endl;
+//            this->welcomeOptions();
+//        }
+        userOption=this->getValidInput(1,3);
         // If new game, start new game
         if(userOption==1){
-            // if it's the first round, call coin toss
+            // if it's the first round, call coin toss to determine who goes first
             if(this->getRoundNumber()==1){
                 this->coinToss();
             }
-            else{
-                cout << "No coin toss for you." << endl;
-            }
             // otherwise, go with the winner from last round
-            
-            
-            //start round with order listed
-            
-            //this->beginRound();
-            this->round=new Round(h,c,roundNumber,this->getNextUp());
-            // run round. If user doesn't hard quit, increment to next round
-            if(this->round->startRound()!=4){
-                // increment round number in case player wants to progress
-                this->incrementRound();
-            }
+                        
+            this->beginRound();
             
             // return from round
             // reset player out status to prepare for next round.
@@ -195,12 +183,13 @@ void Game::welcome(){
 }
 
 void Game::beginRound(){
-    cout << "Starting new round." << endl;
-    this->round=new Round(h,c,roundNumber);
+    this->round=new Round(h,c,roundNumber,this->getNextUp());
     // if round successful (no hard quit)
     if(this->round->startRound()!=4){
         // increment round number
         this->incrementRound();
+        // set up next
+        this->setNextUp(this->round->getTurn());
     }
     return;
 }
@@ -218,6 +207,7 @@ bool Game::loadRound(){
     this->round = new Round(h,c);
     if(this->round->loadGame()){
         this->setRoundNumber(this->round->getRoundNumber());
+        
         return true;
     }
     else{

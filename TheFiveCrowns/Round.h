@@ -26,10 +26,14 @@ public:
     int getTurn();
     int getTotalPlayers();
     Deck getDeck();
+    int getHumanRoundPoints();
+    int getComputerRoundPoints();
     
     void setRoundNumber(int newNumber);
-    void setTurn();
+    void incrementTurn();
     void setTurn(int nextUp);
+    void setHumanRoundPoints(int points);
+    void setComputerRoundPoints(int points);
 
     void setupPlayers(HumanPlayer *h, ComputerPlayer *c);
     
@@ -65,6 +69,8 @@ private:
     int nextTurn;
     int totalPlayers;
     std::vector<Player*> ourPlayers;
+    int humanRoundPoints=0;
+    int computerRoundPoints=0;
 };
 
 
