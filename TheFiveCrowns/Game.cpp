@@ -21,6 +21,7 @@
 #include "Game.h"
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
 Game::Game(){
@@ -55,9 +56,25 @@ void Game::welcomeOptions(){
     return;
 }
 
+bool Game::coinToss(){
+    int userChoice;
+    unsigned seed;
+    seed = (unsigned) std::chrono::system_clock::now().time_since_epoch().count();
+    
+    cout << "Coin toss time!" << endl
+    << "Guess which side lands facing up!"<< endl
+    << "1. Heads" << endl
+    << "2. Tails" << endl;
+    
+    cin >> userChoice;
+    
+    return true;
+}
+
 void Game::welcome(){
     // stores the user's selected option
     int userOption = 0;
+    
     
     // Welcome the player and prompt them to start a game
     cout << "Welcome to 5 Crowns!" << endl;
@@ -77,7 +94,10 @@ void Game::welcome(){
         
         // If new game, start new game
         if(userOption==1){
-            //call coin toss
+            
+            // if it's the first round, call coin toss
+            
+            // otherwise, go with the winner from last round
             
             
             //start round with order listed

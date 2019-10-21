@@ -24,6 +24,7 @@ public:
     
     int getRoundNumber();
     void welcomeOptions();
+    bool coinToss();
     void welcome();
     void beginRound();
 //    void beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber);
