@@ -16,8 +16,10 @@ class ComputerPlayer: public Player{
 public:
     ComputerPlayer();
     void sayIfHuman();
+    void drawCard(Deck *deck);
+    void discardCard(Deck *deck);
     void playRound(Deck *deck);
-    bool requestToGoOut();
+//    bool requestToGoOut();
 //    void saveGame();
     int examineOptions(Deck *deck, char choice='a');
     //bool checkIfOut(std::vector<Card*> handToCheck);

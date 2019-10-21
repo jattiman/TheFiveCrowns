@@ -219,7 +219,7 @@ int Round::giveOptions(Player *p){
             << "\t1. Save the game" << endl
             << "\t2. Make a move" << endl
             << "\t3. Quit the game" << endl;
-        cout << "Computer chooses: 2 (hard coded)" << endl;
+        cout << "Computer chooses to make a move. (It really has no choice, does it?)" << endl;
         userChoice=2;
     }
     
@@ -236,7 +236,7 @@ int Round::startRound(){
     do{
         this->getRoundStatus();
         // begin the round progression, one player at a time
-        roundResult=progressRound(this->ourPlayers[ourTurn%totalPlayers]);
+        roundResult=this->progressRound(this->ourPlayers[ourTurn%totalPlayers]);
 
         // if quit/progress loss confirmed
         if(roundResult==4){
@@ -257,36 +257,41 @@ int Round::startRound(){
     }while(!(this->ourPlayers[ourTurn%totalPlayers]->getIfOut()));
     // if the player didn't hard quit, tally points from round.
     if(roundResult!=4){
-        cout << "Someone went out! Round ended successfully." << endl;
+        cout << "Round ended successfully. Good job, everyone." << endl;
         
         cout << "Setting round points ... " << endl;
        // set round points
         this->setHumanRoundPoints(this->deck->countCardPoints(this->deck->getHumanDeck()));
         this->setComputerRoundPoints(this->deck->countCardPoints(this->deck->getHumanDeck()));
         // add points to total player score
+        
         for (auto i: ourPlayers){
             // if you're human AND not out
             if(i->getHumanity() && !(i->getIfOut())){
-                cout << "Human: Adding " << this->getHumanRoundPoints() << " points." << endl;
+                cout << "Computer:\tAdding 0 points." << endl;
+                cout << "Human:\tAdding " << this->getHumanRoundPoints() << " points." << endl;
                 i->setPoints(this->getHumanRoundPoints());
             }
             // if you're a computer AND not out
             else if((!i->getHumanity()) && !(i->getIfOut())){
-                cout << "Comp: Adding " << this->getComputerRoundPoints() << " points." << endl;
+                cout << "Computer:\tAdding " << this->getComputerRoundPoints() << " points." << endl;
+                cout << "Human:\tAdding 0 points." << endl;
                 i->setPoints(this->getComputerRoundPoints());
             }
         }
-        cout << "Determining next player to go ... " << endl;
+        cout << "Next player up: ";
         // determine who goes next
         if(this->getHumanRoundPoints()>this->getComputerRoundPoints()){
             // if computer had lower points, they go next
             roundResult=1;
             this->setTurn(1);
+            cout << "Computer!" << endl;
         }
         else{
             // if human had lower points, they go next
             roundResult=0;
             this->setTurn(0);
+            cout << "Human!" << endl;
         }
         // increment round
         this->incrementRound();

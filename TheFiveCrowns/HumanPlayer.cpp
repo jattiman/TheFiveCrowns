@@ -144,9 +144,9 @@ void HumanPlayer::playRound(Deck *deck){
     return;
 }
 
-bool HumanPlayer::requestToGoOut(){
-    return false;
-}
+//bool HumanPlayer::requestToGoOut(){
+//    return false;
+//}
 
 //void HumanPlayer::saveGame(){
 //    cout << "Saving game ... " << endl;

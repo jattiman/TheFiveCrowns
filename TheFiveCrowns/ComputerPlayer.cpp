@@ -24,14 +24,22 @@ void ComputerPlayer::sayIfHuman(){
         cout <<"I'm a computer!" << endl;
     }
 }
+
+void ComputerPlayer::drawCard(Deck *deck){
+    return;
+}
+void ComputerPlayer::discardCard(Deck *deck){
+    return;
+}
+
 void ComputerPlayer::playRound(Deck *deck){
     cout << "Computer playing round." << endl;
     return;
 }
-
-bool ComputerPlayer::requestToGoOut(){
-    return false;
-}
+//
+//bool ComputerPlayer::requestToGoOut(){
+//    return false;
+//}
 
 //void ComputerPlayer::saveGame(){
 //    cout << "Saving game ... " << endl;
