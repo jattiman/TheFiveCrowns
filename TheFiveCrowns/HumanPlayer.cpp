@@ -26,56 +26,77 @@ void HumanPlayer::sayIfHuman(){
 }
 
 void HumanPlayer::drawCard(Deck *deck){
+    // variable to store user choice
     int userChoice=0;
     // give player option to draw card
-    // move this to a new function -------
     do{
         cout << "Where would you like to draw from?" << endl
         << "\t1. The draw pile" << endl
         << "\t2. The discard pile" << endl
         << "\t3. Ask for advice" << endl;
-        cin >> userChoice;
-        // transfer the card appropriately
+        // validate input and transfer the card appropriately
+        userChoice=this->getValidInput(1,3);
+        // transfer from the draw pile
         if(userChoice==1){
-            // transfer a card from the draw pile
+            // If there's an issue (shouldn't be)
             if(!deck->transferFromDraw(deck->getHumanDeck())){
+                // notify user and reset their choice
                 cout << "The draw pile is empty. Try again." << endl;
                 userChoice=0;
             }
         }
+        // transfer from the discard pile
         else if(userChoice==2){
-            // transfer from the discard pile
+            // if there's an issue (shouldn't be)
             if(!(deck->transferFromDiscard(deck->getHumanDeck()))){
+                // notify the user and reset their choice
                 cout << "The discard pile is empty. Try again." << endl;
                 userChoice=0;
             }
         }
+        // if they want advice, instead
         else if(userChoice==3){
-            // get advice, based on player stage
+            // get advice, based on where to transfer
             cout << "Here's some advice." << endl;
             this->examineOptions(deck,'t');
         }
         else{
-            cout << "Please enter a valid option." << endl;
+            cout << "Please choose again." << endl;
         }
     } while(userChoice < 1 || userChoice > 2);
     return;
 }
 
+int HumanPlayer::getValidInput(int minNum, int maxNum){
+    int userInput;
+    while(!(cin >> userInput) || userInput < minNum || userInput > maxNum){
+        cin.clear();
+        cin.ignore(500,'\n');
+        cout << "Please select a valid option." << endl;
+    }
+    return userInput;
+}
+
 void HumanPlayer::discardCard(Deck *deck){
+    // store user choice
     int userChoice=0;
+    // prompt player
     do{
         cout << "What would you like to do now?" << endl
         << "\t1. Discard a card" << endl
         << "\t2. Ask for advice" << endl;
-        cin >> userChoice;
+        userChoice=this->getValidInput(1,2);
+        // if no advice needed
         if(userChoice==1){
             // skip to discard action
         }
+        // if advice requested
         else if(userChoice==2){
+            // give advice on which pile to give their card
             this->examineOptions(deck,'g');
             userChoice=0;
         }
+        // extra input validation
         else{
             cout << "Please enter a valid option." << endl;
         }
@@ -84,9 +105,13 @@ void HumanPlayer::discardCard(Deck *deck){
     userChoice=0;
     
     do{
+        // prompt user to choose a card to discard
         cout << "Enter the card you want to discard:" << endl;
+        // display their deck
         deck->printTheDeck(deck->getHumanDeck());
-        cin>>userChoice;
+        // validate input against funny business
+        userChoice=this->getValidInput(1, (int)(deck->getHumanDeck().size()));
+        
     }while(userChoice < 1 || userChoice > (deck->getHumanDeck().size()));
     
     // translate user choice to vector position
@@ -107,9 +132,11 @@ void HumanPlayer::discardCard(Deck *deck){
 }
 
 void HumanPlayer::playRound(Deck *deck){
+    // prompt player where to draw their card
     this->drawCard(deck);
-    
+    // prompt player where to discard their card
     this->discardCard(deck);
+    // check hand to see if they're out.
     if(deck->checkIfOut(deck->getHumanDeck())){
         cout << "You're going out!" << endl;
         this->setOut(true);
@@ -153,7 +180,6 @@ bool HumanPlayer::confirmExit(){
         << endl;
         cin >> quitStatus;
         quitStatus=toupper(quitStatus);
-        //cout << "\t\tQuit status is: " << quitStatus << endl;
     }while(quitStatus != 'Y' && quitStatus !='N');
     if(quitStatus=='Y'){
         return true;

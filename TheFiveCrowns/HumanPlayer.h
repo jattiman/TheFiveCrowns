@@ -15,6 +15,7 @@ class HumanPlayer: public Player {
 public:
     HumanPlayer();
     void sayIfHuman();
+    int getValidInput(int minNum, int maxNum);
     void drawCard(Deck *deck);
     void discardCard(Deck *deck);
     void playRound(Deck *deck);
