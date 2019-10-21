@@ -39,6 +39,7 @@ public:
     //void setDeck(Deck *playerDeck);
     void setPlayerNumber(int num);
     void setOut(bool areYouOut);
+    void deletePoints();
     
     // checks if player can go out
     virtual bool requestToGoOut()=0;

@@ -39,6 +39,22 @@ int Game::getRoundNumber(){
     return roundNumber;
 }
 
+void Game::welcomeOptions(){
+    if(this->getRoundNumber()>1){
+        cout << "Select your option:" << endl
+        << "\t1. Next round" << endl
+        << "\t2. Load game"<< endl
+        << "\t3. Quit" << endl;
+    }
+    else{
+        cout << "Select your option:" << endl
+        << "\t1. New game" << endl
+        << "\t2. Load game"<< endl
+        << "\t3. Quit" << endl;
+    }
+    return;
+}
+
 void Game::welcome(){
     // stores the user's selected option
     int userOption = 0;
@@ -50,18 +66,13 @@ void Game::welcome(){
     // Loop until user quits
     while(this->getRoundNumber()<12){
         // prompt for options
-        cout << "Select your option:" << endl
-        << "\t1. New round" << endl
-        << "\t2. Load game"<< endl
-        << "\t3. Quit" << endl;
+        this->welcomeOptions();
                 
         while(!(cin >> userOption)){
             cin.clear();
             cin.ignore(100,'\n');
-            cout << "Please select a valid option." << endl
-            << "\t1. Begin round" << endl
-            << "\t2. Load game"<< endl
-            << "\t3. Quit" << endl;
+            cout << "Please select a valid option." << endl;
+            this->welcomeOptions();
         }
         
         // If new game, start new game
@@ -73,15 +84,16 @@ void Game::welcome(){
             
             //this->beginRound();
             this->round=new Round(h,c,roundNumber);
-            this->round->startRound();
-            // return from round
-            // reset player status to prepare for next round.
+            // run round. If user doesn't hard quit, increment to next round
+            if(this->round->startRound()!=4){
+                // increment round number in case player wants to progress
+                this->incrementRound();
+            }
             
+            // return from round
+            // reset player out status to prepare for next round.
             this->h->setOut(false);
             this->c->setOut(false);
-            
-            // increment round number in case player wants to progress
-            this->incrementRound();
         }
         
         // If loading game, select game file to load and begin game
@@ -93,9 +105,9 @@ void Game::welcome(){
                 // reset key variables to ensure next round can run
                 this->h->setOut(false);
                 this->c->setOut(false);
-                
+                this->round->startRound();
                 // increment round number in case player wants to progress
-                this->incrementRound();
+                //this->incrementRound();
             }
             else{
                 cout << "Load file failed." << endl;
@@ -121,7 +133,11 @@ void Game::welcome(){
 void Game::beginRound(){
     cout << "Starting new round." << endl;
     this->round=new Round(h,c,roundNumber);
-    this->round->startRound();
+    // if round successful (no hard quit)
+    if(this->round->startRound()!=4){
+        // increment round number
+        this->incrementRound();
+    }
     return;
 }
 
@@ -137,6 +153,7 @@ void Game::beginRound(){
 bool Game::loadRound(){
     this->round = new Round(h,c);
     if(this->round->loadGame()){
+        this->setRoundNumber(this->round->getRoundNumber());
         return true;
     }
     else{

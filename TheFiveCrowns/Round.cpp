@@ -206,7 +206,7 @@ int Round::giveOptions(Player *p){
 
 
 
-void Round::startRound(){
+int Round::startRound(){
     
 //    int answer = 0;
     int totalPlayers=this->getTotalPlayers();
@@ -216,7 +216,12 @@ void Round::startRound(){
         this->getRoundStatus();
         // begin the round progression, one player at a time
         roundResult=progressRound(this->ourPlayers[ourTurn%totalPlayers]);
+        // if quit/progress loss confirmed
         if(roundResult==4){
+            // delete points and break from loop
+            for (auto i: ourPlayers){
+                i->deletePoints();
+            }
             break;
         }
         ourTurn++;
@@ -238,7 +243,7 @@ void Round::startRound(){
         }
     }
     cout << "Round is over. Would you like to progress?" << endl;
-    return;
+    return roundResult;
 }
 
 int Round::progressRound(Player *p){
@@ -376,6 +381,7 @@ bool Round::loadNums(std::string passedNums, char numChoice){
             return false;
         }
         this->setRoundNumber(ourNumber);
+        cout << "Round #: " << this->getRoundNumber() << endl;
         return true;
     }
     if(numChoice=='h'){
@@ -593,8 +599,8 @@ bool Round::loadGame(){
         cout << "File load issue." << endl;
         return false;
     }
-    cout << "Game loaded. Starting round." << endl;
-    this->startRound();
+    cout << "Game loaded." << endl;
+    //this->startRound();
     return true;
 }
 

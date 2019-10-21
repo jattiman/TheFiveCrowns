@@ -63,6 +63,10 @@ void Player::setOut(bool areYouOut){
     this->isOut=areYouOut;
 }
 
+void Player::deletePoints(){
+    this->playerPoints=0;
+}
+
 //void Player::showHand(){
 //    // will update this later after deck class has multiple print statements
 //    // will also need to add logic to ensure the deck will not

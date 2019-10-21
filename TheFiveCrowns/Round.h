@@ -41,7 +41,7 @@ public:
     int giveOptions(Player *p);
     
     
-    void startRound();
+    int startRound();
     int progressRound(Player *p);
     // save game function
     bool saveGame();

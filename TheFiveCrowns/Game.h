@@ -23,7 +23,7 @@ public:
     void setRoundNumber(int newRound);
     
     int getRoundNumber();
-    
+    void welcomeOptions();
     void welcome();
     void beginRound();
 //    void beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber);
