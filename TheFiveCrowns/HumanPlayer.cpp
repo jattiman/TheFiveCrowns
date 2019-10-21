@@ -110,7 +110,11 @@ void HumanPlayer::playRound(Deck *deck){
     this->drawCard(deck);
     
     this->discardCard(deck);
-    cout << "\t\t\tReturned from discard." << endl;
+    
+    if(this->checkIfOut(deck->getHumanDeck())){
+        cout << "You're going out!" << endl;
+        this->setOut(true);
+    }
     return;
 }
 
