@@ -21,10 +21,12 @@ class Game{
 public:
     Game();
     void setRoundNumber(int newRound);
-    
+    void setNextUp(int nextPlayer);
     int getRoundNumber();
+    int getNextUp();
     void welcomeOptions();
-    bool coinToss();
+    int getValidInput(int minNum=0, int maxNum=500);
+    void coinToss();
     void welcome();
     void beginRound();
 //    void beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber);
@@ -39,7 +41,8 @@ public:
     
     
 private:
-    int roundNumber;
+    int roundNumber=0;
+    int nextUp=0;
     Round *round;
     // may end up removing vectors...
     //std::vector<Player*> ourPlayers;

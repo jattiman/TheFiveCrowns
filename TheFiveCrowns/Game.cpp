@@ -36,8 +36,16 @@ void Game::setRoundNumber(int newRound){
     return;
 }
 
+void Game::setNextUp(int nextPlayer){
+    this->nextUp=nextPlayer;
+}
+
 int Game::getRoundNumber(){
-    return roundNumber;
+    return this->roundNumber;
+}
+
+int Game::getNextUp(){
+    return this->nextUp;
 }
 
 void Game::welcomeOptions(){
@@ -56,7 +64,17 @@ void Game::welcomeOptions(){
     return;
 }
 
-bool Game::coinToss(){
+int Game::getValidInput(int minNum, int maxNum){
+    int userInput;
+    while(!(cin >> userInput) || userInput < minNum || userInput > maxNum){
+        cin.clear();
+        cin.ignore(500,'\n');
+        cout << "Please select a valid option." << endl;
+    }
+    return userInput;
+}
+
+void Game::coinToss(){
     int userChoice;
     unsigned seed;
     seed = (unsigned) std::chrono::system_clock::now().time_since_epoch().count();
@@ -66,9 +84,31 @@ bool Game::coinToss(){
     << "1. Heads" << endl
     << "2. Tails" << endl;
     
-    cin >> userChoice;
+    userChoice=this->getValidInput(1,2);
     
-    return true;
+    cout << "You look at the coin and see that it faces ... " << endl;
+    cout << "(Press enter to see! Can you feel the anticipation?)";
+    cin.ignore(100,'\n');
+    cin.get();
+    
+    if(seed%2==0){
+        cout << "Heads!" << endl;
+    }
+    else{
+        cout << "Tails!" << endl;
+    }
+    
+    if(seed%2==(userChoice-1)){
+        cout << "You guessed correctly! You're up first." << endl;
+        this->setNextUp(0);
+    }
+    else{
+        cout << "You guessed incorrectly. Computer goes first." << endl;
+        this->setNextUp(1);
+    }
+    cout << "(Press enter to continue! Wasn't that fun?)";
+    cin.get();
+    return;
 }
 
 void Game::welcome(){
@@ -94,16 +134,20 @@ void Game::welcome(){
         
         // If new game, start new game
         if(userOption==1){
-            
             // if it's the first round, call coin toss
-            
+            if(this->getRoundNumber()==1){
+                this->coinToss();
+            }
+            else{
+                cout << "No coin toss for you." << endl;
+            }
             // otherwise, go with the winner from last round
             
             
             //start round with order listed
             
             //this->beginRound();
-            this->round=new Round(h,c,roundNumber);
+            this->round=new Round(h,c,roundNumber,this->getNextUp());
             // run round. If user doesn't hard quit, increment to next round
             if(this->round->startRound()!=4){
                 // increment round number in case player wants to progress
