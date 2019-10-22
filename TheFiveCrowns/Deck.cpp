@@ -345,16 +345,32 @@ bool Deck::checkIfAllWild(std::vector<Card*> cardPile){
     return areTheyWild;
 }
 
-bool Deck::checkIfRun(std::vector<Card*> cardPile){
-    bool areTheyInRun=true;
+int Deck::countWilds(std::vector<Card *> cardPile){
+    int wildCount=0;
+    for(auto i: cardPile){
+        if(i->getWildStatus()){
+            wildCount++;
+        }
+    }
+    return wildCount;
+}
+
+bool Deck::checkIfSameSuit(std::vector<Card *> cardPile){
     char ourSuite=cardPile[0]->getSuite();
     // first, check to confirm all suites are the same
     for (auto i: cardPile){
-        if(i->getSuite()!=ourSuite){
-            areTheyInRun=false;
-            break;
+        if(i->getSuite()!=ourSuite && !(i->getWildStatus())){
+            return false;
         }
     }
+    return true;
+}
+
+bool Deck::checkIfRun(std::vector<Card*> cardPile, int & numWilds){
+    bool areTheyInRun=true;
+    int cardDistance=0;
+    // first, check to confirm all suites are the same
+    areTheyInRun=this->checkIfSameSuit(cardPile);
     // if all suites are the same, check to see if the faces are consecutive
     vector<int> cardFaces;
     cardFaces.reserve(cardPile.size());
@@ -401,8 +417,18 @@ bool Deck::checkIfRun(std::vector<Card*> cardPile){
     }
     // iterate through vector and confirm that the values are within 1 of each other
     sort(cardFaces.begin(), cardFaces.end());
+//    cout << "\n\t\t\tCard faces in run: ";
+//    for (auto i: cardFaces){
+//        cout << i << " ";
+//    }
+    cout << endl << endl;
     for(int i=1;i<cardFaces.size();i++){
-        if(cardFaces[i]-cardFaces[i-1]!=1){
+        cardDistance=cardFaces[i]-cardFaces[i-1];
+        while(cardDistance>1 && numWilds>0){
+            cardDistance-=1;
+            numWilds-=1;
+        }
+        if(cardDistance!=1){
             areTheyInRun=false;
         }
     }
@@ -411,11 +437,11 @@ bool Deck::checkIfRun(std::vector<Card*> cardPile){
     return areTheyInRun;
 }
 
-bool Deck::checkIfBook(std::vector<Card*> cardPile){
+bool Deck::checkIfBook(std::vector<Card*> cardPile, int & numWilds){
     bool areInBook=true;
     char ourFace=cardPile[0]->getFace();
     for(auto i: cardPile){
-        if(i->getFace()!=ourFace){
+        if(i->getFace()!=ourFace && !(i->getWildStatus())){
             areInBook=false;
             break;
         }
@@ -425,16 +451,19 @@ bool Deck::checkIfBook(std::vector<Card*> cardPile){
 
 bool Deck::checkIfOut(std::vector<Card*> cardPile){
     vector<Card*> tempPile=cardPile;
+    // holds the number of wild cards
+    int numberOfWilds;
     // check if all wild
+    
     if(this->checkIfAllWild(tempPile)){
         return true;
     }
     // check if all in book
-    if(this->checkIfBook(tempPile)){
+    if(this->checkIfBook(tempPile, numberOfWilds)){
         return true;
     }
     // check if all in run
-    if(this->checkIfRun(tempPile)){
+    if(this->checkIfRun(tempPile, numberOfWilds)){
         return true;
     }
     return false;

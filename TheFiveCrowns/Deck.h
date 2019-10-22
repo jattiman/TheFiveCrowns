@@ -61,16 +61,15 @@ public:
     // find a card
     int findCard(std::vector<Card*> & hand, std::string userSearch);
     
-    //Card * removeTopCard(std::vector<Card*> & cardPile);
-    
-    
-    
     // for reading in files, this will be useful
     void stringToCardInputs(std::string cardInputString);
     
+    // to check for going out
     bool checkIfAllWild(std::vector<Card*> cardPile);
-    bool checkIfRun(std::vector<Card*> cardPile);
-    bool checkIfBook(std::vector<Card*> cardPile);
+    int countWilds(std::vector<Card*> cardPile);
+    bool checkIfSameSuit(std::vector<Card*> cardPile);
+    bool checkIfRun(std::vector<Card*> cardPile, int & numWilds);
+    bool checkIfBook(std::vector<Card*> cardPile, int & numWilds);
     bool checkIfOut(std::vector<Card*> cardPile);
     
     std::string deckToString(std::vector<Card*> cardPile);

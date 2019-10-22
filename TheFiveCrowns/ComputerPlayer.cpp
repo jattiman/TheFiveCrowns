@@ -33,15 +33,27 @@ void ComputerPlayer::discardCard(Deck *deck){
 }
 
 void ComputerPlayer::playRound(Deck *deck){
+    // for holding future card choices
     int chosenCard=0;
+    
+    // announce that the computer has started round
     cout << "Computer playing round." << endl;
-    // determine where to draw from
+    
+    // first, check if out
+    if(deck->checkIfOut(deck->getComputerDeck())){
+        cout << "Computer is going out!" << endl << endl;
+        this->setOut(true);
+        return;
+    }
+    
+    // if not out, determine where to draw from
     if(this->examineOptions(deck,'t')==1){
         deck->transferFromDiscard(deck->getComputerDeck());
     }
     else{
         deck->transferFromDraw(deck->getComputerDeck());
     }
+    
     // choose card to discard
     chosenCard=this->examineOptions(deck,'g');
     cout << "Discarding: " << deck->getComputerDeck()[chosenCard]->getFace() << deck->getComputerDeck()[chosenCard]->getSuite() << endl;
@@ -53,7 +65,8 @@ void ComputerPlayer::playRound(Deck *deck){
     cout << "New computer hand: ";
     deck->printTheDeck(deck->getComputerDeck());
     cout << endl;
-    // determine if computer is out
+    
+    // determine if computer is out with new hand
     if(deck->checkIfOut(deck->getComputerDeck())){
         cout << "Computer is going out!" << endl << endl;
         this->setOut(true);

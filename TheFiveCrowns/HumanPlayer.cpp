@@ -156,7 +156,7 @@ void HumanPlayer::playRound(Deck *deck){
 
 bool HumanPlayer::requestToGoOut(Deck *deck){
     if(deck->checkIfOut(deck->getHumanDeck())){
-        cout << "You can go out" << endl;
+        cout << "You can go out! Congratulations." << endl;
         this->setOut(true);
         return true;
     }
