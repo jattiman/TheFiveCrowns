@@ -357,46 +357,53 @@ bool Deck::checkIfRun(std::vector<Card*> cardPile){
     vector<int> cardFaces;
     cardFaces.reserve(cardPile.size());
     for(auto i: cardPile){
-        switch (i->getFace()) {
-            case '3':
-                cardFaces.push_back(3);
-                break;
-            case '4':
-                cardFaces.push_back(4);
-                break;
-            case '5':
-                cardFaces.push_back(5);
-                break;
-            case '6':
-                cardFaces.push_back(6);
-                break;
-            case '7':
-                cardFaces.push_back(7);
-                break;
-            case '8':
-                cardFaces.push_back(8);
-                break;
-            case '9':
-                cardFaces.push_back(9);
-                break;
-            case 'X':
-                cardFaces.push_back(10);
-                break;
-            case 'J':
-                cardFaces.push_back(11);
-                break;
-            case 'Q':
-                cardFaces.push_back(12);
-                break;
-            case 'K':
-                cardFaces.push_back(13);
-                break;
-            default:
-                break;
+        if(!(i->getWildStatus())){
+            switch (i->getFace()) {
+                case '3':
+                    cardFaces.push_back(3);
+                    break;
+                case '4':
+                    cardFaces.push_back(4);
+                    break;
+                case '5':
+                    cardFaces.push_back(5);
+                    break;
+                case '6':
+                    cardFaces.push_back(6);
+                    break;
+                case '7':
+                    cardFaces.push_back(7);
+                    break;
+                case '8':
+                    cardFaces.push_back(8);
+                    break;
+                case '9':
+                    cardFaces.push_back(9);
+                    break;
+                case 'X':
+                    cardFaces.push_back(10);
+                    break;
+                case 'J':
+                    cardFaces.push_back(11);
+                    break;
+                case 'Q':
+                    cardFaces.push_back(12);
+                    break;
+                case 'K':
+                    cardFaces.push_back(13);
+                    break;
+                default:
+                    break;
+            }
         }
     }
     // need to make it so that card faces enumerate to integer...
     sort(cardFaces.begin(), cardFaces.end());
+    for(int i=1;i<cardFaces.size();i++){
+        if(cardFaces[i]-cardFaces[i-1]!=1){
+            areTheyInRun=false;
+        }
+    }
     // iterate through vector and confirm that the values are within 1 of each other
     
     
@@ -425,18 +432,24 @@ bool Deck::checkIfOut(std::vector<Card*> cardPile){
     if(this->checkIfBook(tempPile)){
         return true;
     }
+    // check if all in run
+    if(this->checkIfRun(tempPile)){
+        return true;
+    }
     return false;
 }
 
 string Deck::deckToString(std::vector<Card *> cardPile){
+    // Turn the deck into a string
+    // create string variable to hold the deck
     string deckString;
+    // iterate through deck, and append cards to the string
     for(const auto &i: cardPile){
-        //cout << i->getFace() << i->getSuite() << " ";
         deckString += i->getFace();
         deckString += i->getSuite();
         deckString += " ";
     }
-    //cout << endl;
+    // return the string
     return deckString;
 }
 
@@ -454,34 +467,7 @@ string Deck::discardPileString(std::vector<Card *> cardPile){
 }
 
 void Deck::testDeck(){
-//    cout << "\tDeck test" << endl;
-//    //this->transferCard(this->getMainPile(), this->getHumanDeck());
-//    //this->transferTopCard(mainDeck, humanPile);
-//    cout << "Making vector." << endl;
-//    vector<Card*> testHand;
-//    cout << "Pushing back cards." << endl;
-//    testHand.push_back(new Card("9T",this->getRound()));
-//    testHand.push_back(new Card("8C",this->getRound()));
-//    testHand.push_back(new Card("XH",this->getRound()));
-//    cout << "returning total points" << endl;
-//    int totalPoints=countCardPoints(testHand);
-//    cout << "Total points for test hand of 9t 8c xh is: " << totalPoints << endl;
-    string ourString;
-    int cardIndex=0;
-    while(true){
-        
-        cout << "Search for card in deck! :" << endl;
-        cin.clear();
-        getline(cin,ourString);
-        cardIndex=this->findCard(this->getDrawPile(),ourString);
-        if(cardIndex<this->getDrawPile().size()){
-            cout << "\t\tFound card:" << endl;
-            cout << this->getDrawPile()[cardIndex]->getCardString() << endl;
-        }
-        else{
-            cout << "Can't find card at cardindex: " << cardIndex << endl;
-        }
-    }
+    
     
     return;
 }

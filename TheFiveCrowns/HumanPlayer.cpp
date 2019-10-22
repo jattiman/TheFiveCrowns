@@ -25,7 +25,7 @@ void HumanPlayer::sayIfHuman(){
     }
 }
 
-void HumanPlayer::drawCard(Deck *deck){
+bool HumanPlayer::drawCard(Deck *deck){
     // variable to store user choice
     int userChoice=0;
     // give player option to draw card
@@ -33,9 +33,10 @@ void HumanPlayer::drawCard(Deck *deck){
         cout << "Where would you like to draw from?" << endl
         << "\t1. The draw pile" << endl
         << "\t2. The discard pile" << endl
-        << "\t3. Ask for advice" << endl;
+        << "\t3. Ask for advice" << endl
+        << "\t4. Nowhere. I want to go out!" << endl;
         // validate input and transfer the card appropriately
-        userChoice=this->getValidInput(1,3);
+        userChoice=this->getValidInput(1,4);
         // transfer from the draw pile
         if(userChoice==1){
             // If there's an issue (shouldn't be)
@@ -60,11 +61,17 @@ void HumanPlayer::drawCard(Deck *deck){
             cout << "Here's some advice." << endl;
             this->examineOptions(deck,'t');
         }
+        // if they think they can go out
+        else if(userChoice==4){
+            if(this->requestToGoOut(deck)){
+                return true;
+            }
+        }
         else{
             cout << "Please choose again." << endl;
         }
     } while(userChoice < 1 || userChoice > 2);
-    return;
+    return false;
 }
 
 int HumanPlayer::getValidInput(int minNum, int maxNum){
@@ -133,7 +140,9 @@ void HumanPlayer::discardCard(Deck *deck){
 
 void HumanPlayer::playRound(Deck *deck){
     // prompt player where to draw their card
-    this->drawCard(deck);
+    if(this->drawCard(deck)){
+        return;
+    }
     // prompt player where to discard their card
     this->discardCard(deck);
     // check hand to see if they're out.
@@ -144,9 +153,17 @@ void HumanPlayer::playRound(Deck *deck){
     return;
 }
 
-//bool HumanPlayer::requestToGoOut(){
-//    return false;
-//}
+bool HumanPlayer::requestToGoOut(Deck *deck){
+    if(deck->checkIfOut(deck->getHumanDeck())){
+        cout << "You can go out" << endl;
+        this->setOut(true);
+        return true;
+    }
+    else{
+        cout << "You can't go out." << endl;
+    }
+    return false;
+}
 
 //void HumanPlayer::saveGame(){
 //    cout << "Saving game ... " << endl;

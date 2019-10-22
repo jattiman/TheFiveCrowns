@@ -42,13 +42,13 @@ public:
     void deletePoints();
     
     // checks if player can go out
-//    virtual bool requestToGoOut()=0;
+    virtual bool requestToGoOut(Deck *deck)=0;
     
     
     //virtual bool checkIfOut(std::vector<Card*> handToCheck)=0;
 
     virtual void sayIfHuman()=0;
-    virtual void drawCard(Deck *deck)=0;
+    virtual bool drawCard(Deck *deck)=0;
     virtual void discardCard(Deck *deck)=0;
     virtual void playRound(Deck *deck)=0;
 //    virtual void saveGame()=0;

@@ -25,8 +25,8 @@ void ComputerPlayer::sayIfHuman(){
     }
 }
 
-void ComputerPlayer::drawCard(Deck *deck){
-    return;
+bool ComputerPlayer::drawCard(Deck *deck){
+    return false;
 }
 void ComputerPlayer::discardCard(Deck *deck){
     return;
@@ -55,10 +55,14 @@ void ComputerPlayer::playRound(Deck *deck){
     cout << endl;
     // determine if computer is out
     if(deck->checkIfOut(deck->getComputerDeck())){
-        cout << "You're going out!" << endl;
+        cout << "Computer is going out!" << endl << endl;
         this->setOut(true);
     }
     return;
+}
+
+bool ComputerPlayer::requestToGoOut(Deck *deck){
+    return false;
 }
 
 int ComputerPlayer::examineOptions(Deck *deck, char choice){

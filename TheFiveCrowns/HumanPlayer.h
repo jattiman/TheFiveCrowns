@@ -16,10 +16,10 @@ public:
     HumanPlayer();
     void sayIfHuman();
     int getValidInput(int minNum, int maxNum);
-    void drawCard(Deck *deck);
+    bool drawCard(Deck *deck);
     void discardCard(Deck *deck);
     void playRound(Deck *deck);
-//    bool requestToGoOut();
+    bool requestToGoOut(Deck *deck);
 //    void saveGame();
     int examineOptions(Deck *deck, char choice='a');
     bool confirmExit();
