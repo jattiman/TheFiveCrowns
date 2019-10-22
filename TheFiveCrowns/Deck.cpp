@@ -769,13 +769,14 @@ int Deck::tallyRemainingCards(std::vector<Card*> &cardPile){
     if(this->checkIfRun(tempPile, numberOfWilds) || tempPile.empty()){
         return 0;
     }
-    cout << " leftover cards:\t";
-    for (auto i: tempPile){
-        cout << i->getCardString() << " ";
-    }
-    cout << endl;
+//    cout << " leftover cards:\t";
+//    for (auto i: tempPile){
+//        cout << i->getCardString() << " ";
+//    }
+//    cout << endl;
     // if we still have leftover cards, tally their points
     totalPoints=countCardPoints(tempPile);
+    tempPile.swap(cardPile);
     return totalPoints;
 }
 

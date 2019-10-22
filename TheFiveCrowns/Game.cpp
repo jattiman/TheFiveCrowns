@@ -247,14 +247,15 @@ void Game::incrementRound(){
 
 void Game::displayEndStats(){
     // let user know that the game is over, and display points
-    cout << "Our game has ended!"
-    << endl
+    cout << endl << endl
+    << "Our game has ended!"
+    << endl << endl
     << "Final stats:"
     << endl
-    << "Human Player points: " << this->h->getPoints()
+    << "Human Player points: \t\t" << this->h->getPoints()
     << endl
-    << "Computer Player points: " << this->c->getPoints()
-    << endl
+    << "Computer Player points: \t" << this->c->getPoints()
+    << endl << endl
     << "Winner: ";
     // output the winner based on who has lower points
     if(this->h->getPoints() < this->c->getPoints()){

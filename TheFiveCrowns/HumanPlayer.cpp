@@ -160,7 +160,7 @@ bool HumanPlayer::requestToGoOut(Deck *deck){
         return true;
     }
     else{
-        cout << "You can't go out yet, but keep trying." << endl;
+        cout << "You can't go out with this hand." << endl <<endl;
     }
     return false;
 }
