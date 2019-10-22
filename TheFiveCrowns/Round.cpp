@@ -230,9 +230,12 @@ int Round::endRound(){
      
     cout << "Setting round points ... " << endl;
     // set round points
-    this->setHumanRoundPoints(this->deck->countCardPoints(this->deck->getHumanDeck()));
-    this->setComputerRoundPoints(this->deck->countCardPoints(this->deck->getHumanDeck()));
-    
+    //this->setHumanRoundPoints(this->deck->countCardPoints(this->deck->getHumanDeck()));
+    //this->setComputerRoundPoints(this->deck->countCardPoints(this->deck->getHumanDeck()));
+
+    this->setHumanRoundPoints(this->deck->tallyRemainingCards(this->deck->getHumanDeck()));
+    this->setComputerRoundPoints(this->deck->tallyRemainingCards(this->deck->getHumanDeck()));
+
     // add points to total player score
     
     for (auto i: ourPlayers){
