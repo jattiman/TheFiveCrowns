@@ -226,30 +226,34 @@ int Round::giveOptions(Player *p){
 }
 
 int Round::endRound(){
-    cout << "Round ended successfully. Good job, everyone." << endl;
+    cout << "Round ended successfully. Good job, everyone." << endl << endl;
      
     cout << "Setting round points ... " << endl;
     // set round points
     //this->setHumanRoundPoints(this->deck->countCardPoints(this->deck->getHumanDeck()));
     //this->setComputerRoundPoints(this->deck->countCardPoints(this->deck->getHumanDeck()));
 
-    this->setHumanRoundPoints(this->deck->tallyRemainingCards(this->deck->getHumanDeck()));
-    this->setComputerRoundPoints(this->deck->tallyRemainingCards(this->deck->getHumanDeck()));
+    
+    
 
     // add points to total player score
     
     for (auto i: ourPlayers){
         // if you're human AND not out
         if(i->getHumanity() && !(i->getIfOut())){
-             cout << "Computer:\tAdding 0 points." << endl;
-             cout << "Human:\t\tAdding " << this->getHumanRoundPoints() << " points." << endl;
-             i->addPoints(this->getHumanRoundPoints());
+            cout << "Human";
+            this->setHumanRoundPoints(this->deck->tallyRemainingCards(this->deck->getHumanDeck()));
+            cout << "Computer:\tAdding 0 points." << endl;
+            cout << "Human:\t\tAdding " << this->getHumanRoundPoints() << " points." << endl;
+            i->addPoints(this->getHumanRoundPoints());
         }
         // if you're a computer AND not out
         else if((!i->getHumanity()) && !(i->getIfOut())){
-             cout << "Computer:\tAdding " << this->getComputerRoundPoints() << " points." << endl;
-             cout << "Human:\t\tAdding 0 points." << endl;
-             i->addPoints(this->getComputerRoundPoints());
+            cout << "Computer";
+            this->setComputerRoundPoints(this->deck->tallyRemainingCards(this->deck->getComputerDeck()));
+            cout << "Computer:\tAdding " << this->getComputerRoundPoints() << " points." << endl;
+            cout << "Human:\t\tAdding 0 points." << endl;
+            i->addPoints(this->getComputerRoundPoints());
         }
     }
     

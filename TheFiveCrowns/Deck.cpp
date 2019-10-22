@@ -459,7 +459,7 @@ bool Deck::checkSuitRun(std::vector<Card*> & cardPile, int & numWilds){
 //    for (auto i: cardFaces){
 //        cout << i << " ";
 //    }
-    cout << endl;
+//    cout << endl;
     int wildsOut=0;
     for(int i=1;i<cardFaces.size();i++){
         // check each index in the vector for consecutive numbers
@@ -482,7 +482,7 @@ bool Deck::checkSuitRun(std::vector<Card*> & cardPile, int & numWilds){
 //    for (auto i: cardPile){
 //        cout << i->getCardString() << " ";
 //    }
-    cout << endl;
+//    cout << endl;
     return true;
 }
 
@@ -689,7 +689,7 @@ bool Deck::checkIfBook(std::vector<Card*> & cardPile, int & numWilds){
 //    for (auto i: swapDeck){
 //        cout << i->getCardString() << " ";
 //    }
-    cout << endl;
+//    cout << endl;
     return areInBook;
 }
 
@@ -769,7 +769,7 @@ int Deck::tallyRemainingCards(std::vector<Card*> &cardPile){
     if(this->checkIfRun(tempPile, numberOfWilds) || tempPile.empty()){
         return 0;
     }
-    cout << "Temp pile remaining";
+    cout << " leftover cards:\t";
     for (auto i: tempPile){
         cout << i->getCardString() << " ";
     }
