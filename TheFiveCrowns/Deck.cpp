@@ -1012,7 +1012,12 @@ int Deck::tallyRemainingCardPoints(std::vector<Card*> &cardPile){
     }
     // if we still have leftover cards, tally their points
     totalPoints=countCardPoints(tempPile);
-    tempPile.swap(cardPile);
+    // if the only difference in deck sizes are the wild cards, the wild cards aren't effective, and should be tallied
+    if(tempPile.size()+numberOfWilds!=cardPile.size()){
+        // otherwise, include only the temp cards remaining
+        tempPile.swap(cardPile);
+    }
+    totalPoints=countCardPoints(cardPile);
     return totalPoints;
 }
 
