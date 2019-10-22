@@ -346,18 +346,14 @@ bool Deck::checkIfAllWild(std::vector<Card*> cardPile){
 }
 
 int Deck::countWilds(std::vector<Card *> & cardPile){
-    cout << "Temp pile before count wilds is: ";
+
+    int wildCount=0;
+    vector<Card*> swapDeck;
+    cout << "Temp pile before countWilds is: ";
     for (auto i: cardPile){
         cout << i->getCardString() << " ";
     }
     cout << endl;
-    int wildCount=0;
-    vector<Card*> swapDeck;
-//    cout << "Temp pile before countWilds is: ";
-//    for (auto i: cardPile){
-//        cout << i->getCardString() << " ";
-//    }
-//    cout << endl;
     // iterate through the temp pile
     for(auto i: cardPile){
         // if wild card detected, increment wild count
@@ -373,11 +369,6 @@ int Deck::countWilds(std::vector<Card *> & cardPile){
     if(!swapDeck.empty()){
         swapDeck.swap(cardPile);
     }
-//    cout << "Temp pile after countWilds is: ";
-//    for (auto i: cardPile){
-//        cout << i->getCardString() << " ";
-//    }
-//    cout << endl;
     cout << "Temp pile after count wilds is: ";
     for (auto i: cardPile){
         cout << i->getCardString() << " ";
@@ -387,18 +378,25 @@ int Deck::countWilds(std::vector<Card *> & cardPile){
 }
 
 bool Deck::checkIfSameSuit(std::vector<Card *> cardPile){
-    char ourSuite=cardPile[0]->getSuite();
-    // first, check to confirm all suites are the same
-    for (auto i: cardPile){
-        if(i->getSuite()!=ourSuite && !(i->getWildStatus())){
-            return false;
+    if(!cardPile.empty()){
+        char ourSuite=cardPile[0]->getSuite();
+        // first, check to confirm all suites are the same
+        for (auto i: cardPile){
+            if(i->getSuite()!=ourSuite && !(i->getWildStatus())){
+                return false;
+            }
         }
     }
     return true;
 }
 
 bool Deck::checkIfRun(std::vector<Card*> & cardPile, int & numWilds){
-    
+    // create sub decks for each suit
+    vector<Card*> hearts;
+    vector<Card*> tridents;
+    vector<Card*> clubs;
+    vector<Card*> spades;
+    vector<Card*> diamonds;
     cout << "Temp pile before check run is: ";
     for (auto i: cardPile){
         cout << i->getCardString() << " ";
@@ -407,8 +405,30 @@ bool Deck::checkIfRun(std::vector<Card*> & cardPile, int & numWilds){
     
     bool areTheyInRun=true;
     int cardDistance=0;
-    // first, check to confirm all suites are the same
-    areTheyInRun=this->checkIfSameSuit(cardPile);
+    
+    // place cards in appopriate sub decks
+    for (auto i: cardPile){
+        switch (i->getSuite()) {
+            case 'H':
+                hearts.push_back(i);
+                break;
+            case 'T':
+                tridents.push_back(i);
+                break;
+            case 'D':
+                diamonds.push_back(i);
+                break;
+            case 'S':
+                spades.push_back(i);
+                break;
+            case 'C':
+                clubs.push_back(i);
+                break;
+            default:
+                break;
+        }
+    }
+    
     // if all suites are the same, check to see if the faces are consecutive
     vector<int> cardFaces;
     cardFaces.reserve(cardPile.size());
@@ -535,7 +555,11 @@ bool Deck::checkIfBook(std::vector<Card*> & cardPile, int & numWilds){
             facesToBook.push_back(arrayNav+3);
         }
     }
-    cout << " These are the faces we're booking: " ;
+    cout << "\n\tHere's the array we're navigating: ";
+    for(int arrayNav=0;arrayNav<11;arrayNav++){
+        cout << faceCount[arrayNav] << " ";
+    }
+    cout << "\n\t These are the faces we're booking: " ;
     for (auto i: facesToBook){
         cout << i << " ";
     }
