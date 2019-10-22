@@ -37,6 +37,7 @@ bool HumanPlayer::drawCard(Deck *deck){
         << "\t4. Nowhere. I want to go out!" << endl;
         // validate input and transfer the card appropriately
         userChoice=this->getValidInput(1,4);
+        cout << endl;
         // transfer from the draw pile
         if(userChoice==1){
             // If there's an issue (shouldn't be)

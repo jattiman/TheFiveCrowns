@@ -187,7 +187,6 @@ void Round::getRoundStatus(){
     this->givePlayerStatus(this->ourPlayers);
     // print the draw and discard piles
     this->deck->printDecks();
-    cout << endl;
     return;
 }
 
@@ -259,23 +258,23 @@ int Round::endRound(){
         // give a current total point standing
         cout << "Total points:"
         << endl
-        << "Computer:\t" << ourPlayers[1]->getPoints()
+        << "\tComputer:\t" << ourPlayers[1]->getPoints()
         << endl
-        << "Human:\t\t" << ourPlayers[0]->getPoints()
-        << endl;
+        << "\tHuman:\t\t" << ourPlayers[0]->getPoints()
+        << endl << endl;
         
         // display who goes next
         cout << "Next player up: ";
         if(this->getHumanRoundPoints()>this->getComputerRoundPoints()){
              // if computer had lower points, they go next
              this->setTurn(1);
-             cout << "Computer!" << endl;
+             cout << "Computer!" << endl << endl;
             return 1;
          }
         else{
              // if human had lower points, they go next
              this->setTurn(0);
-             cout << "Human!" << endl;
+             cout << "Human!" << endl << endl;
             return 0;
         }
     }

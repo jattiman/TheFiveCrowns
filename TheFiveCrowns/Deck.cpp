@@ -183,12 +183,14 @@ std::vector<Card*> & Deck::getDiscardPile(){
     return this->discardPile;
 }
 void Deck::printDecks(){
-//    cout << "Main Deck: ";          // debug
-//    this->printTheDeck(mainDeck);   // debug
+    // print the draw pile
     cout << "Draw Pile: ";
     this->printTheDeck(drawPile);
+    cout << endl;
+    // print the discard pile
     cout << "Discard Pile: ";
     this->displayDiscardTop();
+    cout << endl;
 }
 
 void Deck::printTheDeck(std::vector<Card*> cardPile){
@@ -397,16 +399,15 @@ bool Deck::checkIfRun(std::vector<Card*> cardPile){
             }
         }
     }
-    // need to make it so that card faces enumerate to integer...
+    // iterate through vector and confirm that the values are within 1 of each other
     sort(cardFaces.begin(), cardFaces.end());
     for(int i=1;i<cardFaces.size();i++){
         if(cardFaces[i]-cardFaces[i-1]!=1){
             areTheyInRun=false;
         }
     }
-    // iterate through vector and confirm that the values are within 1 of each other
     
-    
+    // return if they're in a run
     return areTheyInRun;
 }
 
