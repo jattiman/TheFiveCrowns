@@ -59,6 +59,7 @@ public:
     bool loadCards(std::string passedHand, char deckChoice);
     bool loadFileStats(std::vector<std::string> passedHand);
     bool loadGame();
+    void clearPoints();
     
     // for debugging only
     void roundTest();

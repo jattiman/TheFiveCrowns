@@ -147,21 +147,20 @@ void HumanPlayer::playRound(Deck *deck){
     // prompt player where to discard their card
     this->discardCard(deck);
     // check hand to see if they're out.
-    if(deck->checkIfOut(deck->getHumanDeck())){
-        cout << "You're going out!" << endl;
-        this->setOut(true);
-    }
+    this->requestToGoOut(deck);
     return;
 }
 
 bool HumanPlayer::requestToGoOut(Deck *deck){
     if(deck->checkIfOut(deck->getHumanDeck())){
-        cout << "You can go out! Congratulations." << endl;
+        cout << "You can go out! Congratulations! (Press enter)" << endl;
         this->setOut(true);
+        cin.ignore();
+        cin.get();
         return true;
     }
     else{
-        cout << "You can't go out." << endl;
+        cout << "You can't go out yet, but keep trying." << endl;
     }
     return false;
 }

@@ -53,6 +53,8 @@ void ComputerPlayer::playRound(Deck *deck){
     else{
         deck->transferFromDraw(deck->getComputerDeck());
     }
+    int size=(int)deck->getComputerDeck().size()-1;
+    cout << "\n\t\tAcquired: " << deck->getComputerDeck()[size]->getCardString() << endl;
     
     // choose card to discard
     chosenCard=this->examineOptions(deck,'g');

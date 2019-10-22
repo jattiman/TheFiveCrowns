@@ -34,7 +34,8 @@ public:
     bool getIfOut();
     
     void setHumanity(bool isPlayerHuman);
-    void setPoints(int newPoints);
+    void setTotalPoints(int totalPoints);
+    void addPoints(int newPoints);
     void setTurn(bool isNext);
     //void setDeck(Deck *playerDeck);
     void setPlayerNumber(int num);

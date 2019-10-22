@@ -345,13 +345,33 @@ bool Deck::checkIfAllWild(std::vector<Card*> cardPile){
     return areTheyWild;
 }
 
-int Deck::countWilds(std::vector<Card *> cardPile){
+int Deck::countWilds(std::vector<Card *> & cardPile){
     int wildCount=0;
+    vector<Card*> swapDeck;
+//    cout << "Temp pile before countWilds is: ";
+//    for (auto i: cardPile){
+//        cout << i->getCardString() << " ";
+//    }
+//    cout << endl;
+    // iterate through the temp pile
     for(auto i: cardPile){
+        // if wild card detected, increment wild count
         if(i->getWildStatus()){
             wildCount++;
         }
+        // if not, push non-wild card to temp deck
+        else{
+            swapDeck.push_back(i);
+        }
     }
+    // swap the decks to update the temp pile
+    swapDeck.swap(cardPile);
+//    cout << "Temp pile after countWilds is: ";
+//    for (auto i: cardPile){
+//        cout << i->getCardString() << " ";
+//    }
+//    cout << endl;
+    
     return wildCount;
 }
 
@@ -366,7 +386,14 @@ bool Deck::checkIfSameSuit(std::vector<Card *> cardPile){
     return true;
 }
 
-bool Deck::checkIfRun(std::vector<Card*> cardPile, int & numWilds){
+bool Deck::checkIfRun(std::vector<Card*> & cardPile, int & numWilds){
+    
+    cout << "Temp pile before check run is: ";
+    for (auto i: cardPile){
+        cout << i->getCardString() << " ";
+    }
+    cout << endl;
+    
     bool areTheyInRun=true;
     int cardDistance=0;
     // first, check to confirm all suites are the same
@@ -375,44 +402,42 @@ bool Deck::checkIfRun(std::vector<Card*> cardPile, int & numWilds){
     vector<int> cardFaces;
     cardFaces.reserve(cardPile.size());
     for(auto i: cardPile){
-        if(!(i->getWildStatus())){
-            switch (i->getFace()) {
-                case '3':
-                    cardFaces.push_back(3);
-                    break;
-                case '4':
-                    cardFaces.push_back(4);
-                    break;
-                case '5':
-                    cardFaces.push_back(5);
-                    break;
-                case '6':
-                    cardFaces.push_back(6);
-                    break;
-                case '7':
-                    cardFaces.push_back(7);
-                    break;
-                case '8':
-                    cardFaces.push_back(8);
-                    break;
-                case '9':
-                    cardFaces.push_back(9);
-                    break;
-                case 'X':
-                    cardFaces.push_back(10);
-                    break;
-                case 'J':
-                    cardFaces.push_back(11);
-                    break;
-                case 'Q':
-                    cardFaces.push_back(12);
-                    break;
-                case 'K':
-                    cardFaces.push_back(13);
-                    break;
-                default:
-                    break;
-            }
+        switch (i->getFace()) {
+            case '3':
+                cardFaces.push_back(3);
+                break;
+            case '4':
+                cardFaces.push_back(4);
+                break;
+            case '5':
+                cardFaces.push_back(5);
+                break;
+            case '6':
+                cardFaces.push_back(6);
+                break;
+            case '7':
+                cardFaces.push_back(7);
+                break;
+            case '8':
+                cardFaces.push_back(8);
+                break;
+            case '9':
+                cardFaces.push_back(9);
+                break;
+            case 'X':
+                cardFaces.push_back(10);
+                break;
+            case 'J':
+                cardFaces.push_back(11);
+                break;
+            case 'Q':
+                cardFaces.push_back(12);
+                break;
+            case 'K':
+                cardFaces.push_back(13);
+                break;
+            default:
+                break;
         }
     }
     // iterate through vector and confirm that the values are within 1 of each other
@@ -421,7 +446,7 @@ bool Deck::checkIfRun(std::vector<Card*> cardPile, int & numWilds){
 //    for (auto i: cardFaces){
 //        cout << i << " ";
 //    }
-    cout << endl << endl;
+//    cout << endl << endl;
     for(int i=1;i<cardFaces.size();i++){
         cardDistance=cardFaces[i]-cardFaces[i-1];
         while(cardDistance>1 && numWilds>0){
@@ -432,20 +457,103 @@ bool Deck::checkIfRun(std::vector<Card*> cardPile, int & numWilds){
             areTheyInRun=false;
         }
     }
-    
+    cout << "Temp pile after check run is: ";
+    for (auto i: cardPile){
+        cout << i->getCardString() << " ";
+    }
+    cout << endl;
     // return if they're in a run
     return areTheyInRun;
 }
 
-bool Deck::checkIfBook(std::vector<Card*> cardPile, int & numWilds){
+bool Deck::checkIfBook(std::vector<Card*> & cardPile, int & numWilds){
+    vector<Card*> swapDeck;
     bool areInBook=true;
-    char ourFace=cardPile[0]->getFace();
+    char ourFace;
+    int faceCount[11]={0,0,0,0,0,0,0,0,0,0,0};
+    vector<int> facesToBook;
+    
     for(auto i: cardPile){
-        if(i->getFace()!=ourFace && !(i->getWildStatus())){
-            areInBook=false;
-            break;
+        switch (i->getFace()) {
+            case '3':
+                faceCount[0]+=1;
+                break;
+            case '4':
+                faceCount[1]+=1;
+                break;
+            case '5':
+                faceCount[2]+=1;
+                break;
+            case '6':
+                faceCount[3]+=1;
+                break;
+            case '7':
+                faceCount[4]+=1;
+                break;
+            case '8':
+                faceCount[5]+=1;
+                break;
+            case '9':
+                faceCount[6]+=1;
+                break;
+            case 'X':
+                faceCount[7]+=1;
+                break;
+            case 'J':
+                faceCount[8]+=1;
+                break;
+            case 'Q':
+                faceCount[9]+=1;
+                break;
+            case 'K':
+                faceCount[10]+=1;
+                break;
+            default:
+                break;
         }
     }
+    
+    cout << "Temp pile before check book is: ";
+    for (auto i: cardPile){
+        cout << i->getCardString() << " ";
+    }
+    cout << endl;
+    
+    for(int arrayNav=0;arrayNav<11;arrayNav++){
+        if(faceCount[arrayNav]>3){
+            facesToBook.push_back(arrayNav+3);
+        }
+    }
+    cout << " These are the faces we're booking: " ;
+    for (auto i: facesToBook){
+        cout << i << " ";
+    }
+    cout << endl;
+    
+    ourFace=cardPile[0]->getFace();
+    for(auto i: cardPile){
+       cout << i->getFace() << " as " << (int)i->getFace()-48 << endl;
+        if(find(facesToBook.begin(),facesToBook.end(),((int)i->getFace()-48))!=facesToBook.end()){
+            swapDeck.push_back(i);
+            
+        }
+        else{
+            areInBook=false;
+        }
+    }
+    
+    if(areInBook && !((cardPile.size()+numWilds)>2)){
+        cout << "Just shy of a book." << endl;
+        areInBook=false;
+    }
+    if(!swapDeck.empty()){
+        swapDeck.swap(cardPile);
+    }
+    cout << "Temp pile after check book is: ";
+    for (auto i: cardPile){
+        cout << i->getCardString() << " ";
+    }
+    cout << endl;
     return areInBook;
 }
 
@@ -453,19 +561,25 @@ bool Deck::checkIfOut(std::vector<Card*> cardPile){
     vector<Card*> tempPile=cardPile;
     // holds the number of wild cards
     int numberOfWilds;
-    // check if all wild
     
-    if(this->checkIfAllWild(tempPile)){
+    // get wild number and trim wilds
+    numberOfWilds=this->countWilds(tempPile);
+    
+    // if entire deck was wild, we're out
+    if(tempPile.empty()){
         return true;
     }
-    // check if all in book
-    if(this->checkIfBook(tempPile, numberOfWilds)){
+    
+    // check if remaining cards are in a book
+    if(this->checkIfBook(tempPile, numberOfWilds) || tempPile.empty()){
         return true;
     }
-    // check if all in run
-    if(this->checkIfRun(tempPile, numberOfWilds)){
+    
+    // check if remaining cards all in run
+    if(this->checkIfRun(tempPile, numberOfWilds) || tempPile.empty()){
         return true;
     }
+    // if we still have leftover cards, we're out of luck
     return false;
 }
 

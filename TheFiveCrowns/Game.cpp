@@ -275,8 +275,8 @@ void Game::displayEndStats(){
 }
 
 void Game::destroyStats(){
-    this->h->setPoints(0);
-    this->c->setPoints(0);
+    this->h->setTotalPoints(0);
+    this->c->setTotalPoints(0);
     this->setRoundNumber(1);
     return;
 }

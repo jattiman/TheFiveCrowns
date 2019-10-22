@@ -66,10 +66,10 @@ public:
     
     // to check for going out
     bool checkIfAllWild(std::vector<Card*> cardPile);
-    int countWilds(std::vector<Card*> cardPile);
+    int countWilds(std::vector<Card*> & cardPile);
     bool checkIfSameSuit(std::vector<Card*> cardPile);
-    bool checkIfRun(std::vector<Card*> cardPile, int & numWilds);
-    bool checkIfBook(std::vector<Card*> cardPile, int & numWilds);
+    bool checkIfRun(std::vector<Card*> & cardPile, int & numWilds);
+    bool checkIfBook(std::vector<Card*> & cardPile, int & numWilds);
     bool checkIfOut(std::vector<Card*> cardPile);
     
     std::string deckToString(std::vector<Card*> cardPile);
@@ -93,6 +93,18 @@ private:
     // player decks
     std::vector<Card*> humanPile;
     std::vector<Card*> computerPile;
+    
+    // book checking decks
+    std::vector<Card*> humanBooks;
+    std::vector<Card*> computerBooks;
+    
+    // run checking decks
+    std::vector<Card*> humanRuns;
+    std::vector<Card*> computerRuns;
+    
+    
+    // garbage pile
+    std::vector<Card*> garbagePile;
     
     std::vector<std::string> cardInputs;
     

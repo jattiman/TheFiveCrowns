@@ -43,7 +43,12 @@ void Player::setHumanity(bool isPlayerHuman){
     return;
 }
 
-void Player::setPoints(int newPoints){
+void Player::setTotalPoints(int totalPoints){
+    this->playerPoints=totalPoints;
+    return;
+}
+
+void Player::addPoints(int newPoints){
     this->playerPoints+=newPoints;
     return;
 }

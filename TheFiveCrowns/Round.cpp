@@ -240,13 +240,13 @@ int Round::endRound(){
         if(i->getHumanity() && !(i->getIfOut())){
              cout << "Computer:\tAdding 0 points." << endl;
              cout << "Human:\t\tAdding " << this->getHumanRoundPoints() << " points." << endl;
-             i->setPoints(this->getHumanRoundPoints());
+             i->addPoints(this->getHumanRoundPoints());
         }
         // if you're a computer AND not out
         else if((!i->getHumanity()) && !(i->getIfOut())){
              cout << "Computer:\tAdding " << this->getComputerRoundPoints() << " points." << endl;
              cout << "Human:\t\tAdding 0 points." << endl;
-             i->setPoints(this->getComputerRoundPoints());
+             i->addPoints(this->getComputerRoundPoints());
         }
     }
     
@@ -457,12 +457,12 @@ bool Round::loadNums(std::string passedNums, char numChoice){
     }
     if(numChoice=='h'){
         //cout << "human points: " << ourNumber << endl;
-        this->ourPlayers[0]->setPoints(ourNumber);
+        this->ourPlayers[0]->setTotalPoints(ourNumber);
         return true;
     }
     if(numChoice=='c'){
         //cout << "computer points: " << ourNumber << endl;
-        this->ourPlayers[1]->setPoints(ourNumber);
+        this->ourPlayers[1]->setTotalPoints(ourNumber);
         return true;
     }
     return false;
@@ -673,6 +673,12 @@ bool Round::loadGame(){
     cout << "Game loaded." << endl;
     //this->startRound();
     return true;
+}
+
+void Round::clearPoints(){
+    for(auto i: ourPlayers){
+        i->deletePoints();
+    }
 }
 
 void Round::roundTest(){
