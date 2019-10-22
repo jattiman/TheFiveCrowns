@@ -34,20 +34,37 @@ void ComputerPlayer::discardCard(Deck *deck){
 
 void ComputerPlayer::playRound(Deck *deck){
     cout << "Computer playing round." << endl;
+    // determine where to draw from
+    
+    // determine where to discard to
+    
+    // determine if computer is out
+    if(deck->checkIfOut(deck->getComputerDeck())){
+        cout << "You're going out!" << endl;
+        this->setOut(true);
+    }
     return;
 }
-//
-//bool ComputerPlayer::requestToGoOut(){
-//    return false;
-//}
-
-//void ComputerPlayer::saveGame(){
-//    cout << "Saving game ... " << endl;
-//    return;
-//}
 
 int ComputerPlayer::examineOptions(Deck *deck, char choice){
-    cout << "Computers don't need advice (place holder)" << endl;
+    switch (choice) {
+        case 'a':
+            // generic advice - shouldn't ever be used, but hey...
+            cout << "Computers don't need advice, so here's some for you:"
+            <<"\tPrepare for us to take over, human." << endl;
+            break;
+        case 't':
+            cout << "Checking which pile to take from ... " << endl;
+            break;
+        case 'g':
+            cout << "Checking which card to give away ... " << endl;
+            break;
+        case 'o':
+            cout << "Checking how close you are to going out ..." << endl;
+        default:
+            break;
+    }
+    
     return 1;
 }
 

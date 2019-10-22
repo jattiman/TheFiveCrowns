@@ -47,6 +47,7 @@ public:
     
     
     int startRound();
+    int endRound();
     int progressRound(Player *p);
     // save game function
     bool saveGame();

@@ -191,12 +191,13 @@ void Game::beginRound(){
     // if round successful (no hard quit)
     if(this->round->startRound()!=4){
         // increment round number
-//        this->incrementRound();
-//        cout << "\t\tRound ended. Incrementing round number to: ";
         this->setRoundNumber(this->round->getRoundNumber());
-//        cout << this->getRoundNumber() << endl;
         // set up next
         this->setNextUp(this->round->getTurn());
+    }
+    else{
+        // ensure our round resets to 1
+        this->setRoundNumber(1);
     }
     return;
 }
@@ -212,12 +213,17 @@ void Game::beginRound(){
 
 bool Game::loadRound(){
     this->round = new Round(h,c);
+    // if the game loads correctly
     if(this->round->loadGame()){
+        // ensure round number transfers over
         this->setRoundNumber(this->round->getRoundNumber());
         
         return true;
     }
+    // if the game didn't load right
     else{
+        // reset the round to 1
+        this->setRoundNumber(1);
         return false;
     }
 }
