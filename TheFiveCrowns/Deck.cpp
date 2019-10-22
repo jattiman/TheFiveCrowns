@@ -28,6 +28,7 @@
 
 using namespace std;
 
+
 Deck::Deck(){
     // default deck made, round set to 1
     // drawPile capacity reserved to 119 (round 1)
@@ -734,6 +735,27 @@ bool Deck::checkIfOut(std::vector<Card*> cardPile){
     return false;
 }
 
+/* *********************************************************************
+Function Name: tallyRemainingCardPoints
+Purpose: To tally the point values of cards in a deck that are not part of books or runs
+Parameters:
+ cardPile: the deck being passed in as a vector array of card pointers. In this case, the player or computer hand. This is passed by reference. The program would typically input a temporary vector of cards, which would be sorted/cut based on confirmed books and runs. Because it's passed by reference, the temporary vector can be used by the human or computer to output information or act on advice.
+Return Value: an integer of the remaining points that would be incurred if the player did not go out.
+Local Variables:
+ totalPoints: int, holds the total point values
+ tempPile: vector of card pointers to be manipulated by the function
+ numberOfWilds: int, holds the number of wildcards detected
+ Algorithm:
+ Call function to check for wilds and trim them from the deck
+ Confirm the deck isn't empty (all wilds). If it is, return 0 points and exit function.
+ Call function to check if remaining deck is book. Trim books.
+ Call function to check if remaining deck is run. Trim runs.
+ Call function to check if book again. Trim.
+ Call function to check if run again. Trim.
+ Tally points for remaining rounds (iterate through temp vector).
+ Return points.
+Assistance Received: None
+********************************************************************* */
 int Deck::tallyRemainingCardPoints(std::vector<Card*> &cardPile){
     // holds total points received
     int totalPoints=0;
@@ -775,7 +797,19 @@ int Deck::tallyRemainingCardPoints(std::vector<Card*> &cardPile){
     return totalPoints;
 }
 
-
+/* *********************************************************************
+Function Name: deckToString
+Purpose: To create a string variable representing all decks/card piles aside from the discard pile
+Parameters:
+ cardPile: the deck being passed in as a vector array of card pointers. Could be a player hand, the draw pile, discard pile, etc.
+Return Value: The string representing the cards in the pile
+Local Variables: deckString, a string to be appended with card items
+Algorithm:
+ iterate through the card pile,
+ append the cards to the deck in normal order (face, suite, and a space),
+ return the appended string
+Assistance Received: None
+********************************************************************* */
 string Deck::deckToString(std::vector<Card *> cardPile){
     // Turn the deck into a string
     // create string variable to hold the deck
@@ -790,6 +824,20 @@ string Deck::deckToString(std::vector<Card *> cardPile){
     return deckString;
 }
 
+/* *********************************************************************
+Function Name: discardPileString
+Purpose: To create a string variable representing the discard pile, which is displayed differently than other cards.
+Parameters:
+ cardPile: the deck being passed in as a vector array of card pointers. Although this would always be the discard pile, we're still passing in the variable for potential future expansion of the game.
+Return Value: The string representing the cards in the discard pile
+Local Variables: deckString, a string to be appended with card items
+Algorithm:
+ iterate through the card pile,
+ append the cards to the deck in reverse order (each card is put in backwards),
+ reverse the string so that it displays correctly when printed out.
+ return the string
+Assistance Received: None
+********************************************************************* */
 string Deck::discardPileString(std::vector<Card *> cardPile){
     string deckString;
     for(const auto &i: cardPile){
