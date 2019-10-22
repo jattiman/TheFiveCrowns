@@ -28,10 +28,20 @@ void ComputerPlayer::sayIfHuman(){
 bool ComputerPlayer::drawCard(Deck *deck){
     return false;
 }
+
 void ComputerPlayer::discardCard(Deck *deck){
     return;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void ComputerPlayer::playRound(Deck *deck){
     // for holding future card choices
     int chosenCard=0;
@@ -78,10 +88,28 @@ void ComputerPlayer::playRound(Deck *deck){
     return;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool ComputerPlayer::requestToGoOut(Deck *deck){
     return false;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 int ComputerPlayer::examineOptions(Deck *deck, char choice){
     int cardChoice=0;
     vector<Card*> tempDeck;

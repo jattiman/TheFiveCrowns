@@ -16,6 +16,15 @@ Card::Card(){
     //cout << "We made a card! WOW!" << endl;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 Card::Card(char face, char suite, int theRound){
     this->setSuite(suite);
     this->setFace(face);
@@ -24,6 +33,15 @@ Card::Card(char face, char suite, int theRound){
     this->setCardString();
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 Card::Card(string cardString, int theRound){
     // need to add error checking to this
     this->setSuite(cardString[1]);
@@ -83,6 +101,16 @@ void Card::setPointValue(int newPoints){
     this->pointValue=newPoints;
     return;
 }
+
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Card::setPointValue(){
     switch (this->getFace()) {
         case '3':
@@ -146,8 +174,15 @@ void Card::setRunStatus(bool newStatus){
     return;
 }
 
-//working on this function now. Need to change
-// so that Jokers and Jacks aren't confused.
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Card::checkForWild(){
     // if card is Joker, wild status will have already
     // been set to true. Change nothing and return.

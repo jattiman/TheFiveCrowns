@@ -7,23 +7,21 @@
  ***************************************************************
  */
 
-
-/* *********************************************************************
- Function Name:
- Purpose:
- Parameters:
- Return Value:
- Local Variables:
- Algorithm:
- Assistance Received:
- ********************************************************************* */
-
 #include "Game.h"
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 Game::Game(){
     //this->round=new Round();
     this->h=new HumanPlayer();
@@ -48,6 +46,15 @@ int Game::getNextUp(){
     return this->nextUp;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Game::welcomeOptions(){
     if(this->getRoundNumber()>1){
         cout << "Select your option:" << endl
@@ -64,6 +71,15 @@ void Game::welcomeOptions(){
     return;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 int Game::getValidInput(int minNum, int maxNum){
     int userInput;
     while(!(cin >> userInput) || userInput < minNum || userInput > maxNum){
@@ -74,6 +90,15 @@ int Game::getValidInput(int minNum, int maxNum){
     return userInput;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Game::coinToss(){
     // to store user choice
     int userChoice;
@@ -120,6 +145,15 @@ void Game::coinToss(){
     return;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Game::welcome(){
     // stores the user's selected option
     int userOption = 0;
@@ -189,6 +223,15 @@ void Game::welcome(){
     }
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Game::beginRound(){
     this->round=new Round(h,c,roundNumber,this->getNextUp());
     // if round successful (no hard quit)
@@ -214,6 +257,15 @@ void Game::beginRound(){
 //    return;
 //}
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool Game::loadRound(){
     this->round = new Round(h,c);
     // if the game loads correctly
@@ -239,12 +291,30 @@ bool Game::loadRound(){
 //    return;
 //}
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Game::incrementRound(){
     // increment round number by 1
     this->roundNumber++;
     return;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Game::displayEndStats(){
     // let user know that the game is over, and display points
     cout << endl << endl
@@ -275,6 +345,15 @@ void Game::displayEndStats(){
     return;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Game::destroyStats(){
     this->h->setTotalPoints(0);
     this->c->setTotalPoints(0);

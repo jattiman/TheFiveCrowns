@@ -7,16 +7,6 @@
  ***************************************************************
  */
 
-/* *********************************************************************
- Function Name:
- Purpose:
- Parameters:
- Return Value:
- Local Variables:
- Algorithm:
- Assistance Received:
- ********************************************************************* */
-
 #include "Deck.h"
 #include <iostream>
 #include <sstream>
@@ -38,6 +28,15 @@ Deck::Deck(){
     
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 Deck::Deck(int roundInput){
     this->setRound(roundInput);
     // set drawPile size based on round number
@@ -47,6 +46,15 @@ Deck::Deck(int roundInput){
     
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Deck::makeDeck(){
     // populate the deck with cards
 
@@ -83,6 +91,15 @@ void Deck::makeDeck(){
     return;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Deck::dealDeck(){
     // (round+2) cards * 2 players
     // deal to players
@@ -108,6 +125,15 @@ void Deck::setRound(int roundInput){
     return;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Deck::setPlayerHand(std::vector<std::string> playerHand){
     vector<Card*> tempHand;
     for(auto i: playerHand){
@@ -124,7 +150,15 @@ void Deck::setPlayerHand(std::vector<std::string> playerHand){
 //    this->humanPile=playerHand;
 //    return;
 //}
-
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Deck::setComputerHand(std::vector<std::string> computerHand){
     vector<Card*> tempHand;
     for(auto i: computerHand){
@@ -140,7 +174,15 @@ void Deck::setComputerHand(std::vector<std::string> computerHand){
 //    this->computerPile=computerHand;
 //    return;
 //}
-
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Deck::setDrawPile(std::vector<std::string> drawHand){
     vector<Card*> tempHand;
     for(auto i: drawHand){
@@ -151,6 +193,15 @@ void Deck::setDrawPile(std::vector<std::string> drawHand){
     return;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Deck::setDiscardPile(std::vector<std::string> discardHand){
     vector<Card*> tempHand;
     //ensure Discard pile is populated in the correct order
@@ -161,16 +212,12 @@ void Deck::setDiscardPile(std::vector<std::string> discardHand){
     tempHand.clear();
     return;
 }
-
-
 int Deck::getRound(){
     return ourRound;
 }
-
 std::vector<Card*> & Deck::getHumanDeck(){
     return this->humanPile;
 }
-
 std::vector<Card*> & Deck::getComputerDeck(){
     return this->computerPile;
 }
@@ -183,6 +230,16 @@ std::vector<Card*> & Deck::getDrawPile(){
 std::vector<Card*> & Deck::getDiscardPile(){
     return this->discardPile;
 }
+
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Deck::printDecks(){
     // print the draw pile
     cout << "Draw Pile: ";
@@ -194,6 +251,15 @@ void Deck::printDecks(){
     cout << endl;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Deck::printTheDeck(std::vector<Card*> cardPile){
     for(auto &i: cardPile){
         cout << i->getFace() << i->getSuite() << " ";
@@ -202,6 +268,15 @@ void Deck::printTheDeck(std::vector<Card*> cardPile){
     return;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Deck::displayDiscardTop(){
     //this->discardPile.push_back(new Card("J1", this->getRound()));
     if(this->discardPile.size()>0){
@@ -230,6 +305,15 @@ void Deck::shuffleDeck(){
     return;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Deck::shuffleDeck(std::vector<Card*> & cardPile){
     unsigned seed = (unsigned) std::chrono::system_clock::now().time_since_epoch().count();
 
@@ -237,10 +321,28 @@ void Deck::shuffleDeck(std::vector<Card*> & cardPile){
     return;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 unsigned long Deck::getDeckSize(std::vector<Card*> cardPile){
     return cardPile.size();
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Deck::transferCard(std::vector<Card*> &startPile, std::vector<Card*> &endPile){
     
     endPile.push_back(startPile[0]);
@@ -248,6 +350,15 @@ void Deck::transferCard(std::vector<Card*> &startPile, std::vector<Card*> &endPi
     return;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool Deck::transferCard(std::vector<Card*> &startPile, int startLocation, std::vector<Card*> &endPile){
     // confirm the starting card pile has cards
     if(startPile.empty()){
@@ -272,6 +383,15 @@ bool Deck::transferCard(std::vector<Card*> &startPile, int startLocation, std::v
 //        return true;
 //    }
 //}
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool Deck::transferFromDiscard(std::vector<Card*> &endPile){
     if(this->getDiscardPile().empty()){
         return false;
@@ -283,6 +403,15 @@ bool Deck::transferFromDiscard(std::vector<Card*> &endPile){
     }
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool Deck::transferFromDraw(std::vector<Card*> & endPile){
     if(this->getDrawPile().empty()){
         return false;
@@ -294,6 +423,15 @@ bool Deck::transferFromDraw(std::vector<Card*> & endPile){
     }
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 int Deck::countCardPoints(std::vector<Card*> & hand){
     int points=0;
     // iterate through vector
@@ -306,6 +444,15 @@ int Deck::countCardPoints(std::vector<Card*> & hand){
     return points;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 int Deck::findCard(std::vector<Card *> &hand, string userSearch){
     int cardIndex=-1;
     int handIndex=0;
@@ -325,6 +472,15 @@ int Deck::findCard(std::vector<Card *> &hand, string userSearch){
 //    return cardPile[0];
 //}
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 // come back to this after you hardcode the cards.
 void Deck::stringToCardInputs(std::string cardInputString){
 //    std::string text = "3H 4H 5H 6H 7H 8H 9H 10H";
@@ -335,6 +491,15 @@ void Deck::stringToCardInputs(std::string cardInputString){
     return;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool Deck::checkIfAllWild(std::vector<Card*> cardPile){
     bool areTheyWild=true;
     for(auto i: cardPile){
@@ -346,6 +511,15 @@ bool Deck::checkIfAllWild(std::vector<Card*> cardPile){
     return areTheyWild;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 int Deck::countWilds(std::vector<Card *> & cardPile){
 
     int wildCount=0;
@@ -378,6 +552,15 @@ int Deck::countWilds(std::vector<Card *> & cardPile){
     return wildCount;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool Deck::checkIfSameSuit(std::vector<Card *> cardPile){
     // if the card pile is empty, ignore and return
     if(!cardPile.empty()){
@@ -393,6 +576,15 @@ bool Deck::checkIfSameSuit(std::vector<Card *> cardPile){
     return true;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool Deck::checkSuitRun(std::vector<Card*> & cardPile, int & numWilds){
 //    cout << "Before check suite run: ";
 //    for (auto i: cardPile){
@@ -487,6 +679,15 @@ bool Deck::checkSuitRun(std::vector<Card*> & cardPile, int & numWilds){
     return true;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool Deck::checkIfRun(std::vector<Card*> & cardPile, int & numWilds){
     // create the swap deck
     vector<Card*> swapDeck;
@@ -582,6 +783,15 @@ bool Deck::checkIfRun(std::vector<Card*> & cardPile, int & numWilds){
     return areTheyInRun;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool Deck::checkIfBook(std::vector<Card*> & cardPile, int & numWilds){
     // create the swapDeck for uncounted cards
     vector<Card*> swapDeck;
@@ -694,6 +904,15 @@ bool Deck::checkIfBook(std::vector<Card*> & cardPile, int & numWilds){
     return areInBook;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool Deck::checkIfOut(std::vector<Card*> cardPile){
     vector<Card*> tempPile=cardPile;
     // holds the number of wild cards

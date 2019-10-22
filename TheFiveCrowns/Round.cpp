@@ -22,6 +22,15 @@
 
 using namespace std;
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 Round::Round(){
     // set default round number
     this->setRoundNumber(1);
@@ -47,6 +56,15 @@ Round::Round(HumanPlayer *h, ComputerPlayer *c){
 //    this->setTurn(0);
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 Round::Round(HumanPlayer *h, ComputerPlayer *c, int round, int whosTurn){
     // set round number to round specified
     this->setRoundNumber(round);
@@ -122,6 +140,15 @@ void Round::setComputerRoundPoints(int points){
     return;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Round::giveComputerStatus(std::vector<Player*> players){
     // iterate through the player vector
     for(auto &i: players){
@@ -137,6 +164,16 @@ void Round::giveComputerStatus(std::vector<Player*> players){
     return;
     
 }
+
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Round::giveHumanStatus(std::vector<Player*> players){
     // iterate through the vector
     for(auto &i: players){
@@ -154,6 +191,15 @@ void Round::giveHumanStatus(std::vector<Player*> players){
     
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Round::givePlayerStatus(std::vector<Player*> players){
     // iterate through the vector of players
     for(auto &i: players){
@@ -179,6 +225,15 @@ void Round::givePlayerStatus(std::vector<Player*> players){
     
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Round::getRoundStatus(){
     // display the round number
     cout << "Round: " << this->getRoundNumber() << endl
@@ -190,6 +245,15 @@ void Round::getRoundStatus(){
     return;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 int Round::getValidInput(int minNum, int maxNum){
     int userInput;
     while(!(cin >> userInput) || userInput < minNum || userInput > maxNum){
@@ -200,6 +264,15 @@ int Round::getValidInput(int minNum, int maxNum){
     return userInput;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 int Round::giveOptions(Player *p){
     int userChoice=0;
     // if player is human, give human options
@@ -225,6 +298,15 @@ int Round::giveOptions(Player *p){
     return userChoice;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 int Round::endRound(){
     cout << "Round ended successfully. Good job, everyone." << endl << endl;
      
@@ -286,6 +368,15 @@ int Round::endRound(){
     return 0;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 int Round::startRound(){
 //    int answer = 0;
     int totalPlayers=this->getTotalPlayers();
@@ -323,6 +414,15 @@ int Round::startRound(){
     return roundResult;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 int Round::progressRound(Player *p){
     while(true){
         switch (giveOptions(p)) {
@@ -370,6 +470,15 @@ int Round::progressRound(Player *p){
     return 0;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool Round::saveGame(){
     
     ofstream roundSaveFile("roundSaveFile.txt");
@@ -414,6 +523,15 @@ bool Round::saveGame(){
     return true;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool Round::loadPlayerOrder(std::string nextPlayer){
     // if you can find a human on the line
     if(nextPlayer.find("man")!=std::string::npos){
@@ -430,6 +548,15 @@ bool Round::loadPlayerOrder(std::string nextPlayer){
     return false;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool Round::loadNums(std::string passedNums, char numChoice){
     // create variables to parse the string
     string numString=passedNums;
@@ -473,6 +600,15 @@ bool Round::loadNums(std::string passedNums, char numChoice){
     return false;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool Round::loadCards(std::string passedHand, char deckChoice){
     // create variables to parse the string
     string cardString=passedHand;
@@ -516,6 +652,15 @@ bool Round::loadCards(std::string passedHand, char deckChoice){
     return false;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool Round::loadFileStats(std::vector<std::string> passedHand){
     // confirm serialized file was created with correct entries
     if(!(passedHand.size()==10)){
@@ -568,7 +713,15 @@ bool Round::loadFileStats(std::vector<std::string> passedHand){
     return true;
 }
 
-
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool Round::loadGame(){
     // hold the save game file path selection
     string userFilePath;
@@ -680,6 +833,15 @@ bool Round::loadGame(){
     return true;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void Round::clearPoints(){
     for(auto i: ourPlayers){
         i->deletePoints();

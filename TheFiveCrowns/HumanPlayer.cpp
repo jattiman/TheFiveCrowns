@@ -16,6 +16,15 @@ HumanPlayer::HumanPlayer(){
     this->setHumanity(true);
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void HumanPlayer::sayIfHuman(){
     if(this->getHumanity()){
         cout <<"I'm a human!" << endl;
@@ -25,6 +34,15 @@ void HumanPlayer::sayIfHuman(){
     }
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool HumanPlayer::drawCard(Deck *deck){
     // variable to store user choice
     int userChoice=0;
@@ -75,6 +93,15 @@ bool HumanPlayer::drawCard(Deck *deck){
     return false;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 int HumanPlayer::getValidInput(int minNum, int maxNum){
     int userInput;
     while(!(cin >> userInput) || userInput < minNum || userInput > maxNum){
@@ -85,6 +112,15 @@ int HumanPlayer::getValidInput(int minNum, int maxNum){
     return userInput;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void HumanPlayer::discardCard(Deck *deck){
     // store user choice
     int userChoice=0;
@@ -139,6 +175,15 @@ void HumanPlayer::discardCard(Deck *deck){
     return;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 void HumanPlayer::playRound(Deck *deck){
     // prompt player where to draw their card
     if(this->drawCard(deck)){
@@ -151,6 +196,15 @@ void HumanPlayer::playRound(Deck *deck){
     return;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool HumanPlayer::requestToGoOut(Deck *deck){
     if(deck->checkIfOut(deck->getHumanDeck())){
         cout << "You can go out! Congratulations! (Press enter)" << endl;
@@ -169,7 +223,15 @@ bool HumanPlayer::requestToGoOut(Deck *deck){
 //    cout << "Saving game ... " << endl;
 //    return;
 //}
-
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 int HumanPlayer::examineOptions(Deck *deck, char choice){
     switch (choice) {
         case 'a':
@@ -190,6 +252,15 @@ int HumanPlayer::examineOptions(Deck *deck, char choice){
     return 1;
 }
 
+/* *********************************************************************
+Function Name:
+Purpose:
+Parameters:
+Return Value:
+Local Variables:
+Algorithm:
+Assistance Received:
+********************************************************************* */
 bool HumanPlayer::confirmExit(){
     char quitStatus;
     do{
