@@ -26,8 +26,11 @@ int main(int argc, const char * argv[]) {
     
     Game ourGame;
     ourGame.welcome();
+    
 //    Deck ourDeck(1);
 //    ourDeck.printDecks();
+//    ourDeck.testDeck();
+    
 //    cout << "Human: ";
 //    ourDeck.printTheDeck(ourDeck.getHumanDeck());
 //    cout << "Computer: ";

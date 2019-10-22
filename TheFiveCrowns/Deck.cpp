@@ -304,10 +304,10 @@ int Deck::countCardPoints(std::vector<Card*> & hand){
 }
 
 int Deck::findCard(std::vector<Card *> &hand, string userSearch){
-    int cardIndex=999;
+    int cardIndex=-1;
     int handIndex=0;
     
-    for (auto i: hand){
+    for (const auto & i: hand){
         if(i->getCardString()==userSearch){
             cardIndex=handIndex;
             break;
@@ -454,17 +454,34 @@ string Deck::discardPileString(std::vector<Card *> cardPile){
 }
 
 void Deck::testDeck(){
-    cout << "\tDeck test" << endl;
-    //this->transferCard(this->getMainPile(), this->getHumanDeck());
-    //this->transferTopCard(mainDeck, humanPile);
-    cout << "Making vector." << endl;
-    vector<Card*> testHand;
-    cout << "Pushing back cards." << endl;
-    testHand.push_back(new Card("9T",this->getRound()));
-    testHand.push_back(new Card("8C",this->getRound()));
-    testHand.push_back(new Card("XH",this->getRound()));
-    cout << "returning total points" << endl;
-    int totalPoints=countCardPoints(testHand);
-    cout << "Total points for test hand of 9t 8c xh is: " << totalPoints << endl;
+//    cout << "\tDeck test" << endl;
+//    //this->transferCard(this->getMainPile(), this->getHumanDeck());
+//    //this->transferTopCard(mainDeck, humanPile);
+//    cout << "Making vector." << endl;
+//    vector<Card*> testHand;
+//    cout << "Pushing back cards." << endl;
+//    testHand.push_back(new Card("9T",this->getRound()));
+//    testHand.push_back(new Card("8C",this->getRound()));
+//    testHand.push_back(new Card("XH",this->getRound()));
+//    cout << "returning total points" << endl;
+//    int totalPoints=countCardPoints(testHand);
+//    cout << "Total points for test hand of 9t 8c xh is: " << totalPoints << endl;
+    string ourString;
+    int cardIndex=0;
+    while(true){
+        
+        cout << "Search for card in deck! :" << endl;
+        cin.clear();
+        getline(cin,ourString);
+        cardIndex=this->findCard(this->getDrawPile(),ourString);
+        if(cardIndex<this->getDrawPile().size()){
+            cout << "\t\tFound card:" << endl;
+            cout << this->getDrawPile()[cardIndex]->getCardString() << endl;
+        }
+        else{
+            cout << "Can't find card at cardindex: " << cardIndex << endl;
+        }
+    }
+    
     return;
 }
