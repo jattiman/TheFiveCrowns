@@ -75,22 +75,28 @@ int Game::getValidInput(int minNum, int maxNum){
 }
 
 void Game::coinToss(){
+    // to store user choice
     int userChoice;
+    // to store random number
     unsigned seed;
     seed = (unsigned) std::chrono::system_clock::now().time_since_epoch().count();
     
+    // toss the coin
     cout << "Coin toss time!" << endl
     << "Guess which side lands facing up!"<< endl
     << "1. Heads" << endl
     << "2. Tails" << endl;
     
+    // intake user guess
     userChoice=this->getValidInput(1,2);
     
+    // get the user hyped for the result!
     cout << "You look at the coin and see that it faces ... " << endl;
-    cout << "(Press enter to see! Can you feel the anticipation?)";
+    cout << "\t(Press enter to see! Can you feel the anticipation?)";
     cin.ignore(100,'\n');
     cin.get();
     
+    // display result to user
     if(seed%2==0){
         cout << "Heads!" << endl;
     }
@@ -98,15 +104,18 @@ void Game::coinToss(){
         cout << "Tails!" << endl;
     }
     
+    // tell user if they won or not, and set next up accordingly
     if(seed%2==(userChoice-1)){
         cout << "You guessed correctly! You're up first." << endl;
+        // human goes first
         this->setNextUp(0);
     }
     else{
         cout << "You guessed incorrectly. Computer goes first." << endl;
+        // computer goes first
         this->setNextUp(1);
     }
-    cout << "(Press enter to continue! Wasn't that fun?)";
+    cout << "\t(Press enter to continue! Wasn't that fun?)";
     cin.get();
     return;
 }
@@ -124,22 +133,17 @@ void Game::welcome(){
     while(this->getRoundNumber()<12){
         // prompt for options
         this->welcomeOptions();
-                
-//        while(!(cin >> userOption)){
-//            cin.clear();
-//            cin.ignore(100,'\n');
-//            cout << "Please select a valid option." << endl;
-//            this->welcomeOptions();
-//        }
+        
+        // confirm user choice
         userOption=this->getValidInput(1,3);
+        
         // If new game, start new game
         if(userOption==1){
             // if it's the first round, call coin toss to determine who goes first
             if(this->getRoundNumber()==1){
                 this->coinToss();
             }
-            // otherwise, go with the winner from last round
-                        
+            // begin round
             this->beginRound();
             
             // return from round
@@ -160,10 +164,6 @@ void Game::welcome(){
                 this->round->startRound();
                 // increment round number in case player wants to progress
                 this->setRoundNumber(this->round->getRoundNumber());
-//                cout << "Round ended and we're back in choice 2:"
-//                << "\t GAME round number: " << this->getRoundNumber()
-//                << "\t ROUND round number: " << this->round->getRoundNumber()
-//                << endl;
             }
             else{
                 cout << "Load file failed." << endl;
@@ -183,7 +183,10 @@ void Game::welcome(){
         }
         
     }
-    this->displayEndStats();
+    // if the user didn't quit, and the round went past 11 (finished game), display end stats
+    if(this->getRoundNumber()>11){
+        this->displayEndStats();
+    }
 }
 
 void Game::beginRound(){
@@ -217,13 +220,14 @@ bool Game::loadRound(){
     if(this->round->loadGame()){
         // ensure round number transfers over
         this->setRoundNumber(this->round->getRoundNumber());
-        
+        // return that the program loaded
         return true;
     }
     // if the game didn't load right
     else{
         // reset the round to 1
         this->setRoundNumber(1);
+        // return that the program did not load
         return false;
     }
 }
@@ -236,34 +240,37 @@ bool Game::loadRound(){
 //}
 
 void Game::incrementRound(){
+    // increment round number by 1
     this->roundNumber++;
-    
     return;
 }
 
 void Game::displayEndStats(){
-//    if(this->roundNumber >11){
-        cout << "This game has ended. Final stats:" << endl
-        << "Human Player points: " << this->h->getPoints()
+    // let user know that the game is over, and display points
+    cout << "Our game has ended!"
+    << endl
+    << "Final stats:"
+    << endl
+    << "Human Player points: " << this->h->getPoints()
+    << endl
+    << "Computer Player points: " << this->c->getPoints()
+    << endl
+    << "Winner: ";
+    // output the winner based on who has lower points
+    if(this->h->getPoints() < this->c->getPoints()){
+        cout << "Human player."
         << endl
-        << "Computer Player points: " << this->c->getPoints()
+        << "Good job!";
+    }
+    else if (this->c->getPoints() < this->h->getPoints()){
+        cout << "Computer player."
         << endl
-        << "Winner: ";
-        if(this->h->getPoints() < this->c->getPoints()){
-            cout << "Human player."
-            << endl
-            << "Good job!";
-        }
-        else if (this->c->getPoints() < this->h->getPoints()){
-            cout << "Computer player."
-            << endl
-            << "Better luck next time!";
-        }
-        else{
-            cout << "Tie game. Well, that's exciting, isn't it?";
-        }
-        cout << endl;
-//    }
+        << "Better luck next time!";
+    }
+    else{
+        cout << "Tie game. Well, that's exciting, isn't it?";
+    }
+    cout << endl;
     return;
 }
 

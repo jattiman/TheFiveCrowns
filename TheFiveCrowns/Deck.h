@@ -58,6 +58,9 @@ public:
     
     int countCardPoints(std::vector<Card*> & hand);
     
+    // find a card
+    int findCard(std::vector<Card*> & hand, std::string userSearch);
+    
     //Card * removeTopCard(std::vector<Card*> & cardPile);
     
     

@@ -303,6 +303,20 @@ int Deck::countCardPoints(std::vector<Card*> & hand){
     return points;
 }
 
+int Deck::findCard(std::vector<Card *> &hand, string userSearch){
+    int cardIndex=999;
+    int handIndex=0;
+    
+    for (auto i: hand){
+        if(i->getCardString()==userSearch){
+            cardIndex=handIndex;
+            break;
+        }
+        handIndex++;
+    }
+    return cardIndex;
+}
+
 //Card* Deck::removeTopCard(std::vector<Card *> &cardPile){
 //    cout << "Removing " << cardPile[0]->getFace() << cardPile[0]->getSuite();
 //    return cardPile[0];
