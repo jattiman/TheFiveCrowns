@@ -68,6 +68,7 @@ public:
     bool checkIfAllWild(std::vector<Card*> cardPile);
     int countWilds(std::vector<Card*> & cardPile);
     bool checkIfSameSuit(std::vector<Card*> cardPile);
+    bool checkSuitRun(std::vector<Card*> & cardPile, int & numWilds);
     bool checkIfRun(std::vector<Card*> & cardPile, int & numWilds);
     bool checkIfBook(std::vector<Card*> & cardPile, int & numWilds);
     bool checkIfOut(std::vector<Card*> cardPile);
