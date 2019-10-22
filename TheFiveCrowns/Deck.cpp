@@ -725,7 +725,7 @@ bool Deck::checkIfOut(std::vector<Card*> cardPile){
     if(this->checkIfRun(tempPile, numberOfWilds) || tempPile.empty()){
         return true;
     }
-    cout << "Remaining cards: ";
+    cout << "Remaining non-book/non-run cards: ";
     for (auto i: tempPile){
         cout << i->getCardString() << " ";
     }
@@ -734,7 +734,7 @@ bool Deck::checkIfOut(std::vector<Card*> cardPile){
     return false;
 }
 
-int Deck::tallyRemainingCards(std::vector<Card*> &cardPile){
+int Deck::tallyRemainingCardPoints(std::vector<Card*> &cardPile){
     // holds total points received
     int totalPoints=0;
     // holds temp vector
@@ -769,11 +769,6 @@ int Deck::tallyRemainingCards(std::vector<Card*> &cardPile){
     if(this->checkIfRun(tempPile, numberOfWilds) || tempPile.empty()){
         return 0;
     }
-//    cout << " leftover cards:\t";
-//    for (auto i: tempPile){
-//        cout << i->getCardString() << " ";
-//    }
-//    cout << endl;
     // if we still have leftover cards, tally their points
     totalPoints=countCardPoints(tempPile);
     tempPile.swap(cardPile);

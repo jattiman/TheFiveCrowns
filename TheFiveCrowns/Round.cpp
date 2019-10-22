@@ -238,7 +238,7 @@ int Round::endRound(){
         // if you're human AND not out
         if(i->getHumanity() && !(i->getIfOut())){
             cout << "Human leftover cards: ";
-            this->setHumanRoundPoints(this->deck->tallyRemainingCards(this->deck->getHumanDeck()));
+            this->setHumanRoundPoints(this->deck->tallyRemainingCardPoints(this->deck->getHumanDeck()));
             deck->printTheDeck(deck->getHumanDeck());
             cout << "Computer:\tAdding 0 points." << endl;
             cout << "Human:\t\tAdding " << this->getHumanRoundPoints() << " points." << endl;
@@ -247,7 +247,7 @@ int Round::endRound(){
         // if you're a computer AND not out
         else if((!i->getHumanity()) && !(i->getIfOut())){
             cout << "Computer leftover cards: ";
-            this->setComputerRoundPoints(this->deck->tallyRemainingCards(this->deck->getComputerDeck()));
+            this->setComputerRoundPoints(this->deck->tallyRemainingCardPoints(this->deck->getComputerDeck()));
             deck->printTheDeck(deck->getComputerDeck());
             cout << "Computer:\tAdding " << this->getComputerRoundPoints() << " points." << endl;
             cout << "Human:\t\tAdding 0 points." << endl;

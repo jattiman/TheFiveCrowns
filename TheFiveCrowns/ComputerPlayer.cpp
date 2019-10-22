@@ -54,7 +54,9 @@ void ComputerPlayer::playRound(Deck *deck){
         deck->transferFromDraw(deck->getComputerDeck());
     }
     int size=(int)deck->getComputerDeck().size()-1;
-    cout << "\n\t\tAcquired: " << deck->getComputerDeck()[size]->getCardString() << endl;
+    cout << endl << endl
+    << "Computer acquired: " << deck->getComputerDeck()[size]->getCardString()
+    << endl;
     
     // choose card to discard
     chosenCard=this->examineOptions(deck,'g');
@@ -81,6 +83,10 @@ bool ComputerPlayer::requestToGoOut(Deck *deck){
 }
 
 int ComputerPlayer::examineOptions(Deck *deck, char choice){
+    int cardChoice=0;
+    vector<Card*> tempDeck;
+    tempDeck=deck->getComputerDeck();
+
     switch (choice) {
         case 'a':
             // generic advice - shouldn't ever be used, but hey...
@@ -89,10 +95,21 @@ int ComputerPlayer::examineOptions(Deck *deck, char choice){
             break;
         case 't':
             //cout << "Checking which pile to take from ... " << endl;
+            
             return 1;
         case 'g':
-            //cout << "Checking which card to give away ... " << endl;
-            return 1;
+            cout << "Computer is discarding ";
+            if(deck->tallyRemainingCardPoints(tempDeck)>0){
+                cardChoice=deck->findCard(deck->getComputerDeck(),tempDeck[0]->getCardString());
+                cout << deck->getComputerDeck()[cardChoice]->getCardString()
+                << " because it doesn't think it's good for books or runs." << endl;
+                return cardChoice;
+            }
+            else{
+                cout << deck->getComputerDeck()[1]->getCardString()
+                << " because it feels like it doesn't have any other choice." << endl;
+                return 1;
+            }
         case 'o':
             //cout << "Checking how close you are to going out ..." << endl;
         default:

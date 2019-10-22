@@ -72,7 +72,7 @@ public:
     bool checkIfRun(std::vector<Card*> & cardPile, int & numWilds);
     bool checkIfBook(std::vector<Card*> & cardPile, int & numWilds);
     bool checkIfOut(std::vector<Card*> cardPile);
-    int tallyRemainingCards(std::vector<Card*> & cardPile);
+    int tallyRemainingCardPoints(std::vector<Card*> & cardPile);
     
     std::string deckToString(std::vector<Card*> cardPile);
     std::string discardPileString(std::vector<Card*> cardPile);
