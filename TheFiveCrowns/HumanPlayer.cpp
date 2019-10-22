@@ -170,6 +170,9 @@ void HumanPlayer::discardCard(Deck *deck){
     // display the new player hand
     cout << "New hand: ";
     deck->printTheDeck(deck->getHumanDeck());
+    cout << endl
+    <<"(Press enter to continue)"
+    << endl;
     cin.ignore();
     cin.get();
     return;
@@ -207,7 +210,7 @@ Assistance Received:
 ********************************************************************* */
 bool HumanPlayer::requestToGoOut(Deck *deck){
     if(deck->checkIfOut(deck->getHumanDeck())){
-        cout << "You can go out! Congratulations! (Press enter)" << endl;
+        cout << "You can go out! Congratulations! (Press enter 1 or 2 times)" << endl;
         this->setOut(true);
         cin.ignore();
         cin.get();
@@ -233,18 +236,34 @@ Algorithm:
 Assistance Received:
 ********************************************************************* */
 int HumanPlayer::examineOptions(Deck *deck, char choice){
+    int cardChoice=0;
+    vector<Card*> tempDeck;
+    tempDeck=deck->getHumanDeck();
     switch (choice) {
         case 'a':
             cout << "Here's some advice: input an actual choice." << endl;
             break;
         case 't':
-            cout << "Checking which pile to take from ... " << endl;
+            cout << "Take from whichever pile you want, dude." << endl;
             break;
         case 'g':
-            cout << "Checking which card to give away ... " << endl;
+            cout << "We recommend you give away ";
+            if(deck->tallyRemainingCardPoints(tempDeck)>0){
+                cardChoice=deck->findCard(deck->getHumanDeck(),tempDeck[0]->getCardString());
+                cout << deck->getHumanDeck()[cardChoice]->getCardString()
+                << " because it isn't a part of a book or a run." << endl;
+                return cardChoice;
+            }
+            else{
+                cout << "nothing, because everything is part of a book or run."
+                << endl
+                << "Choose whatever your heart tells you." << endl;
+                return 1;
+            }
             break;
         case 'o':
-            cout << "Checking how close you are to going out ..." << endl;
+            cout << "Going out will be checked automatically." << endl
+            << "You don't need advice on this. Stop being scared." << endl;
         default:
             break;
     }

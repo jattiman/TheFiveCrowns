@@ -47,13 +47,16 @@ void ComputerPlayer::playRound(Deck *deck){
     int chosenCard=0;
     
     // announce that the computer has started round
-    cout << "Computer playing round." << endl;
+    cout << "The computer is playing its round." << endl;
     
-    // first, check if out
-    if(deck->checkIfOut(deck->getComputerDeck())){
-        cout << "Computer is going out!" << endl << endl;
-        this->setOut(true);
-        return;
+    // if round has just started, check if out
+    if(deck->getDiscardPile().size()<3){
+        cout << "Checking computer hand..." << endl;
+        if(deck->checkIfOut(deck->getComputerDeck())){
+            cout << "Computer is going out!" << endl << endl;
+            this->setOut(true);
+            return;
+        }
     }
     
     // if not out, determine where to draw from
@@ -64,13 +67,12 @@ void ComputerPlayer::playRound(Deck *deck){
         deck->transferFromDraw(deck->getComputerDeck());
     }
     int size=(int)deck->getComputerDeck().size()-1;
-    cout << endl << endl
-    << "Computer acquired: " << deck->getComputerDeck()[size]->getCardString()
+    cout << "Computer acquired: " << deck->getComputerDeck()[size]->getCardString()
     << endl;
     
     // choose card to discard
     chosenCard=this->examineOptions(deck,'g');
-    cout << "Discarding: " << deck->getComputerDeck()[chosenCard]->getFace() << deck->getComputerDeck()[chosenCard]->getSuite() << endl;
+    //cout << "Discarding: " << deck->getComputerDeck()[chosenCard]->getFace() << deck->getComputerDeck()[chosenCard]->getSuite() << endl;
     
     // transfer appropriate card to discard pile
     deck->transferCard(deck->getComputerDeck(), chosenCard, deck->getDiscardPile());
@@ -81,6 +83,7 @@ void ComputerPlayer::playRound(Deck *deck){
     cout << endl;
     
     // determine if computer is out with new hand
+    cout << "Checking new computer hand..." << endl;
     if(deck->checkIfOut(deck->getComputerDeck())){
         cout << "Computer is going out!" << endl << endl;
         this->setOut(true);
@@ -123,7 +126,8 @@ int ComputerPlayer::examineOptions(Deck *deck, char choice){
             break;
         case 't':
             //cout << "Checking which pile to take from ... " << endl;
-            
+            cout << "Computer is taking from the discard pile, because it likes what it sees."
+            << endl;
             return 1;
         case 'g':
             cout << "Computer is discarding ";
@@ -134,9 +138,9 @@ int ComputerPlayer::examineOptions(Deck *deck, char choice){
                 return cardChoice;
             }
             else{
-                cout << deck->getComputerDeck()[1]->getCardString()
+                cout << deck->getComputerDeck()[0]->getCardString()
                 << " because it feels like it doesn't have any other choice." << endl;
-                return 1;
+                return 0;
             }
         case 'o':
             //cout << "Checking how close you are to going out ..." << endl;
