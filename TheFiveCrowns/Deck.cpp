@@ -346,6 +346,11 @@ bool Deck::checkIfAllWild(std::vector<Card*> cardPile){
 }
 
 int Deck::countWilds(std::vector<Card *> & cardPile){
+    cout << "Temp pile before count wilds is: ";
+    for (auto i: cardPile){
+        cout << i->getCardString() << " ";
+    }
+    cout << endl;
     int wildCount=0;
     vector<Card*> swapDeck;
 //    cout << "Temp pile before countWilds is: ";
@@ -365,13 +370,19 @@ int Deck::countWilds(std::vector<Card *> & cardPile){
         }
     }
     // swap the decks to update the temp pile
-    swapDeck.swap(cardPile);
+    if(!swapDeck.empty()){
+        swapDeck.swap(cardPile);
+    }
 //    cout << "Temp pile after countWilds is: ";
 //    for (auto i: cardPile){
 //        cout << i->getCardString() << " ";
 //    }
 //    cout << endl;
-    
+    cout << "Temp pile after count wilds is: ";
+    for (auto i: cardPile){
+        cout << i->getCardString() << " ";
+    }
+    cout << endl;
     return wildCount;
 }
 
@@ -531,9 +542,7 @@ bool Deck::checkIfBook(std::vector<Card*> & cardPile, int & numWilds){
     cout << endl;
     
     ourFace=cardPile[0]->getFace();
-    for(auto i: cardPile){
-       cout << i->getFace() << " as " << (int)i->getFace()-48 << endl;
-        if(find(facesToBook.begin(),facesToBook.end(),((int)i->getFace()-48))!=facesToBook.end()){
+    for(auto i: cardPile){        if(find(facesToBook.begin(),facesToBook.end(),i->getPointValue())!=facesToBook.end()){
             swapDeck.push_back(i);
             
         }
@@ -566,7 +575,7 @@ bool Deck::checkIfOut(std::vector<Card*> cardPile){
     numberOfWilds=this->countWilds(tempPile);
     
     // if entire deck was wild, we're out
-    if(tempPile.empty()){
+    if(tempPile.empty() || numberOfWilds==cardPile.size()){
         return true;
     }
     
