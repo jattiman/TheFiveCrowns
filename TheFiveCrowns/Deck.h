@@ -24,15 +24,10 @@ public:
 
     void setRound(int roundInput);
     void setPlayerHand(std::vector<std::string> playerHand);
-    //void setPlayerHand(std::vector<Card*> playerHand);
     void setComputerHand(std::vector<std::string> computerHand);
-    //void setComputerHand(std::vector<Card*> computerHand);
     void setDrawPile(std::vector<std::string> drawHand);
     void setDiscardPile(std::vector<std::string> discardHand);
-    
-    
     int getRound();
-    // make this more robust so all decks can be fed in at once
     unsigned long getDeckSize(std::vector<Card*> cardPile);
     std::vector<Card*> & getHumanDeck();
     std::vector<Card*> & getComputerDeck();
@@ -52,10 +47,10 @@ public:
     // for specific insertion of a card from one pile to another
     bool transferCard(std::vector<Card*> &startPile, int startLocation, std::vector<Card*> &endPile);
     // to pull from Discard pile (will pull from back)
-//    bool transferFromDiscard(std::vector<Card*> &startPile, std::vector<Card*> &endPile);
     bool transferFromDiscard(std::vector<Card*> &endPile);
     bool transferFromDraw(std::vector<Card*> & endPile);
     
+    // to count card points
     int countCardPoints(std::vector<Card*> & hand);
     
     // find a card
@@ -77,13 +72,7 @@ public:
     std::string deckToString(std::vector<Card*> cardPile);
     std::string discardPileString(std::vector<Card*> cardPile);
     
-    void testDeck(); // for debug only - delete before submission
-    
-    // to do:
-    //  print player hands (based on player name input)
-    //  check for runs in a hand
-    //  check for
-
+    void testDeck();
     
 private:
     
@@ -103,7 +92,6 @@ private:
     // run checking decks
     std::vector<Card*> humanRuns;
     std::vector<Card*> computerRuns;
-    
     
     // garbage pile
     std::vector<Card*> garbagePile;
