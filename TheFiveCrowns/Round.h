@@ -3,7 +3,7 @@
  * Name:  John Atti                                            *
  * Project:  5Crowns C++ Project 1                             *
  * Class:  CMPS 366 01 - Organization of Programming Languages *
- * Date:  10/1/2019                                            *
+ * Date:  10/22/2019                                            *
  ***************************************************************
  */
 
@@ -66,8 +66,6 @@ public:
     
 private:
     Deck *deck;
-    //HumanPlayer *human;
-    //ComputerPlayer *computer;
     int roundNumber;
     int nextTurn;
     int totalPlayers;
