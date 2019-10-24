@@ -3,7 +3,7 @@
  * Name:  John Atti                                            *
  * Project:  5Crowns C++ Project 1                             *
  * Class:  CMPS 366 01 - Organization of Programming Languages *
- * Date:  10/1/2019                                            *
+ * Date:  10/22/2019                                            *
  ***************************************************************
  */
 
@@ -11,24 +11,13 @@
 #define PLAYER_H
 
 #include "Deck.h"
-/*
-***************************************************************
- Important note:
- 
- I'm using this class to confirm the
- general player functions work.
- Once I'm done with this, I'll be adding in the logic
- and virtual functions needed to truly flesh out
- the HumanPlayer and ComputerPlayer classes.
-***************************************************************
-*/
+
 class Player{
 public:
     Player();
     Player(int num);
     int getPoints();
     bool getTurn();
-    //Deck* getDeck();
     int getPlayerNumber();
     bool getHumanity();
     bool getIfOut();
@@ -37,22 +26,16 @@ public:
     void setTotalPoints(int totalPoints);
     void addPoints(int newPoints);
     void setTurn(bool isNext);
-    //void setDeck(Deck *playerDeck);
     void setPlayerNumber(int num);
     void setOut(bool areYouOut);
     void deletePoints();
     
-    // checks if player can go out
+    // virtual functions
     virtual bool requestToGoOut(Deck *deck)=0;
-    
-    
-    //virtual bool checkIfOut(std::vector<Card*> handToCheck)=0;
-
     virtual void sayIfHuman()=0;
     virtual bool drawCard(Deck *deck)=0;
     virtual void discardCard(Deck *deck)=0;
     virtual void playRound(Deck *deck)=0;
-//    virtual void saveGame()=0;
     virtual int examineOptions(Deck *deck, char choice='a')=0;
     virtual bool confirmExit()=0;
     
@@ -62,7 +45,6 @@ private:
     bool isTurn=false;
     bool isHuman;
     bool isOut=false;
-    //Deck *deck;
     std::vector<Card*> playerCards;
     
 };
