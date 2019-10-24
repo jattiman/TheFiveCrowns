@@ -994,7 +994,8 @@ Algorithm:
  If from current save on file, display files and have user pick from list. Note: in this case, I choose the default directory for the file, as any game would have their files in a set directory. I chose not to create a folder for this, but instead used the default Xcode file saving location.
  Open the file.
  Copy contents to a vector based on lines with data.
- 
+ Call load file function to parse and load items from the vector
+ Return false if issue loading the file
  
 Assistance Received:
  Lots of online forums helped with this, since this is my first time navigating the Mac file system. I did not upgrade my OS to the latest version, and unfortunately Xcode is limiting my C++17 access (a little) based on the version it's in. That being said, the following forum was extremely useful in learning about how to make sure I accessed/displayed the files correctly: https://stackoverflow.com/questions/12976733/how-can-i-get-only-txt-files-from-directory-in-c
@@ -1102,12 +1103,14 @@ bool Round::loadGame(){
 }
 
 /* *********************************************************************
-Function Name:
-Purpose:
-Parameters:
-Return Value:
-Local Variables:
+Function Name:clearPoints
+Purpose: clear all player points
+Parameters: none
+Return Value: none
+Local Variables: none
 Algorithm:
+ Iterate through player vector
+ Delete each player's points
 Assistance Received:
 ********************************************************************* */
 void Round::clearPoints(){
@@ -1117,8 +1120,8 @@ void Round::clearPoints(){
 }
 
 /* *********************************************************************
-Function Name:
-Purpose:
+Function Name:roundTest
+Purpose: debug to test round class
 Parameters:
 Return Value:
 Local Variables:
