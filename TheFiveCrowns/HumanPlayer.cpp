@@ -3,7 +3,7 @@
  * Name:  John Atti                                            *
  * Project:  5Crowns C++ Project 1                             *
  * Class:  CMPS 366 01 - Organization of Programming Languages *
- * Date:  10/1/2019                                            *
+ * Date:  10/22/2019                                            *
  ***************************************************************
  */
 
@@ -11,19 +11,31 @@
 #include <iostream>
 using namespace std;
 
+/* *********************************************************************
+Function Name:HumanPlayer
+Purpose: constructor
+Parameters: none
+Return Value: none
+Local Variables: none
+Algorithm:
+ Sets humanity to true.
+Assistance Received: none
+********************************************************************* */
 HumanPlayer::HumanPlayer(){
     //cout << "I'm here. I'm human." << endl;
     this->setHumanity(true);
 }
 
 /* *********************************************************************
-Function Name:
-Purpose:
-Parameters:
-Return Value:
-Local Variables:
+Function Name:sayIfHuman
+Purpose: will output to screen if it's human.
+ Note: this ultimately wasn't used, and is mainly for debugging.
+Parameters: none
+Return Value: none
+Local Variables: none
 Algorithm:
-Assistance Received:
+ If human, say human. If computer, output that you're a computer.
+Assistance Received: none.
 ********************************************************************* */
 void HumanPlayer::sayIfHuman(){
     if(this->getHumanity()){
@@ -35,13 +47,21 @@ void HumanPlayer::sayIfHuman(){
 }
 
 /* *********************************************************************
-Function Name:
-Purpose:
+Function Name:drawCard
+Purpose: used to determine where to draw a card from
 Parameters:
-Return Value:
+ Deck *deck: the deck passed in
+Return Value: true or false
 Local Variables:
+ int userChoice: holds the user's choice for prompts
+ 
 Algorithm:
-Assistance Received:
+ Display prompt and get input about where to draw from
+ If draw pile, draw from the draw pile
+ If discard pile, draw from discard pile
+ If asking for advice, display advice based on examineOptions function
+ Return
+Assistance Received: none
 ********************************************************************* */
 bool HumanPlayer::drawCard(Deck *deck){
     // variable to store user choice
@@ -94,13 +114,18 @@ bool HumanPlayer::drawCard(Deck *deck){
 }
 
 /* *********************************************************************
-Function Name:
-Purpose:
+Function Name: getValidInput
+Purpose: to confirm the user doesn't blow up my program with invalid input
 Parameters:
+ ints minNum and maxNum, for optional checks on integer input (default values passed if needed)
+ Note: I had some issues with cin.ignore() and cin.clear() sometimes causing the user to have to press enter twice. I think it might be due to not flushing the input stream properly somewhere else in the program.
 Return Value:
+ integer of the user input choice
 Local Variables:
+ userInput: int holding the user choice
 Algorithm:
-Assistance Received:
+ while the user input fails, or doesn't fit within min/max boundaries, prompt the user to re-enter valid input
+Assistance Received: A lot of research was done online to cin.fail() and other ways to handle invalid input that criss-crossed chars/strings/key commands when an int is needed, but no site in particular is to blame for the odd way I solved this.
 ********************************************************************* */
 int HumanPlayer::getValidInput(int minNum, int maxNum){
     int userInput;
@@ -113,13 +138,20 @@ int HumanPlayer::getValidInput(int minNum, int maxNum){
 }
 
 /* *********************************************************************
-Function Name:
-Purpose:
-Parameters:
-Return Value:
+Function Name:discardCard
+Purpose: place a chosen card into the discard pile
+Parameters: Deck *deck
+Return Value: none
 Local Variables:
+ int userChoice: holds user choice
 Algorithm:
-Assistance Received:
+ Display prompt to discard card or ask for advice
+ If asking for advice, give advice based on examineOptions function
+ If discarding a card:
+ Display hand
+ Prompt for discard choice
+ Have user press enter to continue
+Assistance Received: none
 ********************************************************************* */
 void HumanPlayer::discardCard(Deck *deck){
     // store user choice
@@ -179,13 +211,18 @@ void HumanPlayer::discardCard(Deck *deck){
 }
 
 /* *********************************************************************
-Function Name:
-Purpose:
+Function Name:playRound
+Purpose: human's play round function
 Parameters:
-Return Value:
-Local Variables:
+ Deck *deck: deck passed in
+Return Value: none
+Local Variables: none
 Algorithm:
-Assistance Received:
+ Call draw card function
+ Call discard card function
+ Call request to go out function
+ Return
+Assistance Received: none
 ********************************************************************* */
 void HumanPlayer::playRound(Deck *deck){
     // prompt player where to draw their card
@@ -200,13 +237,18 @@ void HumanPlayer::playRound(Deck *deck){
 }
 
 /* *********************************************************************
-Function Name:
-Purpose:
+Function Name:requestToGoOut
+Purpose: Display if a human can go out
 Parameters:
-Return Value:
-Local Variables:
+ Deck*deck: deck object passed in
+Return Value: true or false
+Local Variables: none
 Algorithm:
-Assistance Received:
+ Call deck->checkIfOut to see if the player's hand can go out
+ Display result to screen
+ Set out status to true or false.
+ Return based on out function
+Assistance Received: none
 ********************************************************************* */
 bool HumanPlayer::requestToGoOut(Deck *deck){
     if(deck->checkIfOut(deck->getHumanDeck())){
@@ -222,18 +264,23 @@ bool HumanPlayer::requestToGoOut(Deck *deck){
     return false;
 }
 
-//void HumanPlayer::saveGame(){
-//    cout << "Saving game ... " << endl;
-//    return;
-//}
+
 /* *********************************************************************
-Function Name:
-Purpose:
+Function Name:examineOptions
+Purpose: for player to get advice
 Parameters:
-Return Value:
+ Deck *deck: the deck being passed in
+ char choice: holds the section advice will be given for
+Return Value: integer based on advice result
 Local Variables:
+ cardChoice: holds the card index that needs to be displayed on function return
+ tempDeck: vector of cards that will be a temporary deck
 Algorithm:
-Assistance Received:
+ Check choice variable.
+ If 'a' or 't': output default answers, for now. This will be expanded on as the game developes.
+ If 'g' (selecting where to give card), return recommendation based on the string of cards returned as not part of a book or run (based on deck functions)
+ This nees to be heavily updated: the advice is not very smart with the current set of algorithms.
+Assistance Received: none
 ********************************************************************* */
 int HumanPlayer::examineOptions(Deck *deck, char choice){
     int cardChoice=0;
@@ -272,13 +319,20 @@ int HumanPlayer::examineOptions(Deck *deck, char choice){
 }
 
 /* *********************************************************************
-Function Name:
-Purpose:
-Parameters:
-Return Value:
+Function Name:confirmExit
+Purpose: To ensure a player quits on purpose.
+Parameters: none
+Return Value: true or false
 Local Variables:
+ char quitStatus: the character input from the player, if they are quitting
 Algorithm:
-Assistance Received:
+ Prompt user if they want to quit.
+ toUpper the user char
+ Match it against Y or N
+ If Y, they quit
+ If N, they get to continue playing
+ Note: further input validation needs to be added to this.
+Assistance Received: none
 ********************************************************************* */
 bool HumanPlayer::confirmExit(){
     char quitStatus;
@@ -296,6 +350,15 @@ bool HumanPlayer::confirmExit(){
     }
 }
 
+/* *********************************************************************
+Function Name:testOutPut
+Purpose: debug function - testing slicing when manipulating player parent/humanPlayer child
+Parameters: none
+Return Value: none
+Local Variables: none
+Algorithm: none
+Assistance Received: none
+********************************************************************* */
 void HumanPlayer::testOutPut(){
     cout << "Testing output to check for slicing. See this? Good!" << endl;
     return;
