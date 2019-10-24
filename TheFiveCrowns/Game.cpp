@@ -3,7 +3,7 @@
  * Name:  John Atti                                            *
  * Project:  5Crowns C++ Project 1                             *
  * Class:  CMPS 366 01 - Organization of Programming Languages *
- * Date:  10/1/2019                                            *
+ * Date:  10/22/2019                                            *
  ***************************************************************
  */
 
@@ -14,13 +14,16 @@
 using namespace std;
 
 /* *********************************************************************
-Function Name:
-Purpose:
-Parameters:
-Return Value:
-Local Variables:
+Function Name: Game (constructor function)
+Purpose: create game object
+Parameters: none
+Return Value: none
+Local Variables: none
 Algorithm:
-Assistance Received:
+ Create human player
+ Create computer player
+ Set default round number to 1
+Assistance Received: none
 ********************************************************************* */
 Game::Game(){
     //this->round=new Round();
@@ -29,31 +32,80 @@ Game::Game(){
     this->setRoundNumber(1);
 }
 
+/* *********************************************************************
+Function Name: setRoundNumber
+Purpose: setter for round number
+Parameters:
+ int newRound: holds the new round number
+Return Value: none
+Local Variables: none
+Algorithm:
+none. Sets the new round based on input, for encapsulation.
+Assistance Received: none
+********************************************************************* */
 void Game::setRoundNumber(int newRound){
     this->roundNumber=newRound;
     return;
 }
 
+/* *********************************************************************
+Function Name: setNextUp
+Purpose: setter for next player up
+Parameters:
+ int nextPlayer: int holding next player number up
+Return Value: none
+Local Variables: none
+Algorithm:
+none. Sets the next player based on input, for encapsulation.
+Assistance Received: none
+********************************************************************* */
 void Game::setNextUp(int nextPlayer){
     this->nextUp=nextPlayer;
 }
 
+/* *********************************************************************
+Function Name: getRoundNumber
+Purpose: gets the round number
+Parameters:
+ none
+Return Value:
+ int of round number
+Local Variables: none
+Algorithm:
+none. returns the round number for encapulation purposes.
+Assistance Received: none
+********************************************************************* */
 int Game::getRoundNumber(){
     return this->roundNumber;
 }
 
+/* *********************************************************************
+Function Name: getNextUp
+Purpose: gets the next player up
+Parameters:
+ none
+Return Value:
+ int of next player up
+Local Variables: none
+Algorithm:
+none. returns the next player up for encapulation purposes.
+Assistance Received: none
+********************************************************************* */
 int Game::getNextUp(){
     return this->nextUp;
 }
 
 /* *********************************************************************
-Function Name:
-Purpose:
-Parameters:
-Return Value:
-Local Variables:
+Function Name: welcomeOptions
+Purpose: display welcome options
+Parameters: none
+Return Value: none
+Local Variables: none
 Algorithm:
-Assistance Received:
+ If it's past the first round, display "next round" as an option.
+ If it's the first round display "new game" as an option
+ Always display the option to load the game or quit
+Assistance Received: None
 ********************************************************************* */
 void Game::welcomeOptions(){
     if(this->getRoundNumber()>1){
@@ -72,13 +124,18 @@ void Game::welcomeOptions(){
 }
 
 /* *********************************************************************
-Function Name:
-Purpose:
+Function Name: getValidInput
+Purpose: to confirm the user doesn't blow up my program with invalid input
 Parameters:
+ ints minNum and maxNum, for optional checks on integer input (default values passed if needed)
+ Note: I had some issues with cin.ignore() and cin.clear() sometimes causing the user to have to press enter twice. I think it might be due to not flushing the input stream properly somewhere else in the program.
 Return Value:
+ integer of the user input choice
 Local Variables:
+ userInput: int holding the user choice
 Algorithm:
-Assistance Received:
+ while the user input fails, or doesn't fit within min/max boundaries, prompt the user to re-enter valid input
+Assistance Received: A lot of research was done online to cin.fail() and other ways to handle invalid input that criss-crossed chars/strings/key commands when an int is needed, but no site in particular is to blame for the odd way I solved this.
 ********************************************************************* */
 int Game::getValidInput(int minNum, int maxNum){
     int userInput;
@@ -91,13 +148,19 @@ int Game::getValidInput(int minNum, int maxNum){
 }
 
 /* *********************************************************************
-Function Name:
-Purpose:
-Parameters:
-Return Value:
+Function Name: coinToss
+Purpose: to toss a coin for the user/determine who goes first
+Parameters: none
+Return Value: none
 Local Variables:
+ int userChoice: holds user choice
+ unsigned seed: needed for generating
 Algorithm:
-Assistance Received:
+ create random "seed" number
+ prompt user to guess a coin toss
+ mod the seed result, and have the user guess if it landed on one side of the other.
+ If the guess matches the seed mod, the user goes first. Otherwise, they don't.
+Assistance Received: see Deck::shuffleDeck() for more information about the random shuffle generator that I used on the vector. What I learned there was greatly helpful in figuring out how to use chrono/system_clock to rely on a more random number
 ********************************************************************* */
 void Game::coinToss(){
     // to store user choice
@@ -146,24 +209,30 @@ void Game::coinToss(){
 }
 
 /* *********************************************************************
-Function Name:
-Purpose:
-Parameters:
-Return Value:
+Function Name:welcome
+Purpose: start the game and let the user choose from start/load/quit
+Parameters: none
+Return Value:none
 Local Variables:
+ int userOption: holds the user choice
 Algorithm:
+ Welcome prompt the user
+ While the round number doesn't pass 11:
+ Display choices, and get input
+ If new game/next round, decide if coin toss is needed and play round accordingly (based on round number loaded)
+ If load game, call functions to load game. If loading successful, continue to round. Otherwise, re-prompt the user.
+ If quitting, thank the user and leave.
+ 
 Assistance Received:
 ********************************************************************* */
 void Game::welcome(){
     // stores the user's selected option
     int userOption = 0;
     
-    
     // Welcome the player and prompt them to start a game
     cout << "Welcome to 5 Crowns!" << endl;
     
-    // may need to look into cin.fail for error checking
-    // Loop until user quits
+    // Loop until user quits or round number passes 11
     while(this->getRoundNumber()<12){
         // prompt for options
         this->welcomeOptions();
@@ -203,7 +272,6 @@ void Game::welcome(){
                 cout << "Load file failed." << endl;
                 
             }
-            //break;
         }
 
         // If quit, exit
@@ -224,13 +292,21 @@ void Game::welcome(){
 }
 
 /* *********************************************************************
-Function Name:
-Purpose:
-Parameters:
-Return Value:
-Local Variables:
+Function Name:beginRound
+Purpose: begins a round
+Parameters: none
+Return Value: none
+Local Variables: none
 Algorithm:
-Assistance Received:
+ Create a new round object
+ Pass human/computer players into it, along with round number and player order
+ Start the round
+ If the round is successful/not quit out of:
+ set the next round number
+ set the next player up
+ If the round isn't successful (player quit):
+ set the round number back to 1
+Assistance Received: none
 ********************************************************************* */
 void Game::beginRound(){
     this->round=new Round(h,c,roundNumber,this->getNextUp());
@@ -248,23 +324,18 @@ void Game::beginRound(){
     return;
 }
 
-// To do: transfer the players in as a vector/array/etc to better handle
-//          more than 2 players.
-//void Game::beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber){
-//    cout << "Starting round " << roundNumber << "." << endl;
-//    this->round=new Round(h,c,roundNumber);
-//    this->round->startRound();
-//    return;
-//}
-
 /* *********************************************************************
-Function Name:
-Purpose:
-Parameters:
-Return Value:
-Local Variables:
+Function Name:loadRound
+Purpose: load a round in
+Parameters: none
+Return Value: true or false
+Local Variables: none
 Algorithm:
-Assistance Received:
+ Create a new round object
+ Attempt to load a game
+ If the game loads successfully, set the round number in the game based on what gets returned
+ If the game doesn't load successfully, set the round number to 1
+Assistance Received: none
 ********************************************************************* */
 bool Game::loadRound(){
     this->round = new Round(h,c);
@@ -284,21 +355,15 @@ bool Game::loadRound(){
     }
 }
 
-//void Game::beginRound(HumanPlayer *h, ComputerPlayer *c, Deck * savedDeck, int roundNumber){
-//    cout << "Starting round " << roundNumber << "." << endl;
-//    this->round=new Round(h,c,savedDeck, roundNumber);
-//    this->round->startRound();
-//    return;
-//}
-
 /* *********************************************************************
-Function Name:
-Purpose:
-Parameters:
-Return Value:
-Local Variables:
+Function Name:incrementRound
+Purpose: lazy "setter" to increment the round number by 1
+Parameters: none
+Return Value: none
+Local Variables: none
 Algorithm:
-Assistance Received:
+ increment the round number variable in the game object by 1
+Assistance Received: none
 ********************************************************************* */
 void Game::incrementRound(){
     // increment round number by 1
@@ -307,13 +372,16 @@ void Game::incrementRound(){
 }
 
 /* *********************************************************************
-Function Name:
-Purpose:
-Parameters:
-Return Value:
-Local Variables:
+Function Name:displayEndStats
+Purpose: display the statistics at the end of the game
+Parameters: none
+Return Value: none
+Local Variables: none
 Algorithm:
-Assistance Received:
+ Output info to user confirming that the game has ended
+ Print out the human and computer points
+ Print out the winner/tie status
+Assistance Received: None
 ********************************************************************* */
 void Game::displayEndStats(){
     // let user know that the game is over, and display points
@@ -346,13 +414,17 @@ void Game::displayEndStats(){
 }
 
 /* *********************************************************************
-Function Name:
-Purpose:
-Parameters:
-Return Value:
-Local Variables:
+Function Name: destroyStats
+Purpose: destroys the total point stats of the players and resets the round number
+Parameters: none
+Return Value: none
+Local Variables: none
 Algorithm:
-Assistance Received:
+ set human points to 0
+ set computer points to 0
+ set round number back to 1
+ return
+Assistance Received: none
 ********************************************************************* */
 void Game::destroyStats(){
     this->h->setTotalPoints(0);
@@ -361,8 +433,16 @@ void Game::destroyStats(){
     return;
 }
 
-// test function
-
+/* *********************************************************************
+Function Name: testGame
+Purpose: for testing - input whatever you want to test here and run it in main, or wherever
+Parameters: none
+Return Value: none
+Local Variables: none
+Algorithm:
+ nothing in here now. This is filled in during creation to save time
+Assistance Received: none
+********************************************************************* */
 void Game::testGame(){
     //cout << "Testing game now..." << endl;
     //HumanPlayer *p = new HumanPlayer();

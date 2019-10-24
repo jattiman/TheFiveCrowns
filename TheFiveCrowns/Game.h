@@ -3,7 +3,7 @@
  * Name:  John Atti                                            *
  * Project:  5Crowns C++ Project 1                             *
  * Class:  CMPS 366 01 - Organization of Programming Languages *
- * Date:  10/1/2019                                            *
+ * Date:  10/22/2019                                            *
  ***************************************************************
  */
 
@@ -29,14 +29,10 @@ public:
     void coinToss();
     void welcome();
     void beginRound();
-//    void beginRound(HumanPlayer *h, ComputerPlayer *c, int roundNumber);
     bool loadRound();
-//    void beginRound(HumanPlayer *h, ComputerPlayer *c, Deck * savedDeck, int roundNumber);
     void incrementRound();
     void displayEndStats();
     void destroyStats();
-    // create deck - call round to do this
-    // provide round menu - call round to do this
     void testGame();
     
     
@@ -44,11 +40,8 @@ private:
     int roundNumber=0;
     int nextUp=0;
     Round *round;
-    // may end up removing vectors...
-    //std::vector<Player*> ourPlayers;
     HumanPlayer *h;
     ComputerPlayer *c;
-    
     
 };
 

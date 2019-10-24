@@ -3,7 +3,7 @@
  * Name:  John Atti                                            *
  * Project:  5Crowns C++ Project 1                             *
  * Class:  CMPS 366 01 - Organization of Programming Languages *
- * Date:  10/1/2019                                            *
+ * Date:  10/22/2019                                            *
  ***************************************************************
  */
 
@@ -261,19 +261,67 @@ int Deck::getRound(){
     return ourRound;
 }
 
-// the following few functions are getters that I do not think need a header
+/* *********************************************************************
+Function Name:getHumanDeck
+Purpose: return human player hand pile reference
+Parameters: none
+Return Value: human hand pile vector
+Local Variables: none
+Algorithm: none - just a getter for encapsulation
+Assistance Received: None
+********************************************************************* */
 std::vector<Card*> & Deck::getHumanDeck(){
     return this->humanPile;
 }
+
+/* *********************************************************************
+Function Name:getComputerDeck
+Purpose: return computer player hand pile reference
+Parameters: none
+Return Value: computer hand pile vector
+Local Variables: none
+Algorithm: none - just a getter for encapsulation
+Assistance Received: None
+********************************************************************* */
 std::vector<Card*> & Deck::getComputerDeck(){
     return this->computerPile;
 }
+
+/* *********************************************************************
+Function Name:getMainPile
+Purpose: return main pile reference
+Parameters: none
+Return Value: main pile vector
+Local Variables: none
+Algorithm: none - just a getter for encapsulation
+Assistance Received: None
+********************************************************************* */
 std::vector<Card*> & Deck::getMainPile(){
     return this->mainDeck;
 }
+
+/* *********************************************************************
+Function Name:getDrawPile
+Purpose: return draw pile reference
+Parameters: none
+Return Value: DrawPile vector
+Local Variables: none
+Algorithm: none - just a getter for encapsulation
+Assistance Received: None
+********************************************************************* */
 std::vector<Card*> & Deck::getDrawPile(){
     return this->drawPile;
 }
+
+/* *********************************************************************
+Function Name:getDiscardPile
+Purpose: return discard pile reference
+Parameters: none
+Return Value: discard pile vector
+Local Variables: none
+Algorithm: none - just a getter for encapsulation
+Assistance Received: None
+********************************************************************* */
 std::vector<Card*> & Deck::getDiscardPile(){
     return this->discardPile;
 }
