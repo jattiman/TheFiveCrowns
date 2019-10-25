@@ -1114,7 +1114,9 @@ Algorithm:
 Assistance Received:
 ********************************************************************* */
 void Round::clearPoints(){
+    // iterate through players
     for(auto i: ourPlayers){
+        // delete total player points
         i->deletePoints();
     }
 }
@@ -1122,11 +1124,11 @@ void Round::clearPoints(){
 /* *********************************************************************
 Function Name:roundTest
 Purpose: debug to test round class
-Parameters:
-Return Value:
-Local Variables:
-Algorithm:
-Assistance Received:
+Parameters: none
+Return Value: none
+Local Variables: none
+Algorithm: none
+Assistance Received: none
 ********************************************************************* */
 void Round::roundTest(){
     cout << "\tRound Test" << endl;

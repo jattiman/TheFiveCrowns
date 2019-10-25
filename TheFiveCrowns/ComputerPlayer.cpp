@@ -135,9 +135,11 @@ void ComputerPlayer::playRound(Deck *deck){
     cout << endl;
     
     // determine if computer is out with new hand
-    cout << "Checking new computer hand..." << endl;
+    cout << "Checking new computer hand..."
+    << endl;
     if(deck->checkIfOut(deck->getComputerDeck())){
-        cout << "Computer is going out!" << endl << endl;
+        cout << "Computer is going out!"
+        << endl << endl;
         this->setOut(true);
     }
     return;
@@ -184,7 +186,8 @@ int ComputerPlayer::examineOptions(Deck *deck, char choice){
         case 'a':
             // generic advice - shouldn't ever be used, but hey...
             cout << "Computers don't need advice, so here's some for you:"
-            <<"\tPrepare for us to take over, human." << endl;
+            <<"\tPrepare for us to take over, human."
+            << endl;
             break;
         case 't':
             //cout << "Checking which pile to take from ... " << endl;
@@ -196,12 +199,14 @@ int ComputerPlayer::examineOptions(Deck *deck, char choice){
             if(deck->tallyRemainingCardPoints(tempDeck)>0){
                 cardChoice=deck->findCard(deck->getComputerDeck(),tempDeck[0]->getCardString());
                 cout << deck->getComputerDeck()[cardChoice]->getCardString()
-                << " because it doesn't think it's good for books or runs." << endl;
+                << " because it doesn't think it's good for books or runs."
+                << endl;
                 return cardChoice;
             }
             else{
                 cout << deck->getComputerDeck()[0]->getCardString()
-                << " because it feels like it doesn't have any other choice." << endl;
+                << " because it feels like it doesn't have any other choice."
+                << endl;
                 return 0;
             }
         case 'o':

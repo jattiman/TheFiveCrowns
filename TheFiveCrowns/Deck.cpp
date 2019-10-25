@@ -428,8 +428,9 @@ Algorithm:
 Assistance Received: A lot of googling for this one. See the above shuffleDeck() function for more info
 ********************************************************************* */
 void Deck::shuffleDeck(std::vector<Card*> & cardPile){
+    // generate seed for deck shuffling, based on system time/randomization
     unsigned seed = (unsigned) std::chrono::system_clock::now().time_since_epoch().count();
-
+    // call shuffle function on specific deck
     shuffle(cardPile.begin(), cardPile.end(), std::default_random_engine(seed));
     return;
 }
@@ -466,8 +467,9 @@ Algorithm:
 Assistance Received:
 ********************************************************************* */
 void Deck::transferCard(std::vector<Card*> &startPile, std::vector<Card*> &endPile){
-    
+    // push the front of the start pile onto the back of the end pile
     endPile.push_back(startPile[0]);
+    // erase the front of the start pile
     startPile.erase(startPile.begin());
     return;
 }
@@ -497,7 +499,9 @@ bool Deck::transferCard(std::vector<Card*> &startPile, int startLocation, std::v
     // if cards are present, move the chosen card to the end pile
     else{
         //swap(startPile[startLocation],endPile[endLocation]);
+        // push the specific card from the start pile onto the back of the end pile
         endPile.push_back(startPile[startLocation]);
+        // erase the specific card that you moved from the start pile
         startPile.erase(startPile.begin()+startLocation);
         return true;
     }
@@ -608,14 +612,18 @@ Assistance Received: None
 int Deck::findCard(std::vector<Card *> &hand, string userSearch){
     int cardIndex=-1;
     int handIndex=0;
-    
+    // iterate through a hand
     for (const auto & i: hand){
+        // if the card string is the one being searched for
         if(i->getCardString()==userSearch){
+            // make sure our index to return matches the index currently in the vector
             cardIndex=handIndex;
             break;
         }
+        // otherwise, increment the vector index counter
         handIndex++;
     }
+    // return our index of the found card (or -1 if card not found)
     return cardIndex;
 }
 
@@ -630,7 +638,6 @@ Local Variables: None
 Algorithm: None
 Assistance Received: None
 ********************************************************************* */
-// come back to this after you hardcode the cards.
 void Deck::stringToCardInputs(std::string cardInputString){
 //    std::string text = "3H 4H 5H 6H 7H 8H 9H 10H";
 //
@@ -656,13 +663,17 @@ Algorithm:
 Assistance Received: none
 ********************************************************************* */
 bool Deck::checkIfAllWild(std::vector<Card*> cardPile){
+    // assume everything is wild
     bool areTheyWild=true;
+    // iterate through the hand
     for(auto i: cardPile){
+        // if the card isn't wild, update our overall wild status to false
         if(!(i->getWildStatus())){
             areTheyWild=false;
             break;
         }
     }
+    // return wild status
     return areTheyWild;
 }
 
@@ -898,6 +909,7 @@ bool Deck::checkIfRun(std::vector<Card*> & cardPile, int & numWilds){
         }
     }
     // check each pile to see if it's a run
+    // if it's not, add it to the swapDeck to be checked in other functions
     if(!(this->checkSuitRun(hearts, numWilds))){
         for(auto i: hearts){
             swapDeck.push_back(i);
@@ -928,11 +940,7 @@ bool Deck::checkIfRun(std::vector<Card*> & cardPile, int & numWilds){
         }
         areTheyInRun=false;
     }
-    
-    
-    // if it's not, add it to the swapDeck to be checked in other functions
-    
-    
+
     // if it is, add it to the removal deck
     cardPile.clear();
     if(!swapDeck.empty()){
@@ -1231,9 +1239,20 @@ string Deck::discardPileString(std::vector<Card *> cardPile){
     }
     // reverse the string
     reverse(deckString.begin(),deckString.end());
+    
+    // return the reversed string
     return deckString;
 }
 
+/* *********************************************************************
+Function Name: testDeck
+Purpose: placeholder function to test deck class functions as I make them. For debug.
+Parameters: none
+Return Value: none
+Local Variables: none
+Algorithm: none
+Assistance Received: None
+********************************************************************* */
 void Deck::testDeck(){
     
     
